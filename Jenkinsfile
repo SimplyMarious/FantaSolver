@@ -60,7 +60,7 @@ pipeline {
 
         stage('Delivering to staging area') {
             steps {
-                sh 'scp -i ~/.ssh/id_rsa_staging target/FantaSolver.jar azureuser@172.191.227.85:~/Desktop/FantaSolver'
+                sh 'scp -i home/.ssh/id_rsa_staging target/FantaSolver.jar azureuser@172.191.227.85:~/Desktop/FantaSolver'
             }
         }
     }
