@@ -1,4 +1,4 @@
-package com.spme.fantasolver;
+package com.spme.fantasolver.entity;
 
 public class Formation {
     private String name;

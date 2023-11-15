@@ -1,4 +1,4 @@
-package com.spme.fantasolver;
+package com.spme.fantasolver.entity;
 
 import java.util.HashSet;
 import java.util.Set;

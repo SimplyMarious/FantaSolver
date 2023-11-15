@@ -4,36 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ad81069-4322-4811-aa4e-630c978beafb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/DataRetriever.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/DuplicateRoleException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Formation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/HelloApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/LineUp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/RoleException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/RoleLimitExceededException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Slot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/hello-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/SlotIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/unit/SlotUnitTest.java" afterDir="false" />
+    <list default="true" id="9ad81069-4322-4811-aa4e-630c978beafb" name="Changes" comment="Remove Dockerfile">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/FantaSolver_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/DataRetriever.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/dao/DataRetriever.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/DuplicateRoleException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/DuplicateRoleException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Formation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/Formation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/controllers/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/LineUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/LineUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/RoleException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/RoleException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/RoleLimitExceededException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/RoleLimitExceededException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/entity/Slot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/SlotIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/SlotIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/unit/SlotUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/unit/SlotUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,16 +57,17 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/mario/Desktop/Simply/Progetti_SW/FantaSolver/ConJavaFX/FantaSolver/src/main/java/com/spme/fantasolver",
+    "last_opened_file_path": "C:/Users/mario/Desktop/Simply/Progetti_SW/FantaSolver/ConJavaFX/FantaSolver",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
@@ -73,6 +75,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mario\Desktop\Simply\Progetti_SW\FantaSolver\ConJavaFX\FantaSolver" />
       <recent name="C:\Users\mario\Desktop\Simply\Progetti_SW\FantaSolver\ConJavaFX\FantaSolver\src\main\java\com\spme\fantasolver" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -80,7 +83,7 @@
       <recent name="com.spme.fantasolver" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Maven.FantaSolver [compile,javafx:run]">
     <configuration name="FantaSolver [compile,javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -107,6 +110,23 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -116,11 +136,102 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1699954576586</updated>
-      <workItem from="1699954577621" duration="8294000" />
+      <workItem from="1699954577621" duration="9914000" />
+      <workItem from="1700037599275" duration="20228000" />
     </task>
+    <task id="LOCAL-00001" summary="First commit">
+      <option name="closed" value="true" />
+      <created>1699963468654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699963468655</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add Dockerfile and Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1699964216808</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699964216808</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Substituted Docker deploy with scp deploy">
+      <option name="closed" value="true" />
+      <created>1700045919867</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1700045919867</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Edited Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1700048060968</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1700048060968</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Edited Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1700048556425</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700048556425</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Edited Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1700048784423</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1700048784423</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Edited Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1700049046359</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1700049046359</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Edited Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1700049485707</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700049485707</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added Main class and changed to localhost database ip">
+      <option name="closed" value="true" />
+      <created>1700067240187</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1700067240187</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Remove Dockerfile">
+      <option name="closed" value="true" />
+      <created>1700070661584</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700070661584</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First commit" />
+    <MESSAGE value="Add Dockerfile and Jenkinsfile" />
+    <MESSAGE value="Substituted Docker deploy with scp deploy" />
+    <MESSAGE value="Edited Jenkinsfile" />
+    <MESSAGE value="Added Main class and changed to localhost database ip" />
+    <MESSAGE value="Remove Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove Dockerfile" />
   </component>
 </project>

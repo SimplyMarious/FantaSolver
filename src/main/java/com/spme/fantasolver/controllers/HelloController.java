@@ -1,14 +1,19 @@
-package com.spme.fantasolver;
+package com.spme.fantasolver.controllers;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+public class HelloController {
+    @FXML
+    private Label welcomeText;
 
-public class DataRetriever {
-    private Connection mySqlConnection;
-
-    public void retrieveData() {
-        this.mySqlConnection = connectToDatabase();
+    @FXML
+    protected void onHelloButtonClick() {
+        connectToDatabase();
+        welcomeText.setText("Ho provato!!!!!!!!!!!!!");
     }
 
     public static Connection connectToDatabase(){
@@ -17,7 +22,6 @@ public class DataRetriever {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/fantasolver?characterEncoding=utf8","root","root");
-            System.out.println("Fatto");
         }
         catch (Exception e){
             System.out.println("Error during connection to database: " + e.getMessage());
@@ -27,5 +31,4 @@ public class DataRetriever {
 
         return connection;
     }
-
 }

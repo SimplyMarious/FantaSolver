@@ -1,7 +1,7 @@
 package unit;
 
+import com.spme.fantasolver.entity.*;
 import org.junit.jupiter.api.Test;
-import com.spme.fantasolver.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;

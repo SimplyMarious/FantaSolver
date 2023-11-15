@@ -1,9 +1,9 @@
 package integration;
 
 import org.junit.jupiter.api.Test;
-import com.spme.fantasolver.Role;
-import com.spme.fantasolver.RoleException;
-import com.spme.fantasolver.Slot;
+import com.spme.fantasolver.entity.Role;
+import com.spme.fantasolver.entity.RoleException;
+import com.spme.fantasolver.entity.Slot;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;

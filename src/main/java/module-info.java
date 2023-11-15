@@ -7,4 +7,10 @@ module com.spme.fantasolver {
 
     opens com.spme.fantasolver to javafx.fxml;
     exports com.spme.fantasolver;
+    exports com.spme.fantasolver.entity;
+    opens com.spme.fantasolver.entity to javafx.fxml;
+    exports com.spme.fantasolver.controllers;
+    opens com.spme.fantasolver.controllers to javafx.fxml;
+    exports com.spme.fantasolver.dao;
+    opens com.spme.fantasolver.dao to javafx.fxml;
 }
