@@ -118,7 +118,7 @@
                     <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 <!--                      <mainClass>org.spme.Main</mainClass>-->
-                      <mainClass>com.spme.fantasolver.HelloApplication</mainClass>
+                      <mainClass>com.spme.fantasolver.Main</mainClass>
                     </transformer>
                   </transformers>
                   <filters>

@@ -16,7 +16,7 @@ public class DataRetriever {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://fantasolver-database:3306/fantasolver?characterEncoding=utf8","root","root");
+                    "jdbc:mysql://localhost:3306/fantasolver?characterEncoding=utf8","root","root");
             System.out.println("Fatto");
         }
         catch (Exception e){

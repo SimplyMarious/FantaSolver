@@ -13,7 +13,7 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() {
         connectToDatabase();
-        welcomeText.setText("Ho provato");
+        welcomeText.setText("Ho provato!!!!!!!!!!!!!");
     }
 
     public static Connection connectToDatabase(){
@@ -21,8 +21,7 @@ public class HelloController {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://fantasolver-database:3306/fantasolver?characterEncoding=utf8","root","root");
-            System.out.println("Fatto");
+                    "jdbc:mysql://localhost:3306/fantasolver?characterEncoding=utf8","root","root");
         }
         catch (Exception e){
             System.out.println("Error during connection to database: " + e.getMessage());
