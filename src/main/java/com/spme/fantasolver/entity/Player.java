@@ -4,8 +4,12 @@ import java.util.Set;
 
 public class Player {
     private String name;
-    private String surname;
     private Set<Role> roles;
+
+    public Player(String name, Set<Role> roles){
+        this.name = name;
+        this.roles = roles;
+    }
 
     public String getName() {
         return name;
@@ -13,14 +17,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public Set<Role> getRoles() {
