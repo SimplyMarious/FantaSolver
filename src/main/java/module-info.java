@@ -13,4 +13,5 @@ module com.spme.fantasolver {
     opens com.spme.fantasolver.controllers to javafx.fxml;
     exports com.spme.fantasolver.dao;
     opens com.spme.fantasolver.dao to javafx.fxml;
+    exports com.spme.fantasolver.ui;
 }
