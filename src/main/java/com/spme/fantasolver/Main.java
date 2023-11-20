@@ -1,9 +1,6 @@
 package com.spme.fantasolver;
 
 import com.spme.fantasolver.utility.Utility;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
 public class Main {
