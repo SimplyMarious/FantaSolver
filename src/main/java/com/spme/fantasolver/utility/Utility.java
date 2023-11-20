@@ -9,7 +9,7 @@ public class Utility {
     private static Properties properties;
     private static InputStream fileInputStream;
 
-    public static void setPropertiesReadingTools(Properties properties, FileInputStream fileInputStream){
+    public static void setPropertiesReadingTools(Properties properties, InputStream fileInputStream){
         Utility.properties = properties;
         Utility.fileInputStream = fileInputStream;
     }

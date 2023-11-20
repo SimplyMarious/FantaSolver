@@ -14,11 +14,8 @@ public class Main {
     }
 
     private static void setUpDependencies() {
-        try {
-            Utility.setPropertiesReadingTools(new Properties(), new FileInputStream("src/main/resources/config.properties"));
-        } catch (FileNotFoundException e) {
-            System.err.println("Properties file not found.");
-            System.exit(1);
-        }
+        Utility.setPropertiesReadingTools(
+                new Properties(),
+                Main.class.getResourceAsStream("/config.properties"));
     }
 }
