@@ -5,6 +5,7 @@ import java.util.Set;
 public class Player {
     private String name;
     private Set<Role> roles;
+    private static final short MAX_ROLES_PER_PLAYER = 3;
 
     public Player(String name, Set<Role> roles){
         this.name = name;
@@ -25,5 +26,11 @@ public class Player {
 
     public void setRoles(Set<Role> role) {
         this.roles = role;
+    }
+
+    public void addRole(Role role) throws RoleException {
+        if(Role.checkNewRoleSuitability(role, roles, MAX_ROLES_PER_PLAYER)){
+            roles.add(role);
+        }
     }
 }
