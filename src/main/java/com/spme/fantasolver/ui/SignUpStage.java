@@ -6,15 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 
 public class SignUpStage {
-    private SignUpController signUpController = null;
-    public TextField username;
-    public TextField password;
-    public Button signup;
+    private final SignUpController signUpController;
+    public TextField textFieldUsername;
+    public TextField textFieldPassword;
+    public Button buttonSignup;
 
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
@@ -25,17 +24,23 @@ public class SignUpStage {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("signup-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
+        textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
+        textFieldPassword = (TextField) fxmlLoader.getNamespace().get("password");
+        buttonSignup = (Button) fxmlLoader.getNamespace().get("signup");
+
+        buttonSignup.setOnAction(e -> onPressedSignupButton());
+
         Application.getStage().setTitle("FantaSolver - SignUp");
         Application.getStage().setScene(scene);
         Application.getStage().show();
     }
 
-    public void onFieldChanged(InputMethodEvent inputMethodEvent) {
-        signUpController.handleFieldChanged(username.toString(), password.toString());
+    public void onFieldChanged() {
+        signUpController.handleFieldChanged(textFieldUsername.getText(), textFieldPassword.getText());
     }
 
-    public void onPressedSignupButton(MouseEvent mouseEvent) {
-        signUpController.handlePressedSignupButton(username.toString(), password.toString());
+    public void onPressedSignupButton() {
+        signUpController.handlePressedSignupButton(textFieldUsername.getText(), textFieldPassword.getText());
     }
 
     // TODO: create a window with a success message
@@ -49,18 +54,18 @@ public class SignUpStage {
     }
 
     public boolean isSignUpDisable() {
-        return signup.isDisable();
+        return buttonSignup.isDisable();
     }
 
     public boolean isSignUpEnable() {
-        return !signup.isDisable();
+        return !buttonSignup.isDisable();
     }
 
     public void enableSignupButton() {
-        signup.setDisable(false);
+        buttonSignup.setDisable(false);
     }
 
     public void disableSignupButton() {
-        signup.setDisable(false);
+        buttonSignup.setDisable(false);
     }
 }
