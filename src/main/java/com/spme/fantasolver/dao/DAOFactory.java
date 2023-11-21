@@ -7,6 +7,7 @@ import java.io.IOException;
 public class DAOFactory {
 
     private static TeamDAO teamDAO;
+    private static UserDAO userDAO;
 
     public static TeamDAO getTeamDAO(){
         if(teamDAO == null){
@@ -27,5 +28,26 @@ public class DAOFactory {
             }
         }
         return teamDAO;
+    }
+
+    public static UserDAO getUserDAO() {
+        if (userDAO == null) {
+            String userDAOSource;
+            try {
+                userDAOSource = Utility.getValueFromProperties("userDAO");
+                //TODO: refactor switch
+                switch (userDAOSource) {
+                    case "MySQL":
+                        userDAO = new UserDAOMySQL();
+                        break;
+                    default:
+                        userDAO = new UserDAOMySQL();
+                }
+            } catch (IOException e) {
+                System.err.println("Error getting the DBMS value for TeamDAO: " + e.getMessage());
+                teamDAO = new TeamDAOMySQL();
+            }
+        }
+        return userDAO;
     }
 }
