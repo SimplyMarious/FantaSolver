@@ -4,15 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spme.fantasolver.ui.SignUpStage">
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="165.0" layoutY="56.0" prefHeight="55.0" prefWidth="271.0" text="Benvenuto in Fantasolver!" textAlignment="CENTER">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <TextField id="username" fx:id="username" layoutX="221.0" layoutY="140.0" onInputMethodTextChanged="#onFieldChanged" promptText="username" />
-        <TextField id="password" fx:id="password" layoutX="220.0" layoutY="188.0" onInputMethodTextChanged="#onFieldChanged" promptText="password" />
-        <Button id="signup" fx:id="signup" layoutX="266.0" layoutY="262.0" mnemonicParsing="false" onMousePressed="#onPressedSignupButton" text="Registrati" />
+        <TextField id="username" fx:id="username" layoutX="221.0" layoutY="140.0" promptText="username" />
+        <TextField id="password" fx:id="password" layoutX="220.0" layoutY="188.0" promptText="password" />
+        <Button id="signup" fx:id="signup" layoutX="266.0" layoutY="262.0" mnemonicParsing="false" text="Registrati" />
     </children>
 </AnchorPane>
