@@ -2,14 +2,14 @@ package com.spme.fantasolver.dao;
 
 public class UserDAOMySQL implements UserDAO{
     @Override
+    // TODO: create a new user
     public boolean signUp(String username, String password) {
-        // Create a new user
         return false;
     }
 
     @Override
+    // TODO: retrieve a user if it exists
     public boolean signIn(String username, String password) {
-        // Retrieve a user if it exists
         return false;
     }
 }

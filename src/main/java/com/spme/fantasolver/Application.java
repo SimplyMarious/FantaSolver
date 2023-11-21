@@ -1,18 +1,16 @@
 package com.spme.fantasolver;
 
-import com.spme.fantasolver.controllers.SignInController;
+import com.spme.fantasolver.ui.SignInStage;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     private static Stage stage;
+
     @Override
     public void start(Stage stage) throws IOException {
         setStage(stage);
-
-        SignInController signInController = SignInController.getInstance();
-        signInController.handleSignInOutcome(true);
+        new SignInStage();
     }
 
     public static Stage getStage(){

@@ -6,7 +6,7 @@ import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.SignInStage;
-import javafx.scene.control.TextField;
+import com.spme.fantasolver.ui.SignUpStage;
 
 import java.io.IOException;
 
@@ -38,8 +38,9 @@ public class SignInController {
         }
     }
 
-    // TODO: create sign-up stage
+    // TODO: create the sign-up stage
     public void handlePressedSignupButton() {
+        new SignUpStage();
     }
 
     public void handlePressedSigninButton(String username, String password) {
@@ -50,12 +51,12 @@ public class SignInController {
             signInStage.showFailedSignInLabel();
     }
 
-    public void handleFieldChanged(TextField username, TextField password) {
+    public void handleFieldChanged(String username, String password) {
         int minLength = 4;
         int maxLength = 20;
 
-        boolean usernameValidity = checkStringValidity(username.toString(), minLength, maxLength);
-        boolean passwordValidity = checkStringValidity(password.toString(), minLength, maxLength);
+        boolean usernameValidity = checkStringValidity(username, minLength, maxLength);
+        boolean passwordValidity = checkStringValidity(password, minLength, maxLength);
 
         if (usernameValidity && passwordValidity)
             if (signInStage.isSignInDisable())
@@ -65,6 +66,7 @@ public class SignInController {
                 signInStage.disableSigninButton();
     }
 
+    // TODO: change "TestUser"
     public void handleSignInOutcome(boolean signInOutcome){
         if(signInOutcome){
             User user = new User("TestUser");
