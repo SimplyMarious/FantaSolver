@@ -63,5 +63,9 @@ public class SignInStage {
         return signin.isDisable();
     }
 
+    public String getUsername() {return username.toString();}
+
+    public String getPassword() {return password.toString();}
+
     public void showFailedSignInLabel() {signinFailure.setVisible(true);}
 }
