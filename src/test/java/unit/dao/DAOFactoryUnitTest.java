@@ -3,14 +3,14 @@ package unit.dao;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.*;
 
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.TeamDAO;
 import com.spme.fantasolver.dao.TeamDAOMySQL;
 import com.spme.fantasolver.utility.Utility;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 

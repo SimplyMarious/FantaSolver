@@ -41,7 +41,7 @@ public class TeamDAOMySQL implements TeamDAO {
             add(new Player("Gritti", new HashSet<Role>() {{ add(Role.POR); }}));
         }};
 
-        Team team = new Team();
+        Team team = new Team("SSC Napoli");
         team.setPlayers(players);
         return team;
     }
