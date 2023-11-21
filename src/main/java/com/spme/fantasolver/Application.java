@@ -12,7 +12,8 @@ public class Application extends javafx.application.Application {
         setStage(stage);
 
         SignInController signInController = SignInController.getInstance();
-        signInController.handleSignInOutcome(true);
+        signInController.handlePressedSignInButton("TestUsername", "TestPassword");
+
     }
 
     public static Stage getStage(){
