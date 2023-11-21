@@ -1,4 +1,4 @@
-package unit;
+package unit.entity;
 
 import com.spme.fantasolver.entity.*;
 import org.junit.jupiter.api.Test;
