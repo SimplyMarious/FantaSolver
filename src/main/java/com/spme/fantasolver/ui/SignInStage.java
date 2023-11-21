@@ -40,7 +40,7 @@ public class SignInStage {
     }
 
     public void onPressedSigninButton(MouseEvent mouseEvent) {
-        signInController.handlePressedSigninButton();
+        signInController.handlePressedSigninButton(username.toString(), password.toString());
     }
 
     public void onFieldChanged(InputMethodEvent inputMethodEvent) {

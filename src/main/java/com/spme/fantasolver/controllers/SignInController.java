@@ -1,6 +1,7 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.dao.DAOFactory;
+import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.HomeStage;
@@ -37,12 +38,16 @@ public class SignInController {
         }
     }
 
+    // TODO: create sign-up stage
     public void handlePressedSignupButton() {
-        // Create sign-up stage
     }
 
-    public void handlePressedSigninButton() {
-        // Check and retrieve user
+    public void handlePressedSigninButton(String username, String password) {
+        UserDAO userDAO = DAOFactory.getUserDAO();
+        if(userDAO.signIn(username, password))
+            handleSignInOutcome(true);
+        else
+            signInStage.showFailedSignInLabel();
     }
 
     public void handleFieldChanged(TextField username, TextField password) {
