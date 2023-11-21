@@ -16,7 +16,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="185.0" text="Aggiungi la tua Rosa">
+            <Button fx:id="buttonAddTeam" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="185.0" text="Aggiungi la tua Rosa">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
