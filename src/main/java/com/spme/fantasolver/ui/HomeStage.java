@@ -25,12 +25,7 @@ public class HomeStage {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         buttonAddTeam = (Button)fxmlLoader.getNamespace().get("buttonAddTeam");
-        buttonAddTeam.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                buttonAddTeam.setVisible(false);
-            }
-        });
+        buttonAddTeam.setOnMouseClicked(mouseEvent -> buttonAddTeam.setVisible(false));
 
         Application.getStage().setTitle("FantaSolver - Home");
         Application.getStage().setScene(scene);
