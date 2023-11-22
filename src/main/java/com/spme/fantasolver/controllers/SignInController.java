@@ -45,10 +45,8 @@ public class SignInController {
 
     public void handlePressedSigninButton(String username, String password) {
         UserDAO userDAO = DAOFactory.getUserDAO();
-        if(userDAO.signIn(username, password))
-            handleSignInOutcome(true);
-        else
-            signInStage.showFailedSignInLabel();
+        boolean signInOutcome = userDAO.signIn(username, password);
+        handleSignInOutcome(signInOutcome);
     }
 
     public void handleFieldChanged(String username, String password) {
@@ -66,12 +64,12 @@ public class SignInController {
                 signInStage.disableSigninButton();
     }
 
-    // TODO: change "TestUser"
-    public void handleSignInOutcome(boolean signInOutcome){
+    private void handleSignInOutcome(boolean signInOutcome){
         if(signInOutcome){
-            User user = new User("TestUser");
+            User user = new User(signInStage.getUsername());
             AuthenticationManager.getInstance().signIn(user);
             Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
+
             if(team != null){
                 user.setTeam(team);
                 new HomeStage(true);
@@ -79,6 +77,9 @@ public class SignInController {
             else{
                 new HomeStage(false);
             }
+        }
+        else {
+            signInStage.showFailedSignInLabel();
         }
     }
 

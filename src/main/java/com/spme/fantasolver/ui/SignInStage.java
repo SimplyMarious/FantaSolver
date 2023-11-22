@@ -2,7 +2,6 @@ package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.Application;
 import com.spme.fantasolver.controllers.SignInController;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -68,6 +67,8 @@ public class SignInStage {
     public boolean isSignInDisable(){return buttonSignin.isDisable();}
 
     public void showFailedSignInLabel() {labelSigninFailure.setVisible(true);}
+
+    public String getUsername() {return textFieldUsername.getText();}
 
 }
 
