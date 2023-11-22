@@ -12,7 +12,7 @@
             </font>
         </Label>
         <TextField id="username" fx:id="username" layoutX="221.0" layoutY="140.0" promptText="username" />
-        <PasswordField id="password" fx:id="password" layoutX="221.0" layoutY="190.0" promptText="password"/>
-        <Button id="signup" fx:id="signup" layoutX="266.0" layoutY="262.0" mnemonicParsing="false" text="Registrati" />
+        <PasswordField id="password" fx:id="password" layoutX="221.0" layoutY="190.0" promptText="password" />
+        <Button id="signup" fx:id="signup" disable="true" layoutX="266.0" layoutY="262.0" mnemonicParsing="false" text="Registrati" />
     </children>
 </AnchorPane>

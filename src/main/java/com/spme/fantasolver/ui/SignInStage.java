@@ -37,8 +37,8 @@ public class SignInStage {
         buttonSignin = (Button) fxmlLoader.getNamespace().get("signin");
         labelSigninFailure = (Label) fxmlLoader.getNamespace().get("signinFailure");
 
-        buttonSignup.setOnAction(e -> onPressedSignupButton());
-        buttonSignin.setOnAction(e -> onPressedSigninButton());
+        buttonSignup.setOnAction(e -> onPressedSignUpButton());
+        buttonSignin.setOnAction(e -> onPressedSignInButton());
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
@@ -47,12 +47,12 @@ public class SignInStage {
         Application.getStage().show();
     }
 
-    public void onPressedSignupButton() {
+    public void onPressedSignUpButton() {
         labelSigninFailure.setVisible(true);
         signInController.handlePressedSignupButton();
     }
 
-    public void onPressedSigninButton() {
+    public void onPressedSignInButton() {
         signInController.handlePressedSigninButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
