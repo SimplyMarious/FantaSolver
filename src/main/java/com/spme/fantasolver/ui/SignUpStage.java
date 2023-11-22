@@ -4,6 +4,7 @@ import com.spme.fantasolver.Application;
 import com.spme.fantasolver.controllers.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -46,14 +47,22 @@ public class SignUpStage {
         signUpController.handlePressedSignupButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
-    // TODO: create a window with a success message
-    public void showSuccessfulSignup() {
+    public void showSuccessfulSignUp() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione completata.");
+        alert.setHeaderText(null);
+        alert.setContentText("Operazione completata con successo!");
 
+        alert.showAndWait();
     }
 
-    // TODO: create a window with a failure message
-    public void showFailedSignup() {
+    public void showFailedSignUp() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione fallita.");
+        alert.setHeaderText(null);
+        alert.setContentText("Operazione fallita.");
 
+        alert.showAndWait();
     }
 
     public boolean isSignUpDisable() {return buttonSignup.isDisable();}
