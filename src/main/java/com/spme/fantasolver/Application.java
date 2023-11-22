@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Application extends javafx.application.Application {
     private static Stage stage;
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage){
         setStage(stage);
 
         SignInController signInController = SignInController.getInstance();
