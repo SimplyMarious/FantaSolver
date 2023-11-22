@@ -30,6 +30,15 @@ public class HomeController {
             e.printStackTrace();
             System.exit(1);
         }
+
+        if(doesTeamExist){
+            homeStage.setManageTeamScreenVisible();
+        }
+        else {
+            homeStage.setAddTeamScreenVisible();
+        }
+
+        homeStage.show();
     }
 
 }
