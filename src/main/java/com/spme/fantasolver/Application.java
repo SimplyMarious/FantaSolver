@@ -1,6 +1,7 @@
 package com.spme.fantasolver;
 
 import com.spme.fantasolver.ui.SignInStage;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -11,6 +12,11 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         setStage(stage);
         new SignInStage();
+
+        stage.setOnCloseRequest(e -> {
+            e.consume();
+            closeApplication();
+        });
     }
 
     public static Stage getStage(){
@@ -21,6 +27,9 @@ public class Application extends javafx.application.Application {
         Application.stage = stage;
     }
 
+    private void closeApplication() {
+        Platform.exit();
+    }
     public static void main(String[] args) {
         launch();
     }
