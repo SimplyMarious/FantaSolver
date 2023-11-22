@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -34,9 +35,10 @@ public class SignUpStage {
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
-        Application.getStage().setTitle("FantaSolver - SignUp");
-        Application.getStage().setScene(scene);
-        Application.getStage().show();
+        Stage signUpStage = new Stage();
+        signUpStage.setTitle("FantaSolver - SignUp");
+        signUpStage.setScene(scene);
+        signUpStage.show();
     }
 
     public void onFieldChanged() {
