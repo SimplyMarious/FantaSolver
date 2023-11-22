@@ -48,12 +48,11 @@ public class SignInStage {
     }
 
     public void onPressedSignUpButton() {
-        labelSigninFailure.setVisible(true);
-        signInController.handlePressedSignupButton();
+        signInController.handlePressedSignUpButton();
     }
 
     public void onPressedSignInButton() {
-        signInController.handlePressedSigninButton(textFieldUsername.getText(), fieldPassword.getText());
+        signInController.handlePressedSignInButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
     public void onFieldChanged() {

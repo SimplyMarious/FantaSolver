@@ -38,12 +38,11 @@ public class SignInController {
         }
     }
 
-    // TODO: create the sign-up stage
-    public void handlePressedSignupButton() {
+    public void handlePressedSignUpButton() {
         new SignUpStage();
     }
 
-    public void handlePressedSigninButton(String username, String password) {
+    public void handlePressedSignInButton(String username, String password) {
         UserDAO userDAO = DAOFactory.getUserDAO();
         boolean signInOutcome = userDAO.signIn(username, password);
         handleSignInOutcome(signInOutcome);
