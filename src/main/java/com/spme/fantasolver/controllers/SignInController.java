@@ -1,10 +1,11 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.dao.DAOFactory;
-import com.spme.fantasolver.dao.TeamDAO;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.ui.HomeStage;
+
 
 public class SignInController {
     private SignInController(){}
@@ -23,6 +24,7 @@ public class SignInController {
         handleSignInOutcome(true);
     }
 
+    @Generated
     private void handleSignInOutcome(boolean signInOutcome){
         if(signInOutcome){
             User user = new User("TestUser");
