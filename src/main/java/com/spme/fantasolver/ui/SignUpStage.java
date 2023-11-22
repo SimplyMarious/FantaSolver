@@ -44,7 +44,7 @@ public class SignUpStage {
     }
 
     public void onPressedSignUpButton() {
-        signUpController.handlePressedSignupButton(textFieldUsername.getText(), fieldPassword.getText());
+        signUpController.handlePressedSignUpButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
     public void showSuccessfulSignUp() {
