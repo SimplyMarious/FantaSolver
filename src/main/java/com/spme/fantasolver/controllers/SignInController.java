@@ -56,12 +56,14 @@ public class SignInController {
         boolean usernameValidity = checkStringValidity(username, minLength, maxLength);
         boolean passwordValidity = checkStringValidity(password, minLength, maxLength);
 
-        if (usernameValidity && passwordValidity)
-            if (signInStage.isSignInDisable())
+        if (usernameValidity && passwordValidity) {
+            if (signInStage.isSignInDisable()) {
                 signInStage.enableSigninButton();
-            else
-            if (signInStage.isSignInEnable())
-                signInStage.disableSigninButton();
+            }
+        }
+        else if (signInStage.isSignInEnable()) {
+           signInStage.disableSigninButton();
+        }
     }
 
     private void handleSignInOutcome(boolean signInOutcome){

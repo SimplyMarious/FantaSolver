@@ -5,6 +5,7 @@ import com.spme.fantasolver.controllers.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.io.IOException;
 public class SignUpStage {
     private final SignUpController signUpController;
     public TextField textFieldUsername;
-    public TextField textFieldPassword;
+    public PasswordField fieldPassword;
     public Button buttonSignup;
 
     public SignUpStage(){
@@ -25,10 +26,12 @@ public class SignUpStage {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
-        textFieldPassword = (TextField) fxmlLoader.getNamespace().get("password");
+        fieldPassword = (PasswordField) fxmlLoader.getNamespace().get("password");
         buttonSignup = (Button) fxmlLoader.getNamespace().get("signup");
 
         buttonSignup.setOnAction(e -> onPressedSignupButton());
+        textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
+        fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
         Application.getStage().setTitle("FantaSolver - SignUp");
         Application.getStage().setScene(scene);
@@ -36,11 +39,11 @@ public class SignUpStage {
     }
 
     public void onFieldChanged() {
-        signUpController.handleFieldChanged(textFieldUsername.getText(), textFieldPassword.getText());
+        signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
     }
 
     public void onPressedSignupButton() {
-        signUpController.handlePressedSignupButton(textFieldUsername.getText(), textFieldPassword.getText());
+        signUpController.handlePressedSignupButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
     // TODO: create a window with a success message
@@ -61,11 +64,11 @@ public class SignUpStage {
         return !buttonSignup.isDisable();
     }
 
-    public void enableSignupButton() {
+    public void enableSignUpButton() {
         buttonSignup.setDisable(false);
     }
 
-    public void disableSignupButton() {
+    public void disableSignUpButton() {
         buttonSignup.setDisable(false);
     }
 }

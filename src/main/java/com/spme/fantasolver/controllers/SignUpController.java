@@ -34,12 +34,14 @@ public class SignUpController {
         boolean usernameValidity = checkStringValidity(username, minLength, maxLength);
         boolean passwordValidity = checkStringValidity(password, minLength, maxLength);
 
-        if (usernameValidity && passwordValidity)
-            if (signUpStage.isSignUpDisable())
-                signUpStage.enableSignupButton();
-            else
-            if (signUpStage.isSignUpEnable())
-                signUpStage.disableSignupButton();
+        if (usernameValidity && passwordValidity) {
+            if (signUpStage.isSignUpDisable()) {
+                signUpStage.enableSignUpButton();
+            }
+        }
+        else if (signUpStage.isSignUpEnable()) {
+            signUpStage.disableSignUpButton();
+        }
     }
 
     // TODO: try to create a new account

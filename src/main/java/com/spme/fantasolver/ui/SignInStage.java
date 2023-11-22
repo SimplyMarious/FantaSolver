@@ -6,8 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class SignInStage {
     private final SignInController signInController;
 
     public TextField textFieldUsername;
-    public TextField textFieldPassword;
+    public PasswordField fieldPassword;
     public Button buttonSignin;
     public Button buttonSignup;
     public Label labelSigninFailure;
@@ -32,13 +32,15 @@ public class SignInStage {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
-        textFieldPassword = (TextField) fxmlLoader.getNamespace().get("password");
+        fieldPassword = (PasswordField) fxmlLoader.getNamespace().get("password");
         buttonSignup = (Button) fxmlLoader.getNamespace().get("signup");
         buttonSignin = (Button) fxmlLoader.getNamespace().get("signin");
         labelSigninFailure = (Label) fxmlLoader.getNamespace().get("signinFailure");
 
         buttonSignup.setOnAction(e -> onPressedSignupButton());
         buttonSignin.setOnAction(e -> onPressedSigninButton());
+        textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
+        fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
         Application.getStage().setTitle("FantaSolver - SignIn");
         Application.getStage().setScene(scene);
@@ -51,11 +53,11 @@ public class SignInStage {
     }
 
     public void onPressedSigninButton() {
-        signInController.handlePressedSigninButton(textFieldUsername.getText(), textFieldPassword.getText());
+        signInController.handlePressedSigninButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
-    public void onFieldChanged(InputMethodEvent inputMethodEvent) {
-        signInController.handleFieldChanged(textFieldUsername.getText(), textFieldPassword.getText());
+    public void onFieldChanged() {
+        signInController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
     }
 
     public void enableSigninButton() {buttonSignin.setDisable(false);}
