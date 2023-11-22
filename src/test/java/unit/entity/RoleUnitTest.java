@@ -45,14 +45,14 @@ public class RoleUnitTest {
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingTheNewRole() throws RoleException {
+    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingTheNewRole(){
         Set<Role> roles = new HashSet<>();
         roles.add(Role.DC);
         assertThrows(DuplicateRoleException.class, () -> Role.checkNewRoleSuitability(Role.DC, roles, MAX_ROLES));
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingThreeRoles() throws RoleException {
+    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingThreeRoles(){
         Set<Role> roles = new HashSet<>();
         roles.add(Role.DC);
         roles.add(Role.DS);
