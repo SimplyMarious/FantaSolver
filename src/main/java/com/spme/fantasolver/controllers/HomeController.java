@@ -3,6 +3,7 @@ package com.spme.fantasolver.controllers;
 import com.spme.fantasolver.ui.HomeStage;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class HomeController {
 
@@ -26,9 +27,9 @@ public class HomeController {
         try {
             homeStage.initializeStage();
         } catch (IOException e) {
-            System.err.println("Error in reading FXML file.");
-            e.printStackTrace();
-            System.exit(1);
+            Logger logger = Logger.getLogger("HomeController");
+            logger.info("Error in reading FXML file: " + e.getMessage());
+            throw new FXMLLoadException();
         }
 
         if(doesTeamExist){
@@ -40,5 +41,4 @@ public class HomeController {
 
         homeStage.show();
     }
-
 }
