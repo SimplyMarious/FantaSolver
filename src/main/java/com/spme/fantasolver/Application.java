@@ -13,7 +13,6 @@ public class Application extends javafx.application.Application {
 
         SignInController signInController = SignInController.getInstance();
         signInController.handlePressedSignInButton("TestUsername", "TestPassword");
-
     }
 
     public static Stage getStage(){
