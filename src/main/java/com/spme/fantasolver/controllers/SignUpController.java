@@ -1,4 +1,6 @@
 package com.spme.fantasolver.controllers;
+import com.spme.fantasolver.dao.DAOFactory;
+import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.ui.SignUpStage;
 import java.io.IOException;
 import static com.spme.fantasolver.utility.Utility.checkStringValidity;
@@ -44,7 +46,13 @@ public class SignUpController {
         }
     }
 
-    // TODO: try to create a new account
-    public void handlePressedSignupButton(String username, String password) {
+    public void handlePressedSignUpButton(String username, String password) {
+        UserDAO userDAO = DAOFactory.getUserDAO();
+        if(userDAO.signUp(username, password)) {
+            signUpStage.showSuccessfulSignUp();
+        }
+        else {
+            signUpStage.showFailedSignUp();
+        }
     }
 }
