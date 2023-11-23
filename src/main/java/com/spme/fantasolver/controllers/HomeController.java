@@ -1,6 +1,7 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.ui.HomeStage;
+import com.spme.fantasolver.ui.ManageTeamStage;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -43,5 +44,6 @@ public class HomeController {
     }
 
     public void handlePressedManageTeamButton() {
+        new ManageTeamStage();
     }
 }

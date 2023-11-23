@@ -30,13 +30,17 @@ public class HomeStage {
         Application.getStage().setScene(scene);
         Application.getStage().setTitle("FantaSolver - Home");
 
-        labelWelcomeUser = (Label)fxmlLoader.getNamespace().get("labelWelcomeUser");
+        initializeUIComponents(fxmlLoader);
+    }
+
+    private void initializeUIComponents(FXMLLoader fxmlLoader) {
+        labelWelcomeUser = (Label) fxmlLoader.getNamespace().get("labelWelcomeUser");
         labelWelcomeUser.setText("Benvenuto, " + AuthenticationManager.getInstance().getUser().getUsername() + "!");
 
-        vBoxAddTeam = (VBox)fxmlLoader.getNamespace().get("vBoxAddTeam");
-        vBoxManageTeam = (VBox)fxmlLoader.getNamespace().get("vBoxManageTeam");
+        vBoxAddTeam = (VBox) fxmlLoader.getNamespace().get("vBoxAddTeam");
+        vBoxManageTeam = (VBox) fxmlLoader.getNamespace().get("vBoxManageTeam");
 
-        buttonAddTeam = (Button)fxmlLoader.getNamespace().get("buttonAddTeam");
+        buttonAddTeam = (Button) fxmlLoader.getNamespace().get("buttonAddTeam");
         buttonAddTeam.setOnMouseClicked(mouseEvent -> homeController.handlePressedManageTeamButton());
     }
 

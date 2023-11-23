@@ -18,4 +18,8 @@ public class Utility {
         properties.load(fileInputStream);
         return properties.getProperty(key);
     }
+
+    public static boolean checkStringValidity(String string, int minLength, int maxLength){
+        return minLength <= string.length() && string.length() <= maxLength;
+    }
 }
