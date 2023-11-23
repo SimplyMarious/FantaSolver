@@ -1,11 +1,13 @@
 package unit.controllers;
 
 import com.spme.fantasolver.controllers.SignUpController;
+import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.ui.SignUpStage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.MockedStatic;
 import static org.mockito.Mockito.*;
 
 public class SignUpControllerUnitTest {
@@ -13,13 +15,46 @@ public class SignUpControllerUnitTest {
     private UserDAO mockedUserDAO;
     private SignUpStage mockedSignUpStage;
     private SignUpController signUpController;
+    private MockedStatic<DAOFactory> mockedDAOFactory;
 
     @BeforeEach
     void setUp() {
+        mockedDAOFactory = mockStatic(DAOFactory.class);
         mockedUserDAO = mock(UserDAO.class);
         mockedSignUpStage = mock(SignUpStage.class);
         signUpController = SignUpController.getInstance();
         signUpController.handleInitialization(mockedSignUpStage);
+    }
+
+    @AfterEach
+    void clean() {
+        mockedDAOFactory.close();
+    }
+
+    @Test
+    public void testHandlePressedSignUpButtonWithSuccessfulSignUp() {
+        String username = "testUser";
+        String password = "testPassword";
+        mockedDAOFactory.when(DAOFactory::getUserDAO).thenReturn(mockedUserDAO);
+        when(mockedUserDAO.signUp(username, password)).thenReturn(true);
+
+        signUpController.handlePressedSignUpButton(username, password);
+
+        verify(mockedSignUpStage).showSuccessfulSignUp();
+        verify(mockedSignUpStage, never()).showFailedSignUp();
+    }
+
+    @Test
+    public void testHandlePressedSignUpButtonWithFailureSignUp() {
+        String username = "testUser";
+        String password = "testPassword";
+        mockedDAOFactory.when(DAOFactory::getUserDAO).thenReturn(mockedUserDAO);
+        when(mockedUserDAO.signUp(username, password)).thenReturn(false);
+
+        signUpController.handlePressedSignUpButton(username, password);
+
+        verify(mockedSignUpStage, never()).showSuccessfulSignUp();
+        verify(mockedSignUpStage).showFailedSignUp();
     }
 
     @Test
