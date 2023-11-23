@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
-class DAOFactoryUnitTest {
+public class DAOFactoryUnitTest {
 
     @Test
-    void testGetTeamDAOWithMySQLAsTeamDAOValueInProperties() {
+    public void testGetTeamDAOWithMySQLAsTeamDAOValueInProperties() {
         try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("MySQL");
 
@@ -23,7 +23,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetTeamDAOWithAnyOtherStringAsTeamDAOValueInProperties() {
+    public void testGetTeamDAOWithAnyOtherStringAsTeamDAOValueInProperties() {
         try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("SomeDBMS");
 
@@ -34,7 +34,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetUserDAOWithMySQLAsUserDAOValueInProperties() {
+    public void testGetUserDAOWithMySQLAsUserDAOValueInProperties() {
         try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("MySQL");
 
@@ -45,7 +45,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
+    public void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
         try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("SomeDBMS");
 
