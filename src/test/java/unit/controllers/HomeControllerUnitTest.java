@@ -51,7 +51,6 @@ public class HomeControllerUnitTest {
 
     @Test
     public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
-        // Arrange
         boolean doesTeamExist = true;
         doThrow(new IOException()).when(mockHomeStage).initializeStage();
 
