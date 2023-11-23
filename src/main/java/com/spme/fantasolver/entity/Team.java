@@ -14,6 +14,10 @@ public class Team {
         return name;
     }
 
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
     public void setPlayers(Set<Player> players) {
         this.players = players;
     }

@@ -1,9 +1,14 @@
 package com.spme.fantasolver.controllers;
 
+import com.spme.fantasolver.entity.Player;
+import com.spme.fantasolver.entity.Role;
+import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class ManageTeamController {
@@ -32,8 +37,9 @@ public class ManageTeamController {
             throw new FXMLLoadException();
         }
 
-        if(AuthenticationManager.getInstance().getUser().getTeam() != null){
-//            manageTeamStage.loadTeamInTable();
+        Team team = AuthenticationManager.getInstance().getUser().getTeam();
+        if(team != null){
+            manageTeamStage.loadPlayersInTable(team.getPlayers());
         }
 
         manageTeamStage.show();
