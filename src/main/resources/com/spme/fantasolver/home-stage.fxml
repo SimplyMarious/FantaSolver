@@ -3,9 +3,15 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <Label fx:id="labelWelcomeUser" layoutX="51.0" layoutY="39.0" text="Benvenuto, &lt;username&gt;!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
       <VBox fx:id="vBoxAddTeam" alignment="TOP_CENTER" layoutX="65.0" layoutY="108.0" prefHeight="180.0" prefWidth="474.0" visible="false">
          <children>
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="474.0" text="Non hai ancora caricato una rosa..." textAlignment="CENTER">
@@ -37,5 +43,6 @@
             </Button>
          </children>
       </VBox>
+
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ public class User {
     private Team team;
 
     public User(String username) {
+        this.username = username;
     }
 
     public String getUsername() {

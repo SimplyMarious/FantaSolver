@@ -11,7 +11,7 @@ import java.util.Set;
 public class TeamDAOMySQL implements TeamDAO {
     @Override
     public Team retrieveTeam(User user) {
-        return stubTeam();
+        return null;
     }
 
     private Team stubTeam() {
