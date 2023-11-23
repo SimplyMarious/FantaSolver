@@ -49,11 +49,6 @@ public class ManageTeamStage {
     }
 
     private void initializeTeamTable() {
-        // Creazione di alcuni giocatori di esempio
-        Player player1 = new Player("Rosati", Set.of(Role.POR));
-        Player player2 = new Player("Aronica", Set.of(Role.DS, Role.DC));
-
-        // Creazione della TableView
         tableViewPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewPlayers");
         players = FXCollections.observableArrayList();
         tableViewPlayers.setItems(players);
@@ -62,7 +57,6 @@ public class ManageTeamStage {
                 fxmlLoader.getNamespace().get("tableColumnPlayerName");
         tableColumnPlayerName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        // Creazione della colonna "Ruoli"
         TableColumn<Player, String> tableColumnPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnPlayerRoles");
         tableColumnPlayerRoles.setCellValueFactory(cellData -> {
@@ -71,15 +65,12 @@ public class ManageTeamStage {
             for (Role role: roles) {
                 rolesString.append(role.name()).append(", ");
             }
-            // Rimuovi l'ultima virgola e lo spazio
             if (rolesString.length() > 0) {
                 rolesString.setLength(rolesString.length() - 2);
             }
             return new SimpleStringProperty(rolesString.toString());
         });
 
-        // Aggiunta delle colonne alla TableView
-//        tableViewPlayers.getColumns().addAll(playerColumn, rolesColumn);
         tableViewPlayers.getColumns().set(0, tableColumnPlayerName);
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);
     }
