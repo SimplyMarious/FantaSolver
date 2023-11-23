@@ -7,7 +7,7 @@ import org.mockito.Mock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -31,7 +31,6 @@ public class UtilityUnitTest {
         Utility.setPropertiesReadingTools(mockProperties, mockFileInputStream);
     }
 
-
     @Test
     public void testGetValueFromPropertiesWithRightKeyAndValue() throws IOException {
         // Arrange
@@ -54,28 +53,58 @@ public class UtilityUnitTest {
         verify(mockProperties, times(1)).getProperty(key);
     }
 
-//    @Test
-//    public void testGetValueFromPropertiesWithError() throws IOException {
-//        // Arrange
-//        String key = "testKey";
-//
-//        // Stubbing: When properties.load() is called, throw an IOException
-//        doThrow(new IOException("Test IOException")).when(mockProperties).load(mockFileInputStream);
-//
-//        // Act and Assert
-//
-//        Utility.getValueFromProperties(key);
-//        // If no exception is thrown, fail the test
-//        fail("Expected IOException was not thrown");
-//
-//            // Verify that properties.load() is called once with the provided FileInputStream
-//            verify(mockProperties, times(1)).load(mockFileInputStream);
-//
-//            // Verify that the error message is printed to System.err
-//            // Note: You may need to adjust this verification based on your specific error handling logic
-//            assertThat(e.getMessage(), is("Error in reading properties file."));
-//        }
-//    }
+    @Test
+    public void testCheckStringValidityWithValidString() {
+        String validString = "abcdef";
+        int minLength = 1;
+        int maxLength = 10;
 
+        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
 
+        assertTrue(result);
+    }
+
+    @Test
+    public void testCheckStringValidityWithInvalidStringLength() {
+        String invalidString = "abc";
+        int minLength = 5;
+        int maxLength = 10;
+
+        boolean result = Utility.checkStringValidity(invalidString, minLength, maxLength);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testCheckStringWithStringWithExactLength() {
+        String validString = "12345";
+        int minLength = 5;
+        int maxLength = 5;
+
+        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testCheckStringWithNegativeMinLength() {
+        String validString = "abc";
+        int minLength = -1;
+        int maxLength = 10;
+
+        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testCheckStringWithMinLengthGreaterThanMaxLength() {
+        String validString = "abc";
+        int minLength = 5;
+        int maxLength = 3;
+
+        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
+
+        assertFalse(result);
+    }
 }

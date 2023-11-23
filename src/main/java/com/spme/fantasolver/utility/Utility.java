@@ -20,6 +20,7 @@ public class Utility {
     }
 
     public static boolean checkStringValidity(String stringToCheck, int minLength, int maxLength) {
+        if (minLength < 0 || maxLength < 0) return false;
         int lengthString = stringToCheck.length();
         return lengthString >= minLength && lengthString <= maxLength;
     }
