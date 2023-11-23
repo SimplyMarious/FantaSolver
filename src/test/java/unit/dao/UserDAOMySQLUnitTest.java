@@ -2,6 +2,8 @@ package unit.dao;
 
 import com.spme.fantasolver.dao.DataRetriever;
 import com.spme.fantasolver.dao.UserDAOMySQL;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -15,20 +17,44 @@ import static org.mockito.Mockito.*;
 
 public class UserDAOMySQLUnitTest {
 
+    private String username;
+    private String password;
+    private MockedStatic<DataRetriever> dataRetrieverMock;
+    private Connection mockedConnection;
+    private PreparedStatement mockedPreparedStatement;
+    private ResultSet mockedResultSet;
+    private UserDAOMySQL userDAOMySQL;
+
+    @BeforeEach
+    public void setUp() {
+        username = "testUser";
+        password = "testPassword";
+        dataRetrieverMock = mockStatic(DataRetriever.class);
+        mockedConnection = mock(Connection.class);
+        mockedPreparedStatement = mock(PreparedStatement.class);
+        mockedResultSet = mock(ResultSet.class);
+        userDAOMySQL = new UserDAOMySQL();
+    }
+
+    @AfterEach
+    public void clean() {
+        try {
+            dataRetrieverMock.close();
+            mockedConnection.close();
+            mockedPreparedStatement.close();
+            mockedResultSet.close();
+        } catch (SQLException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
+
     @Test
     public void testUserDAOMySQLUnitTestWithSignUpSuccess() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockedResultSet = mock(ResultSet.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signUp(username, password);
 
             assertTrue(result);
@@ -43,10 +69,7 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignUpFailure() {
-        String username = "existingUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mock(Connection.class));
             UserDAOMySQL mockedUserDAOMySQL = spy(new UserDAOMySQL());
             doReturn(true).when(mockedUserDAOMySQL).isUserExist(username);
@@ -62,15 +85,10 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignUpPreparedStatementException() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signUp(username, password);
 
             assertFalse(result);
@@ -82,19 +100,12 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignUpExecuteUpdateException() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockedResultSet = mock(ResultSet.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeUpdate()).thenThrow(new SQLException());
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signUp(username, password);
 
             assertFalse(result);
@@ -106,18 +117,11 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignUpSetStringException() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             doThrow(new SQLException()).when(mockedPreparedStatement).setString(eq(1), anyString());
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signUp(username, password);
 
             assertFalse(result);
@@ -129,19 +133,12 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignInSuccess() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockedResultSet = mock(ResultSet.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedResultSet.next()).thenReturn(true);
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signIn(username, password);
 
             assertTrue(result);
@@ -155,19 +152,12 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignInFailure() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockedResultSet = mock(ResultSet.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedResultSet.next()).thenReturn(false);
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signIn(username, password);
 
             assertFalse(result);
@@ -181,15 +171,10 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignInPreparedStatementException() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signIn(username, password);
 
             assertFalse(result);
@@ -201,19 +186,12 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignInExecuteUpdateException() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockedResultSet = mock(ResultSet.class);
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeUpdate()).thenThrow(new SQLException());
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signIn(username, password);
 
             assertFalse(result);
@@ -225,18 +203,11 @@ public class UserDAOMySQLUnitTest {
 
     @Test
     public void testUserDAOMySQLUnitTestWithSignInSetStringException() {
-        String username = "testUser";
-        String password = "testPassword";
-        try (MockedStatic<DataRetriever> dataRetrieverMock = mockStatic(DataRetriever.class)) {
-
-            Connection mockedConnection = mock(Connection.class);
-            PreparedStatement mockedPreparedStatement = mock(PreparedStatement.class);
-
+        try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             doThrow(new SQLException()).when(mockedPreparedStatement).setString(eq(1), anyString());
 
-            UserDAOMySQL userDAOMySQL = new UserDAOMySQL();
             boolean result = userDAOMySQL.signIn(username, password);
 
             assertFalse(result);
