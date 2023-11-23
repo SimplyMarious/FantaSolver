@@ -22,7 +22,7 @@ public class SignUpControllerUnitTest {
     private MockedStatic<DAOFactory> mockedDAOFactory;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockedDAOFactory = mockStatic(DAOFactory.class);
         mockedUserDAO = mock(UserDAO.class);
         mockedSignUpStage = mock(SignUpStage.class);
@@ -31,7 +31,7 @@ public class SignUpControllerUnitTest {
     }
 
     @AfterEach
-    void clean() {
+    public void clean() {
         mockedDAOFactory.close();
     }
 
