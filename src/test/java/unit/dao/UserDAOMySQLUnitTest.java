@@ -49,7 +49,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignUpSuccess() {
+    public void testSignUpWithUserNotInDatabase() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
@@ -68,7 +68,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignUpFailure() {
+    public void testSignUpWithUserInDatabase() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mock(Connection.class));
             UserDAOMySQL mockedUserDAOMySQL = spy(new UserDAOMySQL());
@@ -84,7 +84,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignUpPreparedStatementException() {
+    public void testSignUpWithPreparedStatementException() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
@@ -99,7 +99,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignUpExecuteUpdateException() {
+    public void testSignUpWithExecuteUpdateException() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
@@ -116,7 +116,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignUpSetStringException() {
+    public void testSignUpWithSetStringException() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
@@ -132,7 +132,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignInSuccess() {
+    public void testSignInWithUserInDatabase() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
@@ -151,7 +151,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignInFailure() {
+    public void testSignInWithUserNotInDatabase() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
@@ -170,7 +170,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignInPreparedStatementException() {
+    public void testSignInWithPreparedStatementException() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
@@ -185,7 +185,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignInExecuteUpdateException() {
+    public void testSignInWithExecuteUpdateException() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
@@ -202,7 +202,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testUserDAOMySQLUnitTestWithSignInSetStringException() {
+    public void testSignInWithSetStringException() {
         try {
             dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
