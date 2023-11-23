@@ -16,25 +16,12 @@ public class UserDAOMySQL implements UserDAO{
 
     @Override
     public boolean signIn(String username, String password) {
-        Connection connection = DataRetriever.connectToDatabase();
-
         try {
-            String insertQuery = "SELECT * FROM user WHERE name = ? AND password = ?";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-                preparedStatement.setString(1, username);
-                preparedStatement.setString(2, password);
-
-                ResultSet result = preparedStatement.executeQuery();
-
-                if(result.next())
-                    return true;
-            }
-
+            return trySignIn(username, password);
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public boolean isUserExist(String username) throws SQLException {
@@ -43,10 +30,10 @@ public class UserDAOMySQL implements UserDAO{
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchUser)) {
             preparedStatement.setString(1, username);
-            ResultSet result = preparedStatement.executeQuery();
+            boolean result = preparedStatement.executeQuery().next();
 
             connection.close();
-            return result.next();
+            return result;
         }
     }
 
@@ -60,7 +47,22 @@ public class UserDAOMySQL implements UserDAO{
             preparedStatement.setString(2, password);
             preparedStatement.executeUpdate();
         }
+        connection.close();
 
         return true;
+    }
+
+    private boolean trySignIn(String username, String password) throws SQLException {
+        Connection connection = DataRetriever.connectToDatabase();
+        String insertQuery = "SELECT * FROM user WHERE name = ? AND password = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            boolean result = preparedStatement.executeQuery().next();
+
+            connection.close();
+            return result;
+        }
     }
 }
