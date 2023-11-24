@@ -9,9 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -25,8 +23,15 @@ public class ManageTeamStage {
     private FXMLLoader fxmlLoader;
 
     private TextField textFieldTeamName;
+    private TextField textFieldPlayerName;
+    private ComboBox<String> comboBoxPlayerFirstRole;
+    private ComboBox<String> comboBoxPlayerSecondRole;
+    private ComboBox<String> comboBoxPlayerThirdRole;
+    private Button buttonAddPlayer;
     private TableView<Player> tableViewPlayers;
-    ObservableList<Player> players;
+    private ObservableList<Player> players;
+    private Button buttonConfirm;
+
 
     public ManageTeamStage(){
         this.manageTeamController = ManageTeamController.getInstance();
@@ -40,12 +45,79 @@ public class ManageTeamStage {
         stage.setScene(scene);
         stage.setTitle("FantaSolver - Gestisci la tua Rosa");
 
-        textFieldTeamName = (TextField)fxmlLoader.getNamespace().get("textFieldTeamName");
-        textFieldTeamName.setOnKeyTyped(keyEvent ->
-                manageTeamController.handleTextFieldTeamNameChanged(textFieldTeamName.getText()));
+        initializeTeamNameTextField();
+
+        initializePlayerNameTextField();
+        initializeRolesComboBoxes();
+        buttonAddPlayer = (Button)fxmlLoader.getNamespace().get("buttonAddPlayer");
+        buttonAddPlayer.setOnAction(actionEvent ->
+                manageTeamController.handlePressedAddPlayerButton(
+                        textFieldPlayerName.getText(),
+                        comboBoxPlayerFirstRole.getValue(),
+                        comboBoxPlayerSecondRole.getValue(),
+                        comboBoxPlayerThirdRole.getValue()));
+        buttonAddPlayer.setDisable(true);
 
         initializeTeamTable();
 
+        buttonConfirm = (Button)fxmlLoader.getNamespace().get("buttonConfirm");
+        buttonConfirm.setOnAction(actionEvent ->
+                manageTeamController.handlePressedConfirmButton());
+
+    }
+
+    private void initializeTeamNameTextField() {
+        textFieldTeamName = (TextField)fxmlLoader.getNamespace().get("textFieldTeamName");
+        textFieldTeamName.setOnKeyTyped(keyEvent ->
+                manageTeamController.handleTextFieldTeamNameChanged(textFieldTeamName.getText()));
+    }
+
+    private void initializePlayerNameTextField() {
+        textFieldPlayerName = (TextField)fxmlLoader.getNamespace().get("textFieldPlayerName");
+        textFieldPlayerName.setOnKeyTyped(keyEvent ->
+                manageTeamController.handlePlayerPropertyChanged(
+                        textFieldPlayerName.getText(),
+                        comboBoxPlayerFirstRole.getValue(),
+                        comboBoxPlayerSecondRole.getValue(),
+                        comboBoxPlayerThirdRole.getValue()));
+    }
+
+    private void initializeRolesComboBoxes() {
+        comboBoxPlayerFirstRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerFirstRole");
+        comboBoxPlayerSecondRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerSecondRole");
+        comboBoxPlayerThirdRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerThirdRole");
+        comboBoxPlayerFirstRole.setOnAction(actionEvent ->
+                manageTeamController.handlePlayerPropertyChanged(
+                        textFieldPlayerName.getText(),
+                        comboBoxPlayerFirstRole.getValue(),
+                        comboBoxPlayerSecondRole.getValue(),
+                        comboBoxPlayerThirdRole.getValue()));
+        comboBoxPlayerSecondRole.setOnAction(actionEvent ->
+                manageTeamController.handlePlayerPropertyChanged(
+                        textFieldPlayerName.getText(),
+                        comboBoxPlayerFirstRole.getValue(),
+                        comboBoxPlayerSecondRole.getValue(),
+                        comboBoxPlayerThirdRole.getValue()));
+        comboBoxPlayerThirdRole.setOnAction(actionEvent ->
+                manageTeamController.handlePlayerPropertyChanged(
+                        textFieldPlayerName.getText(),
+                        comboBoxPlayerFirstRole.getValue(),
+                        comboBoxPlayerSecondRole.getValue(),
+                        comboBoxPlayerThirdRole.getValue()));
+
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Nessuno");
+        for(Role role: Role.values()){
+            observableList.add(role.toString());
+        }
+
+        comboBoxPlayerFirstRole.setItems(observableList);
+        comboBoxPlayerSecondRole.setItems(observableList);
+        comboBoxPlayerThirdRole.setItems(observableList);
+
+        comboBoxPlayerFirstRole.getSelectionModel().select(1);
+        comboBoxPlayerSecondRole.getSelectionModel().select(0);
+        comboBoxPlayerThirdRole.getSelectionModel().select(0);
     }
 
     private void initializeTeamTable() {
@@ -75,11 +147,31 @@ public class ManageTeamStage {
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);
     }
 
-    public void show(){
-        stage.show();
+    public void setTextFieldTeamName(String name) {
+        textFieldTeamName.setText(name);
+    }
+
+
+    public void setAddPlayerButtonAbility(boolean ability) {
+        buttonAddPlayer.setDisable(!ability);
     }
 
     public void loadPlayersInTable(Set<Player> players) {
         this.players.addAll(players);
+    }
+
+    public void addPlayerToTableView(Player player) {
+        players.add(player);
+    }
+
+    public int getPlayersSize(){
+        return players.size();
+    }
+
+    public void enableConfirmButton() {
+    }
+
+    public void show(){
+        stage.show();
     }
 }

@@ -1,5 +1,6 @@
 package com.spme.fantasolver.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Player {
@@ -10,6 +11,11 @@ public class Player {
     public Player(String name, Set<Role> roles){
         this.name = name;
         this.roles = roles;
+    }
+
+    public Player(String name){
+        this.name = name;
+        this.roles = new HashSet<>();
     }
 
     public String getName() {

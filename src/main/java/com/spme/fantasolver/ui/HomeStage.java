@@ -41,7 +41,8 @@ public class HomeStage {
         vBoxManageTeam = (VBox) fxmlLoader.getNamespace().get("vBoxManageTeam");
 
         buttonAddTeam = (Button) fxmlLoader.getNamespace().get("buttonAddTeam");
-        buttonAddTeam.setOnMouseClicked(mouseEvent -> homeController.handlePressedManageTeamButton());
+        buttonAddTeam.setOnAction(actionEvent -> homeController.handlePressedManageTeamButton());
+
     }
 
     public void setAddTeamScreenVisible() {

@@ -3,7 +3,7 @@ package com.spme.fantasolver.utility;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
+import java.util.*;
 
 public class Utility {
     private static Properties properties;
@@ -21,5 +21,10 @@ public class Utility {
 
     public static boolean checkStringValidity(String string, int minLength, int maxLength){
         return minLength <= string.length() && string.length() <= maxLength;
+    }
+
+    public static boolean areStringsDifferentFromEachOther(List<String> strings) {
+        Set<String> stringSet = new HashSet<>(strings);
+        return stringSet.size() == strings.size();
     }
 }
