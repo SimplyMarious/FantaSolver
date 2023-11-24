@@ -9,6 +9,7 @@ import com.spme.fantasolver.ui.SignInStage;
 import com.spme.fantasolver.ui.SignUpStage;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static com.spme.fantasolver.utility.Utility.checkStringValidity;
 
@@ -32,9 +33,9 @@ public class SignInController {
         try {
             signInStage.initializeStage();
         } catch (IOException e) {
-            System.err.println("Error in reading FXML file.");
-            e.printStackTrace();
-            System.exit(1);
+            Logger logger = Logger.getLogger("SignInController");
+            logger.info("Error in reading FXML file: " + e.getMessage());
+            throw new FXMLLoadException();
         }
     }
 

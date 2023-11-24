@@ -1,8 +1,10 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class DAOFactory {
 
@@ -23,7 +25,8 @@ public class DAOFactory {
                         teamDAO = new TeamDAOMySQL();
                 }
             } catch (IOException e) {
-                System.err.println("Error getting the DBMS value for TeamDAO: " + e.getMessage());
+                Logger logger = Logger.getLogger("DAOFactory");
+                logger.info("Error getting the DBMS value for TeamDAO: " + e.getMessage());
                 teamDAO = new TeamDAOMySQL();
             }
         }
@@ -44,8 +47,9 @@ public class DAOFactory {
                         userDAO = new UserDAOMySQL();
                 }
             } catch (IOException e) {
-                System.err.println("Error getting the DBMS value for TeamDAO: " + e.getMessage());
-                teamDAO = new TeamDAOMySQL();
+                Logger logger = Logger.getLogger("DAOFactory");
+                logger.info("Error getting the DBMS value for UserDAO: " + e.getMessage());
+                userDAO = new UserDAOMySQL();
             }
         }
         return userDAO;

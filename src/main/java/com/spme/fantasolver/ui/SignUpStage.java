@@ -14,16 +14,16 @@ import java.io.IOException;
 
 public class SignUpStage {
     private final SignUpController signUpController;
-    public TextField textFieldUsername;
-    public PasswordField fieldPassword;
-    public Button buttonSignup;
+    private TextField textFieldUsername;
+    private PasswordField fieldPassword;
+    private Button buttonSignup;
 
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
         signUpController.handleInitialization(this);
     }
 
-    public void initializeStage() throws IOException{
+    public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("signup-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 

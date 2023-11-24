@@ -1,6 +1,7 @@
 package com.spme.fantasolver.dao;
 
 import java.sql.*;
+import java.util.logging.Logger;
 
 public class UserDAOMySQL implements UserDAO{
 
@@ -9,7 +10,8 @@ public class UserDAOMySQL implements UserDAO{
         try {
             return trySignUp(username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("UserDAOMySQL");
+            logger.info("Error during the sign up: " + e.getMessage());
             return false;
         }
     }
@@ -19,7 +21,8 @@ public class UserDAOMySQL implements UserDAO{
         try {
             return trySignIn(username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("UserDAOMySQL");
+            logger.info("Error during the sign in: " + e.getMessage());
             return false;
         }
     }

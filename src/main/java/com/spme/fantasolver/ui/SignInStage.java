@@ -16,11 +16,11 @@ public class SignInStage {
 
     private final SignInController signInController;
 
-    public TextField textFieldUsername;
-    public PasswordField fieldPassword;
-    public Button buttonSignin;
-    public Button buttonSignup;
-    public Label labelSigninFailure;
+    private TextField textFieldUsername;
+    private PasswordField fieldPassword;
+    private Button buttonSignin;
+    private Button buttonSignup;
+    private Label labelSigninFailure;
 
     public SignInStage() {
         this.signInController = SignInController.getInstance();

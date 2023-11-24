@@ -3,6 +3,8 @@ import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.ui.SignUpStage;
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import static com.spme.fantasolver.utility.Utility.checkStringValidity;
 
 public class SignUpController {
@@ -23,9 +25,9 @@ public class SignUpController {
         try {
             signUpStage.initializeStage();
         } catch (IOException e) {
-            System.err.println("Error in reading FXML file.");
-            e.printStackTrace();
-            System.exit(1);
+            Logger logger = Logger.getLogger("SignUpController");
+            logger.info("Error in reading FXML file: " + e.getMessage());
+            throw new FXMLLoadException();
         }
     }
 
