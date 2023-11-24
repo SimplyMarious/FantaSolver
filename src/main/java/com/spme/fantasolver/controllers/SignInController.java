@@ -58,11 +58,11 @@ public class SignInController {
 
         if (usernameValidity && passwordValidity) {
             if (signInStage.isSignInDisable()) {
-                signInStage.enableSigninButton();
+                signInStage.enableSignInButton();
             }
         }
         else if (signInStage.isSignInEnable()) {
-           signInStage.disableSigninButton();
+           signInStage.disableSignInButton();
         }
     }
 

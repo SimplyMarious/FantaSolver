@@ -59,9 +59,9 @@ public class SignInStage {
         signInController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
     }
 
-    public void enableSigninButton() {buttonSignin.setDisable(false);}
+    public void enableSignInButton() {buttonSignin.setDisable(false);}
 
-    public void disableSigninButton() {buttonSignin.setDisable(true);}
+    public void disableSignInButton() {buttonSignin.setDisable(true);}
 
     public boolean isSignInEnable(){return !buttonSignin.isDisable();}
 
