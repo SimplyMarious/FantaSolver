@@ -7,7 +7,7 @@ import org.mockito.Mock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -45,4 +45,103 @@ public class UtilityUnitTest {
         verify(mockProperties, times(1)).load(mockFileInputStream);
         verify(mockProperties, times(1)).getProperty(key);
     }
+
+    @Test
+    public void testCheckStringValidityWithValidStringAndValidBoundaries() {
+        String string = "ValidString";
+        int minLength = 5;
+        int maxLength = 15;
+
+        assertTrue(Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithTooShortStringAndValidBoundaries() {
+        String string = "test";
+        int minLength = 5;
+        int maxLength = 15;
+
+        assertFalse(Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithTooLongStringAndValidBoundaries() {
+        String string = "testStringTooLong";
+        int minLength = 5;
+        int maxLength = 10;
+
+        assertFalse(Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNullStringAndValidBoundaries() {
+        String string = null;
+        int minLength = 5;
+        int maxLength = 15;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNullStringAndInvalidBoundaries() {
+        String string = null;
+        int minLength = 5;
+        int maxLength = 1;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithValidStringAndMinHigherThanMax() {
+        String string = "ValidString";
+        int minLength = 10;
+        int maxLength = 5;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNegativeMin() {
+        String string = "ValidString";
+        int minLength = -3;
+        int maxLength = 5;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNegativeMax() {
+        String string = "ValidString";
+        int minLength = 3;
+        int maxLength = -10;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNegativeBoundaries() {
+        String string = "ValidString";
+        int minLength = -3;
+        int maxLength = 5;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithEqualeBoundaries() {
+        String string = "ValidStrin";
+        int minLength = 10;
+        int maxLength = 10;
+
+        assertTrue(Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+
+
+
+
+
+
+
+
 }

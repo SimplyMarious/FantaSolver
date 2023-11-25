@@ -20,6 +20,9 @@ public class Utility {
     }
 
     public static boolean checkStringValidity(String string, int minLength, int maxLength){
+        if(string == null || minLength < 0 || maxLength < 0 || minLength > maxLength){
+            throw new IllegalArgumentException("Invalid argument");
+        }
         return minLength <= string.length() && string.length() <= maxLength;
     }
 
