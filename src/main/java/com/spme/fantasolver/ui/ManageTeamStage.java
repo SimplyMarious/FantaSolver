@@ -6,6 +6,7 @@ import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -62,6 +63,7 @@ public class ManageTeamStage {
         initializeTeamTable();
 
         buttonConfirm = (Button)fxmlLoader.getNamespace().get("buttonConfirm");
+        buttonConfirm.setDisable(true);
         buttonConfirm.setOnAction(actionEvent ->
                 manageTeamController.handlePressedConfirmButton());
 
@@ -70,7 +72,7 @@ public class ManageTeamStage {
     private void initializeTeamNameTextField() {
         textFieldTeamName = (TextField)fxmlLoader.getNamespace().get("textFieldTeamName");
         textFieldTeamName.setOnKeyTyped(keyEvent ->
-                manageTeamController.handleTextFieldTeamNameChanged(textFieldTeamName.getText()));
+                manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size()));
     }
 
     private void initializePlayerNameTextField() {
@@ -124,6 +126,18 @@ public class ManageTeamStage {
     private void initializeTeamTable() {
         tableViewPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewPlayers");
         players = FXCollections.observableArrayList();
+        players.addListener((ListChangeListener<? super Player>) change -> {
+//                    while (change.next()) {
+                        manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size());
+//                        if (change.wasAdded()) {
+//                            manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size()));
+//                        }
+//                        if (change.wasRemoved()) {
+//                            System.out.println("Elementi rimossi: " + change.getRemoved());
+//                        }
+//                        // Altri tipi di cambiamento possono essere gestiti qui...
+//                    }
+                });
         tableViewPlayers.setItems(players);
 
         TableColumn<Player, String> tableColumnPlayerName = (TableColumn<Player, String>)
@@ -146,6 +160,8 @@ public class ManageTeamStage {
 
         tableViewPlayers.getColumns().set(0, tableColumnPlayerName);
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);
+
+
     }
 
     public void setTextFieldTeamName(String name) {
@@ -173,11 +189,8 @@ public class ManageTeamStage {
         return players;
     }
 
-    public int getPlayersSize(){
-        return players.size();
-    }
-
-    public void enableConfirmButton() {
+    public void setConfirmButtonAbility(boolean ability) {
+        buttonConfirm.setDisable(!ability);
     }
 
     public void show(){

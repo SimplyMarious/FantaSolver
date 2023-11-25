@@ -8,9 +8,7 @@ import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 public class ManageTeamController {
@@ -50,12 +48,10 @@ public class ManageTeamController {
         manageTeamStage.show();
     }
 
-    public void handleTextFieldTeamNameChanged(String teamName) {
-        int playersSize = manageTeamStage.getPlayersSize();
-        if(Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
-            25 <= playersSize && playersSize <= 30){
-            manageTeamStage.enableConfirmButton();
-        }
+    public void handleTeamPropertyChanged(String teamName, int playersSize) {
+        manageTeamStage.setConfirmButtonAbility(
+                Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
+                2 <= playersSize && playersSize <= 30);
     }
 
     public void handlePlayerPropertyChanged(String playerName, String firstRole, String secondRole, String thirdRole) {
@@ -85,7 +81,6 @@ public class ManageTeamController {
             else{
                 manageTeamStage.highlightPlayerInTableView(player);
             }
-
         }
         catch (RoleException roleException){
             System.err.println("Ruoli non validi, riprovare!");
