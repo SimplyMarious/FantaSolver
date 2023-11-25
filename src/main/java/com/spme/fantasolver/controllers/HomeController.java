@@ -21,8 +21,7 @@ public class HomeController {
     private HomeStage homeStage;
     private boolean doesTeamExist;
 
-    public void handleInitialization(HomeStage homeStage, boolean doesTeamExist){
-        this.homeStage = homeStage;
+    public void handleInitialization(boolean doesTeamExist){
         this.doesTeamExist = doesTeamExist;
 
         try {
@@ -45,5 +44,9 @@ public class HomeController {
 
     public void handlePressedManageTeamButton() {
         new ManageTeamStage();
+    }
+
+    public void setHomeStage(HomeStage homeStage) {
+        this.homeStage = homeStage;
     }
 }

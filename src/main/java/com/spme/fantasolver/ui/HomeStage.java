@@ -21,7 +21,8 @@ public class HomeStage {
 
     public HomeStage(boolean doesTeamExist) {
         this.homeController = HomeController.getInstance();
-        homeController.handleInitialization(this, doesTeamExist);
+        homeController.setHomeStage(this);
+        homeController.handleInitialization(doesTeamExist);
     }
 
     public void initializeStage() throws IOException {

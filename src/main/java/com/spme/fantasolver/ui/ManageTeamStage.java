@@ -37,7 +37,8 @@ public class ManageTeamStage {
 
     public ManageTeamStage(){
         this.manageTeamController = ManageTeamController.getInstance();
-        manageTeamController.handleInitialization(this);
+        manageTeamController.setManageTeamStage(this);
+        manageTeamController.handleInitialization();
     }
 
     public void initializeStage() throws IOException {
@@ -126,18 +127,9 @@ public class ManageTeamStage {
     private void initializeTeamTable() {
         tableViewPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewPlayers");
         players = FXCollections.observableArrayList();
-        players.addListener((ListChangeListener<? super Player>) change -> {
-//                    while (change.next()) {
-                        manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size());
-//                        if (change.wasAdded()) {
-//                            manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size()));
-//                        }
-//                        if (change.wasRemoved()) {
-//                            System.out.println("Elementi rimossi: " + change.getRemoved());
-//                        }
-//                        // Altri tipi di cambiamento possono essere gestiti qui...
-//                    }
-                });
+        players.addListener((ListChangeListener<? super Player>) change ->
+                manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size())
+                );
         tableViewPlayers.setItems(players);
 
         TableColumn<Player, String> tableColumnPlayerName = (TableColumn<Player, String>)

@@ -23,13 +23,14 @@ public class HomeControllerUnitTest {
     public void setUp() {
         homeController = HomeController.getInstance();
         mockHomeStage = mock(HomeStage.class);
+        homeController.setHomeStage(mockHomeStage);
     }
 
     @Test
     public void testHandleInitializationWithExistingTeam() throws IOException {
         boolean doesTeamExist = true;
 
-        homeController.handleInitialization(mockHomeStage, doesTeamExist);
+        homeController.handleInitialization(doesTeamExist);
 
         verify(mockHomeStage, times(1)).initializeStage();
         verify(mockHomeStage, times(1)).setManageTeamScreenVisible();
@@ -41,7 +42,7 @@ public class HomeControllerUnitTest {
     public void testHandleInitializationWithNoExistingTeam() throws IOException {
         boolean doesTeamExist = false;
         
-        homeController.handleInitialization(mockHomeStage, doesTeamExist);
+        homeController.handleInitialization(doesTeamExist);
 
         verify(mockHomeStage, times(1)).initializeStage();
         verify(mockHomeStage, times(1)).setAddTeamScreenVisible();
@@ -59,8 +60,7 @@ public class HomeControllerUnitTest {
             loggerMockedStatic.when(() -> Logger.getLogger("HomeController")).thenReturn(mockedLogger);
             doNothing().when(mockedLogger).info(any(String.class));
 
-            assertThrows(FXMLLoadException.class, () -> homeController.handleInitialization(
-                                                                            mockHomeStage, doesTeamExist));
+            assertThrows(FXMLLoadException.class, () -> homeController.handleInitialization(doesTeamExist));
         }
     }
 }

@@ -26,10 +26,13 @@ public class ManageTeamController {
     private ManageTeamStage manageTeamStage;
     private static final short TEAM_NAME_MIN_LENGTH = 3;
     private static final short TEAM_NAME_MAX_LENGTH = 50;
+    private static final short TEAM_MIN_SIZE = 25;
+    private static final short TEAM_MAX_SIZE = 30;
     private static final short PLAYER_NAME_MIN_LENGTH = 2;
     private static final short PLAYER_NAME_MAX_LENGTH = 50;
-    public void handleInitialization(ManageTeamStage manageTeamStage) {
-        this.manageTeamStage = manageTeamStage;
+
+    public void handleInitialization() {
+//        this.manageTeamStage = manageTeamStage;
 
         try {
             manageTeamStage.initializeStage();
@@ -49,9 +52,14 @@ public class ManageTeamController {
     }
 
     public void handleTeamPropertyChanged(String teamName, int playersSize) {
-        manageTeamStage.setConfirmButtonAbility(
-                Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
-                2 <= playersSize && playersSize <= 30);
+        try{
+            manageTeamStage.setConfirmButtonAbility(
+                    Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
+                            TEAM_MIN_SIZE <= playersSize && playersSize <= TEAM_MAX_SIZE);
+        }
+        catch (IllegalArgumentException exception){
+            Logger.getLogger("ManageTeamController").info(exception.getMessage());
+        }
     }
 
     public void handlePlayerPropertyChanged(String playerName, String firstRole, String secondRole, String thirdRole) {
@@ -89,5 +97,9 @@ public class ManageTeamController {
 
     public void handlePressedConfirmButton() {
         //TODO:connect to database and save the team; should I pass as parameter Set<Player> players?
+    }
+
+    public void setManageTeamStage(ManageTeamStage manageTeamStage){
+        this.manageTeamStage = manageTeamStage;
     }
 }
