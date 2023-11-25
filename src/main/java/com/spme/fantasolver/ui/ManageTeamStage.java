@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ManageTeamStage {
@@ -162,6 +163,14 @@ public class ManageTeamStage {
 
     public void addPlayerToTableView(Player player) {
         players.add(player);
+    }
+
+    public void highlightPlayerInTableView(Player player){
+        tableViewPlayers.getSelectionModel().select(player);
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public int getPlayersSize(){

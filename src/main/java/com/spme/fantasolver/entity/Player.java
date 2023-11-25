@@ -1,6 +1,7 @@
 package com.spme.fantasolver.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Player {
@@ -39,4 +40,13 @@ public class Player {
             roles.add(role);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(name, player.name) && Objects.equals(roles, player.roles);
+    }
+
 }

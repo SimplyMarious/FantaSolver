@@ -65,8 +65,7 @@ public class ManageTeamController {
                 (secondRole.equals("Nessuno") && thirdRole.equals("Nessuno")) ||
                 Utility.areStringsDifferentFromEachOther(List.of(firstRole, secondRole, thirdRole));
 
-//        manageTeamStage.setAddPlayerButtonAbility(isPlayerNameValid && isFirstRoleValid && areSecondAndThirdRolesValid);
-        manageTeamStage.setAddPlayerButtonAbility(true);
+        manageTeamStage.setAddPlayerButtonAbility(isPlayerNameValid && isFirstRoleValid && areSecondAndThirdRolesValid);
     }
 
     public void handlePressedAddPlayerButton(String playerName, String firstRole, String secondRole, String thirdRole) {
@@ -80,7 +79,13 @@ public class ManageTeamController {
                 player.addRole(Role.valueOf(thirdRole));
             }
 
-            manageTeamStage.addPlayerToTableView(player);
+            if(!manageTeamStage.getPlayers().contains(player)){
+                manageTeamStage.addPlayerToTableView(player);
+            }
+            else{
+                manageTeamStage.highlightPlayerInTableView(player);
+            }
+
         }
         catch (RoleException roleException){
             System.err.println("Ruoli non validi, riprovare!");
