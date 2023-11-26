@@ -14,6 +14,9 @@ import static org.mockito.MockitoAnnotations.openMocks;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -136,12 +139,39 @@ public class UtilityUnitTest {
         assertTrue(Utility.checkStringValidity(string, minLength, maxLength));
     }
 
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithAllDifferentStrings() {
+        List<String> strings = List.of("one", "two", "three");
+        assertTrue(Utility.areStringsDifferentFromEachOther(strings));
+    }
 
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithAllEqualStrings() {
+        List<String> strings = List.of("one", "one", "one");
+        assertFalse(Utility.areStringsDifferentFromEachOther(strings));
+    }
 
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithEqualStringPair() {
+        List<String> strings = List.of("one", "two", "one");
+        assertFalse(Utility.areStringsDifferentFromEachOther(strings));
+    }
 
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithNullList() {
+        assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(null));
+    }
 
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithEmptyList() {
+        List<String> strings = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
+    }
 
-
-
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithOneString() {
+        List<String> strings = List.of("one");
+        assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
+    }
 
 }

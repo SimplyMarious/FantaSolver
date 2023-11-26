@@ -27,7 +27,12 @@ public class Utility {
     }
 
     public static boolean areStringsDifferentFromEachOther(List<String> strings) {
+        if(strings == null || strings.isEmpty() || strings.size() == 1){
+            throw new IllegalArgumentException();
+        }
         Set<String> stringSet = new HashSet<>(strings);
         return stringSet.size() == strings.size();
     }
+
+
 }
