@@ -14,6 +14,14 @@ public class TeamDAOMySQL implements TeamDAO {
         return null;
     }
 
+    @Override
+    public boolean updateTeam(Team team, User user) {
+        //TODO: insert players -> insert players' roles
+        // select team id from user -> (update team name || insert team -> update user's team)
+        // select team id from user -> insert player in team
+        return true;
+    }
+
     private Team stubTeam() {
         Set<Player> players = new HashSet<>() {{
             add(new Player("Iezzo", new HashSet<Role>() {{ add(Role.POR); }}));
@@ -41,8 +49,7 @@ public class TeamDAOMySQL implements TeamDAO {
             add(new Player("Gritti", new HashSet<Role>() {{ add(Role.POR); }}));
         }};
 
-        Team team = new Team("SSC Napoli");
-        team.setPlayers(players);
+        Team team = new Team("SSC Napoli", players);
         return team;
     }
 

@@ -6,8 +6,9 @@ public class Team {
     private String name;
     private Set<Player> players;
 
-    public Team(String name){
+    public Team(String name, Set<Player> players){
         this.name = name;
+        this.players = players;
     }
 
     public String getName() {
