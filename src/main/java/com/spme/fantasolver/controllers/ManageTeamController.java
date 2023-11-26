@@ -1,5 +1,6 @@
 package com.spme.fantasolver.controllers;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.RoleException;
@@ -32,8 +33,6 @@ public class ManageTeamController {
     private static final short PLAYER_NAME_MAX_LENGTH = 50;
 
     public void handleInitialization() {
-//        this.manageTeamStage = manageTeamStage;
-
         try {
             manageTeamStage.initializeStage();
         } catch (IOException e) {
@@ -74,14 +73,7 @@ public class ManageTeamController {
 
     public void handlePressedAddPlayerButton(String playerName, String firstRole, String secondRole, String thirdRole) {
         try{
-            Player player = new Player(playerName);
-            player.addRole(Role.valueOf(firstRole));
-            if(!secondRole.equals("Nessuno")){
-                player.addRole(Role.valueOf(secondRole));
-            }
-            if(!thirdRole.equals("Nessuno")){
-                player.addRole(Role.valueOf(thirdRole));
-            }
+            Player player = createPlayerFromInput(playerName, firstRole, secondRole, thirdRole);
 
             if(!manageTeamStage.getPlayers().contains(player)){
                 manageTeamStage.addPlayerToTableView(player);
@@ -90,9 +82,22 @@ public class ManageTeamController {
                 manageTeamStage.highlightPlayerInTableView(player);
             }
         }
-        catch (RoleException roleException){
-            System.err.println("Ruoli non validi, riprovare!");
+        catch (RoleException exception){
+            Logger.getLogger("ManageTeamController").info("Invalid roles: " + exception.getMessage());
         }
+    }
+
+    @Generated
+    private Player createPlayerFromInput(String playerName, String firstRole, String secondRole, String thirdRole) throws RoleException {
+        Player player = new Player(playerName);
+        player.addRole(Role.valueOf(firstRole));
+        if(!secondRole.equals("Nessuno")){
+            player.addRole(Role.valueOf(secondRole));
+        }
+        if(!thirdRole.equals("Nessuno")){
+            player.addRole(Role.valueOf(thirdRole));
+        }
+        return player;
     }
 
     public void handlePressedConfirmButton() {

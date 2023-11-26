@@ -14,11 +14,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+
+import java.lang.reflect.*;
+
 
 public class ManageTeamControllerUnitTest {
 
@@ -83,7 +87,7 @@ public class ManageTeamControllerUnitTest {
 
             manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage).setConfirmButtonAbility(true);
+            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(true);
         }
     }
 
@@ -99,7 +103,7 @@ public class ManageTeamControllerUnitTest {
 
             manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage).setConfirmButtonAbility(false);
+            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
         }
     }
 
@@ -115,7 +119,7 @@ public class ManageTeamControllerUnitTest {
 
             manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage).setConfirmButtonAbility(false);
+            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
         }
     }
 
@@ -131,7 +135,127 @@ public class ManageTeamControllerUnitTest {
 
             manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage).setConfirmButtonAbility(false);
+            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
+        }
+    }
+
+    @Test
+    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidRoles() {
+        String playerName = "John Doe";
+        String firstRole = "DS";
+        String secondRole = "DC";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                            thenReturn(true);
+            mockedUtility.when(() ->
+                            Utility.areStringsDifferentFromEachOther(any(List.class))).
+                            thenReturn(true);
+
+            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(true);
+        }
+    }
+
+    @Test
+    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidFirstRoleAndOneUnvaluedRole() {
+        String playerName = "John Doe";
+        String firstRole = "DC";
+        String secondRole = "Nessuno";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                    thenReturn(true);
+            mockedUtility.when(() ->
+                            Utility.areStringsDifferentFromEachOther(any(List.class))).
+                    thenReturn(true);
+
+            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(true);
+        }
+    }
+
+    @Test
+    public void testHandlePlayerPropertyChangedWithInvalidPlayerNameAndValidRoles() {
+        String playerName = "A";
+        String firstRole = "DS";
+        String secondRole = "DC";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                    thenReturn(false);
+            mockedUtility.when(() ->
+                            Utility.areStringsDifferentFromEachOther(any(List.class))).
+                    thenReturn(true);
+
+            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
+        }
+    }
+
+    @Test
+    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndInvalidFirstRole() {
+        String playerName = "John Doe";
+        String firstRole = "Nessuno";
+        String secondRole = "DC";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                    thenReturn(true);
+            mockedUtility.when(() ->
+                            Utility.areStringsDifferentFromEachOther(any(List.class))).
+                    thenReturn(true);
+
+            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
+        }
+    }
+
+    @Test
+    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndDuplicateRoles() {
+        String playerName = "John Doe";
+        String firstRole = "DC";
+        String secondRole = "DC";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                    thenReturn(true);
+            mockedUtility.when(() ->
+                            Utility.areStringsDifferentFromEachOther(any(List.class))).
+                    thenReturn(false);
+
+            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
+        }
+    }
+
+    @Test
+    public void testHandlePlayerPropertyChangedWithInvalidPlayerNameAndDuplicateRoles() {
+        String playerName = "A";
+        String firstRole = "DC";
+        String secondRole = "DC";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                    thenReturn(false);
+            mockedUtility.when(() ->
+                            Utility.areStringsDifferentFromEachOther(any(List.class))).
+                    thenReturn(false);
+
+            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
         }
     }
 }
