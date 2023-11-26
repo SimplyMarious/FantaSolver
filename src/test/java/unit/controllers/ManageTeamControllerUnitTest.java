@@ -41,8 +41,7 @@ public class ManageTeamControllerUnitTest {
     @Test
     public void testHandleInitializationWithExistingTeam() {
         Set<Player> players = Set.of(new Player("TestPlayer", Set.of(Role.POR, Role.DC)));
-        Team team = new Team("TestTeam");
-        team.setPlayers(players);
+        Team team = new Team("TestTeam", players);
         User user = new User("TestUser");
         user.setTeam(team);
         authenticationManager.signIn(user);
@@ -136,6 +135,23 @@ public class ManageTeamControllerUnitTest {
             manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
             verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
+        }
+    }
+
+    @Test
+    public void testHandleTeamPropertyChangedWithValidTeamAnd0PlayerSize() {
+        String teamName = "Te";
+        int playersSize = 0;
+
+        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
+            mockedUtility.when(() ->
+                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
+                    thenReturn(false);
+
+            manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
+
+            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
+            verify(mockManageTeamStage, times(1)).setRemovePlayerButtonAbility(false);
         }
     }
 

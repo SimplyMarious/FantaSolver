@@ -32,6 +32,7 @@ public class ManageTeamStage {
     private Button buttonAddPlayer;
     private TableView<Player> tableViewPlayers;
     private ObservableList<Player> players;
+    private Button buttonRemovePlayer;
     private Button buttonConfirm;
 
 
@@ -63,10 +64,18 @@ public class ManageTeamStage {
 
         initializeTeamTable();
 
+        buttonRemovePlayer = (Button)fxmlLoader.getNamespace().get("buttonRemovePlayer");
+        buttonRemovePlayer.setDisable(true);
+        buttonRemovePlayer.setOnAction(actionEvent ->
+                manageTeamController.handlePressedRemovePlayerButton(
+                        tableViewPlayers.getSelectionModel().getSelectedItem()));
+
         buttonConfirm = (Button)fxmlLoader.getNamespace().get("buttonConfirm");
         buttonConfirm.setDisable(true);
         buttonConfirm.setOnAction(actionEvent ->
-                manageTeamController.handlePressedConfirmButton());
+                manageTeamController.handlePressedConfirmButton(
+                        textFieldTeamName.getText(),
+                        players));
 
     }
 
@@ -153,6 +162,11 @@ public class ManageTeamStage {
         tableViewPlayers.getColumns().set(0, tableColumnPlayerName);
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);
 
+        tableViewPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if(newSelection != null){
+                manageTeamController.handleSelectedPlayerFromTableView();
+            }
+        });
 
     }
 
@@ -181,11 +195,24 @@ public class ManageTeamStage {
         return players;
     }
 
+    public void setRemovePlayerButtonAbility(boolean ability) {
+        buttonRemovePlayer.setDisable(!ability);
+        System.out.println("Setto a " + ability);
+    }
+
+    public void removePlayerFromTableView(Player player) {
+        players.remove(player);
+    }
+
     public void setConfirmButtonAbility(boolean ability) {
         buttonConfirm.setDisable(!ability);
     }
 
     public void show(){
         stage.show();
+    }
+
+    public void close() {
+        stage.close();
     }
 }

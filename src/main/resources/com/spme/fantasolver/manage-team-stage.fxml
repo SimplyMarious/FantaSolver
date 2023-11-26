@@ -21,7 +21,8 @@
           <TableColumn fx:id="tableColumnPlayerRoles" minWidth="9.20001220703125" prefWidth="104.00002441406252" text="Ruoli" />
         </columns>
       </TableView>
-      <TextField fx:id="textFieldPlayerName" layoutX="46.0" layoutY="286.0" prefHeight="26.0" prefWidth="176.0" promptText="Nome" />
+      <Button fx:id="buttonRemovePlayer" layoutX="346.0" layoutY="278.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="81.0" text="Rimuovi" />
+       <TextField fx:id="textFieldPlayerName" layoutX="46.0" layoutY="286.0" prefHeight="26.0" prefWidth="176.0" promptText="Nome" />
       <Button fx:id="buttonConfirm" layoutX="522.0" layoutY="532.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" text="Conferma" />
       <Label layoutX="44.0" layoutY="237.0" text="Inserisci un giocatore:">
          <font>

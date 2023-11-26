@@ -1,6 +1,7 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
+import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.RoleException;
@@ -9,6 +10,7 @@ import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -55,6 +57,9 @@ public class ManageTeamController {
             manageTeamStage.setConfirmButtonAbility(
                     Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
                             TEAM_MIN_SIZE <= playersSize && playersSize <= TEAM_MAX_SIZE);
+            if(playersSize == 0){
+                manageTeamStage.setRemovePlayerButtonAbility(false);
+            }
         }
         catch (IllegalArgumentException exception){
             Logger.getLogger("ManageTeamController").info(exception.getMessage());
@@ -100,11 +105,27 @@ public class ManageTeamController {
         return player;
     }
 
-    public void handlePressedConfirmButton() {
-        //TODO:connect to database and save the team; should I pass as parameter Set<Player> players?
+    public void handleSelectedPlayerFromTableView() {
+        manageTeamStage.setRemovePlayerButtonAbility(true);
+    }
+
+    public void handlePressedRemovePlayerButton(Player player) {
+        manageTeamStage.removePlayerFromTableView(player);
+    }
+
+
+    public void handlePressedConfirmButton(String teamName, List<Player> players) {
+        Team team = new Team(teamName, new HashSet<>(players));
+        boolean updateResult = DAOFactory.getTeamDAO().updateTeam(team, AuthenticationManager.getInstance().getUser());
+        if(updateResult){
+            AuthenticationManager.getInstance().getUser().setTeam(team);
+            manageTeamStage.close();
+        }
     }
 
     public void setManageTeamStage(ManageTeamStage manageTeamStage){
         this.manageTeamStage = manageTeamStage;
     }
+
+
 }
