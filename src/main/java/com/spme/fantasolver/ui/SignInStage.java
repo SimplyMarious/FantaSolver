@@ -18,8 +18,8 @@ public class SignInStage {
 
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
-    private Button buttonSignin;
-    private Button buttonSignup;
+    private Button buttonSignIn;
+    private Button buttonSignUp;
     private Label labelSigninFailure;
 
     public SignInStage() {
@@ -34,12 +34,12 @@ public class SignInStage {
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
         fieldPassword = (PasswordField) fxmlLoader.getNamespace().get("password");
-        buttonSignup = (Button) fxmlLoader.getNamespace().get("signup");
-        buttonSignin = (Button) fxmlLoader.getNamespace().get("signin");
+        buttonSignUp = (Button) fxmlLoader.getNamespace().get("signup");
+        buttonSignIn = (Button) fxmlLoader.getNamespace().get("signin");
         labelSigninFailure = (Label) fxmlLoader.getNamespace().get("signinFailure");
 
-        buttonSignup.setOnAction(e -> onPressedSignUpButton());
-        buttonSignin.setOnAction(e -> onPressedSignInButton());
+        buttonSignUp.setOnAction(e -> onPressedSignUpButton());
+        buttonSignIn.setOnAction(e -> onPressedSignInButton());
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
@@ -48,13 +48,13 @@ public class SignInStage {
         Application.getStage().show();
     }
 
-    public void enableSignInButton() {buttonSignin.setDisable(false);}
+    public void setSignInButtonAbility(boolean ability) {
+        buttonSignIn.setDisable(!ability);
+    }
 
-    public void disableSignInButton() {buttonSignin.setDisable(true);}
+    public boolean isSignInEnable(){return !buttonSignIn.isDisable();}
 
-    public boolean isSignInEnable(){return !buttonSignin.isDisable();}
-
-    public boolean isSignInDisable(){return buttonSignin.isDisable();}
+    public boolean isSignInDisable(){return buttonSignIn.isDisable();}
 
     public void showFailedSignInLabel() {labelSigninFailure.setVisible(true);}
 

@@ -44,11 +44,11 @@ public class SignUpController {
 
         if (usernameValidity && passwordValidity) {
             if (signUpStage.isSignUpDisable()) {
-                signUpStage.enableSignUpButton();
+                signUpStage.setSignUpButtonAbility(true);
             }
         }
         else if (signUpStage.isSignUpEnable()) {
-            signUpStage.disableSignUpButton();
+            signUpStage.setSignUpButtonAbility(false);
         }
     }
 

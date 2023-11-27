@@ -57,8 +57,10 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(validUsername, validPassword);
 
-        verify(mockedSignInStage, times(1)).enableSignInButton();
-        verify(mockedSignInStage, never()).disableSignInButton();
+//        verify(mockedSignInStage, times(1)).enableSignInButton();
+//        verify(mockedSignInStage, never()).disableSignInButton();
+        verify(mockedSignInStage, times(1)).setSignInButtonAbility(true);
+        verify(mockedSignInStage, never()).setSignInButtonAbility(false);
     }
 
     @Test
@@ -70,8 +72,8 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(validUsername, validPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, never()).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, never()).setSignInButtonAbility(false);
     }
 
     @Test
@@ -83,8 +85,8 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(invalidUsername, invalidPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, never()).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, never()).setSignInButtonAbility(false);
     }
 
     @Test
@@ -96,8 +98,8 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(invalidUsername, invalidPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, times(1)).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, times(1)).setSignInButtonAbility(false);
     }
 
     @Test
@@ -109,8 +111,8 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(invalidUsername, validPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, never()).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, never()).setSignInButtonAbility(false);
     }
 
     @Test
@@ -123,8 +125,8 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(invalidUsername, validPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, times(1)).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, times(1)).setSignInButtonAbility(false);
     }
 
     @Test
@@ -136,8 +138,8 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(validUsername, invalidPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, never()).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, never()).setSignInButtonAbility(false);
     }
 
     @Test
@@ -149,7 +151,7 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(validUsername, invalidPassword);
 
-        verify(mockedSignInStage, never()).enableSignInButton();
-        verify(mockedSignInStage, times(1)).disableSignInButton();
+        verify(mockedSignInStage, never()).setSignInButtonAbility(true);
+        verify(mockedSignInStage, times(1)).setSignInButtonAbility(false);
     }
 }

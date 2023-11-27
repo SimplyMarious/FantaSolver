@@ -16,7 +16,7 @@ public class SignUpStage {
     private final SignUpController signUpController;
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
-    private Button buttonSignup;
+    private Button buttonSignUp;
 
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
@@ -30,9 +30,9 @@ public class SignUpStage {
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
         fieldPassword = (PasswordField) fxmlLoader.getNamespace().get("password");
-        buttonSignup = (Button) fxmlLoader.getNamespace().get("signup");
+        buttonSignUp = (Button) fxmlLoader.getNamespace().get("signup");
 
-        buttonSignup.setOnAction(e -> onPressedSignUpButton());
+        buttonSignUp.setOnAction(e -> onPressedSignUpButton());
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
@@ -60,13 +60,18 @@ public class SignUpStage {
         alert.showAndWait();
     }
 
-    public boolean isSignUpDisable() {return buttonSignup.isDisable();}
+    public boolean isSignUpDisable() {return buttonSignUp.isDisable();}
 
-    public boolean isSignUpEnable() { return !buttonSignup.isDisable(); }
+    public boolean isSignUpEnable() { return !buttonSignUp.isDisable(); }
 
-    public void enableSignUpButton() {buttonSignup.setDisable(false);}
+    public void setSignUpButtonAbility(boolean ability) {
+        buttonSignUp.setDisable(!ability);
+    }
 
-    public void disableSignUpButton() { buttonSignup.setDisable(true); }
+    public void enableSignUpButton() {
+        buttonSignUp.setDisable(false);}
+
+    public void disableSignUpButton() { buttonSignUp.setDisable(true); }
 
     private void onFieldChanged() {
         signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());

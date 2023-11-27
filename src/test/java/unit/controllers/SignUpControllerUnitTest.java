@@ -88,8 +88,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(validUsername, validPassword);
 
-        verify(mockedSignUpStage, times(1)).enableSignUpButton();
-        verify(mockedSignUpStage, never()).disableSignUpButton();
+        verify(mockedSignUpStage, times(1)).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -101,8 +101,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(validUsername, validPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, never()).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -114,8 +114,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(invalidUsername, invalidPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, never()).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -127,8 +127,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(invalidUsername, invalidPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, times(1)).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, times(1)).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -140,8 +140,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(invalidUsername, validPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, never()).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -154,8 +154,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(invalidUsername, validPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, times(1)).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, times(1)).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -167,8 +167,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(validUsername, invalidPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, never()).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(false);
     }
 
     @Test
@@ -180,8 +180,8 @@ public class SignUpControllerUnitTest {
 
         signUpController.handleFieldChanged(validUsername, invalidPassword);
 
-        verify(mockedSignUpStage, never()).enableSignUpButton();
-        verify(mockedSignUpStage, times(1)).disableSignUpButton();
+        verify(mockedSignUpStage, never()).setSignUpButtonAbility(true);
+        verify(mockedSignUpStage, times(1)).setSignUpButtonAbility(false);
     }
 
 }
