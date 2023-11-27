@@ -11,7 +11,15 @@ import java.util.Set;
 public class TeamDAOMySQL implements TeamDAO {
     @Override
     public Team retrieveTeam(User user) {
-        return stubTeam();
+        return null;
+    }
+
+    @Override
+    public boolean updateTeam(Team team, User user) {
+        //TODO: insert players -> insert players' roles
+        // select team id from user -> (update team name || insert team -> update user's team)
+        // select team id from user -> insert player in team
+        return true;
     }
 
     private Team stubTeam() {
@@ -41,8 +49,7 @@ public class TeamDAOMySQL implements TeamDAO {
             add(new Player("Gritti", new HashSet<Role>() {{ add(Role.POR); }}));
         }};
 
-        Team team = new Team();
-        team.setPlayers(players);
+        Team team = new Team("SSC Napoli", players);
         return team;
     }
 

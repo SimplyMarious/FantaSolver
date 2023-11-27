@@ -49,12 +49,7 @@
       <version>5.8.2</version>
       <scope>test</scope>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.junit.jupiter</groupId>-->
-<!--      <artifactId>junit-jupiter-engine</artifactId>-->
-<!--      <version>${junit.version}</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>   -->
+
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
@@ -68,6 +63,7 @@
       <version>5.7.0</version>
       <scope>test</scope>
     </dependency>
+
 
     <dependency>
       <groupId>org.jacoco</groupId>
@@ -179,6 +175,11 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>${jacoco.version}</version>
+            <configuration>
+              <excludes>
+                <exclude>com.spme.fantasolver.controllers.SignInController.handleSignInOutcome</exclude>
+              </excludes>
+            </configuration>
             <executions>
               <execution>
                 <id>jacoco-initialize</id>

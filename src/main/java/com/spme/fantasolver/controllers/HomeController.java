@@ -1,8 +1,10 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.ui.HomeStage;
+import com.spme.fantasolver.ui.ManageTeamStage;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class HomeController {
 
@@ -19,17 +21,32 @@ public class HomeController {
     private HomeStage homeStage;
     private boolean doesTeamExist;
 
-    public void handleInitialization(HomeStage homeStage, boolean doesTeamExist){
-        this.homeStage = homeStage;
+    public void handleInitialization(boolean doesTeamExist){
         this.doesTeamExist = doesTeamExist;
 
         try {
             homeStage.initializeStage();
         } catch (IOException e) {
-            System.err.println("Error in reading FXML file.");
-            e.printStackTrace();
-            System.exit(1);
+            Logger logger = Logger.getLogger("HomeController");
+            logger.info("Error in reading FXML file: " + e.getMessage());
+            throw new FXMLLoadException();
         }
+
+        if(doesTeamExist){
+            homeStage.setManageTeamScreenVisible();
+        }
+        else {
+            homeStage.setAddTeamScreenVisible();
+        }
+
+        homeStage.show();
     }
 
+    public void handlePressedManageTeamButton() {
+        new ManageTeamStage();
+    }
+
+    public void setHomeStage(HomeStage homeStage) {
+        this.homeStage = homeStage;
+    }
 }

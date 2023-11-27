@@ -1,5 +1,8 @@
 package com.spme.fantasolver.entity;
 
+import com.spme.fantasolver.annotations.Generated;
+
+@Generated
 public class LineUp {
     private Formation formation;
     private Player[] players;

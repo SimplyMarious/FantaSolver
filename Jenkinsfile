@@ -18,45 +18,52 @@ pipeline {
 
     agent any
     stages {
-       stage('Cloning repository') {
-           steps{
-               checkout scm
-           }
-       }
+        stage('Cloning repository') {
+            steps{
+                checkout scm
+            }
+        }
 
-       stage('Compiling'){
+        stage('Compiling'){
             steps{
                 sh 'mvn clean compile'
             }
-       }
+        }
 
-       stage('Testing'){
-            steps{
-                sh 'mvn integration-test'
-            }
+        stage('Testing'){
+             steps{
+                 sh 'mvn integration-test'
+             }
 
-            post{
-                always{
-                    junit '**/target/surefire-reports/TEST-*.xml'
+             post{
+                 always{
+                     junit '**/target/surefire-reports/TEST-*.xml'
+                 }
+             }
+        }
+
+        stage('SonarQube analyzing') {
+            steps {
+                script {
+                    withSonarQubeEnv() {
+                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
+                    }
                 }
             }
-       }
+        }
+        stage('Checking Quality Gates') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
-       stage('SonarQube analyzing') {
-           steps {
-               script {
-                   withSonarQubeEnv() {
-                       sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
-                   }
-               }
-           }
-       }
-
-       stage('Packaging') {
-           steps {
-               sh 'mvn clean package'
-           }
-       }
+        stage('Packaging') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
 
         stage('Delivering to staging area') {
             steps {

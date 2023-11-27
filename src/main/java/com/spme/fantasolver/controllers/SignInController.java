@@ -4,6 +4,7 @@ import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.SignInStage;
 import com.spme.fantasolver.ui.SignUpStage;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static com.spme.fantasolver.utility.Utility.checkStringValidity;
+
 
 public class SignInController {
 
@@ -88,5 +90,4 @@ public class SignInController {
             signInStage.showFailedSignInLabel();
         }
     }
-
 }

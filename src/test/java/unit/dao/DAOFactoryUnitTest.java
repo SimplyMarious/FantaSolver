@@ -7,13 +7,13 @@ import com.spme.fantasolver.dao.*;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.mockStatic;
 
 public class DAOFactoryUnitTest {
 
     @Test
     public void testGetTeamDAOWithMySQLAsTeamDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
+        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("MySQL");
 
             TeamDAO result = DAOFactory.getTeamDAO();
@@ -24,7 +24,7 @@ public class DAOFactoryUnitTest {
 
     @Test
     public void testGetTeamDAOWithAnyOtherStringAsTeamDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
+        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("SomeDBMS");
 
             TeamDAO result = DAOFactory.getTeamDAO();
@@ -35,7 +35,7 @@ public class DAOFactoryUnitTest {
 
     @Test
     public void testGetUserDAOWithMySQLAsUserDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
+        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("MySQL");
 
             UserDAO result = DAOFactory.getUserDAO();
@@ -46,7 +46,7 @@ public class DAOFactoryUnitTest {
 
     @Test
     public void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = Mockito.mockStatic(Utility.class)) {
+        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("SomeDBMS");
 
             UserDAO result = DAOFactory.getUserDAO();

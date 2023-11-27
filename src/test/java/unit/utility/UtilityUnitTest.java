@@ -14,6 +14,9 @@ import static org.mockito.MockitoAnnotations.openMocks;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -31,80 +34,144 @@ public class UtilityUnitTest {
         Utility.setPropertiesReadingTools(mockProperties, mockFileInputStream);
     }
 
+
     @Test
     public void testGetValueFromPropertiesWithRightKeyAndValue() throws IOException {
-        // Arrange
         String key = "testKey";
         String expectedValue = "testValue";
 
-        // Stubbing: When properties.load() is called, return null (you can change this based on your specific needs)
         doNothing().when(mockProperties).load(mockFileInputStream);
-
-        // Stubbing: When properties.getProperty(key) is called, return the expected value
         when(mockProperties.getProperty(key)).thenReturn(expectedValue);
 
-        // Assert
         assertThat(Utility.getValueFromProperties(key), is(expectedValue));
 
-        // Verify that properties.load() is called once with the provided FileInputStream
         verify(mockProperties, times(1)).load(mockFileInputStream);
-
-        // Verify that properties.getProperty(key) is called once with the provided key
         verify(mockProperties, times(1)).getProperty(key);
     }
 
+
     @Test
-    public void testCheckStringValidityWithValidString() {
-        String validString = "abcdef";
-        int minLength = 1;
-        int maxLength = 10;
+    public void testCheckStringValidityWithValidStringAndValidBoundaries() {
+        String string = "ValidString";
+        int minLength = 5;
+        int maxLength = 15;
 
-        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
-
-        assertTrue(result);
+        assertTrue(Utility.checkStringValidity(string, minLength, maxLength));
     }
 
     @Test
-    public void testCheckStringValidityWithInvalidStringLength() {
-        String invalidString = "abc";
+    public void testCheckStringValidityWithTooShortStringAndValidBoundaries() {
+        String string = "test";
         int minLength = 5;
-        int maxLength = 10;
+        int maxLength = 15;
 
-        boolean result = Utility.checkStringValidity(invalidString, minLength, maxLength);
-
-        assertFalse(result);
+        assertFalse(Utility.checkStringValidity(string, minLength, maxLength));
     }
 
     @Test
-    public void testCheckStringWithStringWithExactLength() {
-        String validString = "12345";
+    public void testCheckStringValidityWithTooLongStringAndValidBoundaries() {
+        String string = "testStringTooLong";
         int minLength = 5;
+        int maxLength = 10;
+
+        assertFalse(Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNullStringAndValidBoundaries() {
+        String string = null;
+        int minLength = 5;
+        int maxLength = 15;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNullStringAndInvalidBoundaries() {
+        String string = null;
+        int minLength = 5;
+        int maxLength = 1;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithValidStringAndMinHigherThanMax() {
+        String string = "ValidString";
+        int minLength = 10;
         int maxLength = 5;
 
-        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
-
-        assertTrue(result);
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
     }
 
     @Test
-    public void testCheckStringWithNegativeMinLength() {
-        String validString = "abc";
-        int minLength = -1;
+    public void testCheckStringValidityWithNegativeMin() {
+        String string = "ValidString";
+        int minLength = -3;
+        int maxLength = 5;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNegativeMax() {
+        String string = "ValidString";
+        int minLength = 3;
+        int maxLength = -10;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithNegativeBoundaries() {
+        String string = "ValidString";
+        int minLength = -3;
+        int maxLength = 5;
+
+        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    }
+
+    @Test
+    public void testCheckStringValidityWithEqualeBoundaries() {
+        String string = "ValidStrin";
+        int minLength = 10;
         int maxLength = 10;
 
-        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
-
-        assertFalse(result);
+        assertTrue(Utility.checkStringValidity(string, minLength, maxLength));
     }
 
     @Test
-    public void testCheckStringWithMinLengthGreaterThanMaxLength() {
-        String validString = "abc";
-        int minLength = 5;
-        int maxLength = 3;
-
-        boolean result = Utility.checkStringValidity(validString, minLength, maxLength);
-
-        assertFalse(result);
+    public void testAreStringsDifferentFromEachOtherWithAllDifferentStrings() {
+        List<String> strings = List.of("one", "two", "three");
+        assertTrue(Utility.areStringsDifferentFromEachOther(strings));
     }
+
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithAllEqualStrings() {
+        List<String> strings = List.of("one", "one", "one");
+        assertFalse(Utility.areStringsDifferentFromEachOther(strings));
+    }
+
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithEqualStringPair() {
+        List<String> strings = List.of("one", "two", "one");
+        assertFalse(Utility.areStringsDifferentFromEachOther(strings));
+    }
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithNullList() {
+        assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(null));
+    }
+
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithEmptyList() {
+        List<String> strings = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
+    }
+
+    @Test
+    public void testAreStringsDifferentFromEachOtherWithOneString() {
+        List<String> strings = List.of("one");
+        assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
+    }
+
 }

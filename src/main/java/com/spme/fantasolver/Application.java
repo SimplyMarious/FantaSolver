@@ -3,13 +3,12 @@ package com.spme.fantasolver;
 import com.spme.fantasolver.ui.SignInStage;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     private static Stage stage;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage){
         setStage(stage);
         new SignInStage();
 
