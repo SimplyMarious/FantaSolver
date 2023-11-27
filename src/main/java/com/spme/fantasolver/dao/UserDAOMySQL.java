@@ -28,7 +28,7 @@ public class UserDAOMySQL implements UserDAO{
     }
 
     public boolean isUserExist(String username) throws SQLException {
-        Connection connection = DataRetriever.connectToDatabase();
+        Connection connection = MySQLConnectionManager.connectToDatabase();
         String searchUser = "SELECT * FROM user WHERE name = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchUser)) {
@@ -43,7 +43,7 @@ public class UserDAOMySQL implements UserDAO{
     private boolean trySignUp(String username, String password) throws SQLException {
         if (isUserExist(username)) return false;
 
-        Connection connection = DataRetriever.connectToDatabase();
+        Connection connection = MySQLConnectionManager.connectToDatabase();
         String insertQuery = "INSERT INTO user (name, password) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, username);
@@ -56,7 +56,7 @@ public class UserDAOMySQL implements UserDAO{
     }
 
     private boolean trySignIn(String username, String password) throws SQLException {
-        Connection connection = DataRetriever.connectToDatabase();
+        Connection connection = MySQLConnectionManager.connectToDatabase();
         String insertQuery = "SELECT * FROM user WHERE name = ? AND password = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {

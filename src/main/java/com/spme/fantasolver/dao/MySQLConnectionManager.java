@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class DataRetriever {
+public class MySQLConnectionManager {
     private Connection mySqlConnection;
 
     public void retrieveData() {

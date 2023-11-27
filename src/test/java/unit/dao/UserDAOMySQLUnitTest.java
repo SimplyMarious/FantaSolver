@@ -1,6 +1,6 @@
 package unit.dao;
 
-import com.spme.fantasolver.dao.DataRetriever;
+import com.spme.fantasolver.dao.MySQLConnectionManager;
 import com.spme.fantasolver.dao.UserDAOMySQL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ public class UserDAOMySQLUnitTest {
 
     private String username;
     private String password;
-    private MockedStatic<DataRetriever> dataRetrieverMock;
+    private MockedStatic<MySQLConnectionManager> dataRetrieverMock;
     private Connection mockedConnection;
     private PreparedStatement mockedPreparedStatement;
     private ResultSet mockedResultSet;
@@ -29,7 +29,7 @@ public class UserDAOMySQLUnitTest {
     public void setUp() {
         username = "testUser";
         password = "testPassword";
-        dataRetrieverMock = mockStatic(DataRetriever.class);
+        dataRetrieverMock = mockStatic(MySQLConnectionManager.class);
         mockedConnection = mock(Connection.class);
         mockedPreparedStatement = mock(PreparedStatement.class);
         mockedResultSet = mock(ResultSet.class);
@@ -51,7 +51,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignUpWithUserNotInDatabase() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
 
@@ -70,7 +70,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignUpWithUserInDatabase() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mock(Connection.class));
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mock(Connection.class));
             UserDAOMySQL mockedUserDAOMySQL = spy(new UserDAOMySQL());
             doReturn(true).when(mockedUserDAOMySQL).isUserExist(username);
 
@@ -86,7 +86,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignUpWithPreparedStatementException() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
             boolean result = userDAOMySQL.signUp(username, password);
@@ -101,7 +101,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignUpWithExecuteUpdateException() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeUpdate()).thenThrow(new SQLException());
@@ -118,7 +118,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignUpWithSetStringException() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             doThrow(new SQLException()).when(mockedPreparedStatement).setString(eq(1), anyString());
 
@@ -134,7 +134,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignInWithUserInDatabase() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedResultSet.next()).thenReturn(true);
@@ -153,7 +153,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignInWithUserNotInDatabase() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedResultSet.next()).thenReturn(false);
@@ -172,7 +172,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignInWithPreparedStatementException() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
             boolean result = userDAOMySQL.signIn(username, password);
@@ -187,7 +187,7 @@ public class UserDAOMySQLUnitTest {
     @Test
     public void testSignInWithExecuteUpdateException() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             when(mockedPreparedStatement.executeUpdate()).thenThrow(new SQLException());
@@ -202,9 +202,9 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithSetStringException() {
+    public void testSignInWithhSetStringException() {
         try {
-            dataRetrieverMock.when(DataRetriever::connectToDatabase).thenReturn(mockedConnection);
+            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
             doThrow(new SQLException()).when(mockedPreparedStatement).setString(eq(1), anyString());
 
