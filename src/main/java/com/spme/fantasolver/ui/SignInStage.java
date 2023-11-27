@@ -1,6 +1,7 @@
 package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.Application;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.SignInController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -60,14 +61,17 @@ public class SignInStage {
 
     public String getUsername() {return textFieldUsername.getText();}
 
+    @Generated
     private void onPressedSignUpButton() {
         signInController.handlePressedSignUpButton();
     }
 
+    @Generated
     private void onPressedSignInButton() {
         signInController.handlePressedSignInButton(textFieldUsername.getText(), fieldPassword.getText());
     }
 
+    @Generated
     private void onFieldChanged() {
         signInController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
     }

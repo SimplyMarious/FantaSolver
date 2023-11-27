@@ -1,6 +1,7 @@
 package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.Application;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -68,10 +69,12 @@ public class SignUpStage {
         buttonSignUp.setDisable(!ability);
     }
 
+    @Generated
     private void onFieldChanged() {
         signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
     }
 
+    @Generated
     private void onPressedSignUpButton() {
         signUpController.handlePressedSignUpButton(textFieldUsername.getText(), fieldPassword.getText());
     }

@@ -1,5 +1,7 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.annotations.Generated;
+
 import java.sql.*;
 import java.util.logging.Logger;
 
@@ -40,6 +42,7 @@ public class UserDAOMySQL implements UserDAO{
         }
     }
 
+    @Generated
     private boolean trySignUp(String username, String password) throws SQLException {
         if (isUserExist(username)) return false;
 
@@ -55,6 +58,7 @@ public class UserDAOMySQL implements UserDAO{
         return true;
     }
 
+    @Generated
     private boolean trySignIn(String username, String password) throws SQLException {
         Connection connection = MySQLConnectionManager.connectToDatabase();
         String insertQuery = "SELECT * FROM user WHERE name = ? AND password = ?";

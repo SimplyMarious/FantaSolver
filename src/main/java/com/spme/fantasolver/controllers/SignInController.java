@@ -1,5 +1,6 @@
 package com.spme.fantasolver.controllers;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.entity.Team;
@@ -19,6 +20,7 @@ public class SignInController {
     private static SignInController signInController = null;
     private SignInStage signInStage;
 
+    @Generated
     private SignInController(){}
 
     public static SignInController getInstance(){
@@ -69,6 +71,7 @@ public class SignInController {
         }
     }
 
+    @Generated
     private void handleSignInOutcome(boolean signInOutcome){
         if(signInOutcome){
             User user = new User(signInStage.getUsername());

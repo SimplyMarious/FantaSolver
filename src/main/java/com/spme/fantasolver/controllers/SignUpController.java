@@ -1,4 +1,5 @@
 package com.spme.fantasolver.controllers;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.ui.SignUpStage;
@@ -11,6 +12,8 @@ public class SignUpController {
 
     private static SignUpController signUpController = null;
     private SignUpStage signUpStage = null;
+
+    @Generated
     private SignUpController(){}
 
     public static SignUpController getInstance(){

@@ -32,6 +32,4 @@ public class Utility {
         Set<String> stringSet = new HashSet<>(strings);
         return stringSet.size() == strings.size();
     }
-
-
 }
