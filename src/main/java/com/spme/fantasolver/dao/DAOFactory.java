@@ -11,6 +11,8 @@ public class DAOFactory {
     private static TeamDAO teamDAO;
     private static UserDAO userDAO;
 
+    private DAOFactory() {}
+
     public static TeamDAO getTeamDAO(){
         if(teamDAO == null){
             String teamDAOSource;
