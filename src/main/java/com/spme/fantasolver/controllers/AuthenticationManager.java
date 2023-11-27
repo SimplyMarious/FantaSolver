@@ -20,6 +20,10 @@ public class AuthenticationManager {
         this.user = user;
     }
 
+    public void signOut(){
+        this.user = null;
+    }
+
     public User getUser(){
         return user;
     }
