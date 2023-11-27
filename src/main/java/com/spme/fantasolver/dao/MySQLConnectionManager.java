@@ -2,14 +2,12 @@ package com.spme.fantasolver.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.logging.Logger;
 
 
 public class MySQLConnectionManager {
-    private Connection mySqlConnection;
 
-    public void retrieveData() {
-        this.mySqlConnection = connectToDatabase();
-    }
+    private MySQLConnectionManager() {}
 
     public static Connection connectToDatabase(){
         Connection connection = null;
@@ -19,8 +17,8 @@ public class MySQLConnectionManager {
                     "jdbc:mysql://localhost:3306/fantasolver?characterEncoding=utf8","root","root");
         }
         catch (Exception e){
-            System.out.println("Error during connection to database: " + e.getMessage());
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("MySQLConnectionManager");
+            logger.info("Error while connection to database: " + e.getMessage());
             System.exit(0);
         }
 

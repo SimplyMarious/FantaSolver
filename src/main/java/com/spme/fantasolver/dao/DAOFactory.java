@@ -1,8 +1,6 @@
 package com.spme.fantasolver.dao;
 
-import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.utility.Utility;
-
 import java.io.IOException;
 import java.util.logging.Logger;
 
