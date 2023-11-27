@@ -1,5 +1,6 @@
 package unit.controllers;
 
+import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.SignUpController;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
@@ -8,6 +9,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -36,6 +41,36 @@ public class SignUpControllerUnitTest {
     public void testGetInstance() {
         assertNotNull(signUpController);
         assertSame(signUpController, SignUpController.getInstance());
+    }
+
+    @Test
+    public void testHandleInitializationWithNotNullSignInStage() throws IOException {
+        doNothing().when(mockedSignUpStage).initializeStage();
+
+        signUpController.handleInitialization();
+
+        verify(mockedSignUpStage, times(1)).initializeStage();
+    }
+
+    @Test
+    public void testHandleInitializationWithNullSignInStage() throws IOException {
+        doNothing().when(mockedSignUpStage).initializeStage();
+        signUpController.setSignUpStage(null);
+
+        assertThrows(NullPointerException.class,  () -> signUpController.handleInitialization());
+    }
+
+    @Test
+    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+        doThrow(new IOException()).when(mockedSignUpStage).initializeStage();
+
+        try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
+            Logger mockedLogger = mock(Logger.class);
+            loggerMockedStatic.when(() -> Logger.getLogger("SignUpController")).thenReturn(mockedLogger);
+            doNothing().when(mockedLogger).info(any(String.class));
+
+            assertThrows(FXMLLoadException.class, () -> signUpController.handleInitialization());
+        }
     }
 
     @Test
