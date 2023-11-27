@@ -18,6 +18,7 @@ public class SignUpStage {
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
     private Button buttonSignUp;
+    private Stage stage;
 
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
@@ -38,10 +39,10 @@ public class SignUpStage {
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
-        Stage signUpStage = new Stage();
-        signUpStage.setTitle("FantaSolver - SignUp");
-        signUpStage.setScene(scene);
-        signUpStage.show();
+        stage = new Stage();
+        stage.setTitle("FantaSolver - SignUp");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Generated
@@ -52,6 +53,7 @@ public class SignUpStage {
         alert.setContentText("Operazione completata con successo!");
 
         alert.showAndWait();
+        stage.close();
     }
 
     @Generated
