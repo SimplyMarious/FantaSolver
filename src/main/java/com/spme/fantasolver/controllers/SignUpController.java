@@ -43,11 +43,11 @@ public class SignUpController {
         boolean passwordValidity = checkStringValidity(password, minLength, maxLength);
 
         if (usernameValidity && passwordValidity) {
-            if (signUpStage.isSignUpDisable()) {
+            if (signUpStage.isSignUpDisabled()) {
                 signUpStage.setSignUpButtonAbility(true);
             }
         }
-        else if (signUpStage.isSignUpEnable()) {
+        else if (signUpStage.isSignUpEnabled()) {
             signUpStage.setSignUpButtonAbility(false);
         }
     }

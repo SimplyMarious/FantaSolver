@@ -52,9 +52,9 @@ public class SignInStage {
         buttonSignIn.setDisable(!ability);
     }
 
-    public boolean isSignInEnable(){return !buttonSignIn.isDisable();}
+    public boolean isSignInEnabled(){return !buttonSignIn.isDisable();}
 
-    public boolean isSignInDisable(){return buttonSignIn.isDisable();}
+    public boolean isSignInDisabled(){return buttonSignIn.isDisable();}
 
     public void showFailedSignInLabel() {labelSigninFailure.setVisible(true);}
 

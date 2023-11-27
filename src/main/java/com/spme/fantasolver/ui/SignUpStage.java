@@ -60,9 +60,9 @@ public class SignUpStage {
         alert.showAndWait();
     }
 
-    public boolean isSignUpDisable() {return buttonSignUp.isDisable();}
+    public boolean isSignUpDisabled() {return buttonSignUp.isDisable();}
 
-    public boolean isSignUpEnable() { return !buttonSignUp.isDisable(); }
+    public boolean isSignUpEnabled() { return !buttonSignUp.isDisable(); }
 
     public void setSignUpButtonAbility(boolean ability) {
         buttonSignUp.setDisable(!ability);

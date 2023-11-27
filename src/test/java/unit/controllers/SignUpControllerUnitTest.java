@@ -1,6 +1,5 @@
 package unit.controllers;
 
-import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.SignUpController;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -83,8 +81,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithValidFieldsAndDisabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(false);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(true);
 
         signUpController.handleFieldChanged(validUsername, validPassword);
 
@@ -96,8 +94,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithValidFieldsAndEnabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(true);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(false);
 
         signUpController.handleFieldChanged(validUsername, validPassword);
 
@@ -109,8 +107,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithInvalidFieldsAndDisabledButton() {
         String invalidUsername = "inv";
         String invalidPassword = "inv";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(false);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(true);
 
         signUpController.handleFieldChanged(invalidUsername, invalidPassword);
 
@@ -122,8 +120,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithInvalidFieldsAndEnabledButton() {
         String invalidUsername = "inv";
         String invalidPassword = "inv";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(true);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(false);
 
         signUpController.handleFieldChanged(invalidUsername, invalidPassword);
 
@@ -135,8 +133,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithInvalidUsernameAndDisabledButton() {
         String invalidUsername = "inv";
         String validPassword = "validPassword";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(false);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(true);
 
         signUpController.handleFieldChanged(invalidUsername, validPassword);
 
@@ -148,8 +146,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithInvalidUsernameAndEnabledButton() {
         String invalidUsername = "inv";
         String validPassword = "validPassword";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(true);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(false);
 
 
         signUpController.handleFieldChanged(invalidUsername, validPassword);
@@ -162,8 +160,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithInvalidPasswordAndDisabledButton() {
         String validUsername = "validUsername";
         String invalidPassword = "inv";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(false);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(true);
 
         signUpController.handleFieldChanged(validUsername, invalidPassword);
 
@@ -175,8 +173,8 @@ public class SignUpControllerUnitTest {
     public void testHandleFieldChangedWithInvalidPasswordAndEnabledButton() {
         String validUsername = "validUsername";
         String invalidPassword = "inv";
-        when(mockedSignUpStage.isSignUpEnable()).thenReturn(true);
-        when(mockedSignUpStage.isSignUpDisable()).thenReturn(false);
+        when(mockedSignUpStage.isSignUpEnabled()).thenReturn(true);
+        when(mockedSignUpStage.isSignUpDisabled()).thenReturn(false);
 
         signUpController.handleFieldChanged(validUsername, invalidPassword);
 

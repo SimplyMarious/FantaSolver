@@ -4,7 +4,6 @@ import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
-import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.SignInStage;
 import com.spme.fantasolver.ui.SignUpStage;
@@ -63,11 +62,11 @@ public class SignInController {
         boolean passwordValidity = checkStringValidity(password, minLength, maxLength);
 
         if (usernameValidity && passwordValidity) {
-            if (signInStage.isSignInDisable()) {
+            if (signInStage.isSignInDisabled()) {
                 signInStage.setSignInButtonAbility(true);
             }
         }
-        else if (signInStage.isSignInEnable()) {
+        else if (signInStage.isSignInEnabled()) {
            signInStage.setSignInButtonAbility(false);
         }
     }
