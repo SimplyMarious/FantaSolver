@@ -2,11 +2,11 @@ package com.spme.fantasolver.entity;
 
 import com.spme.fantasolver.annotations.Generated;
 
+@Generated
 public class User {
     private String username;
     private Team team;
 
-    @Generated
     public User(String username) {
         this.username = username;
     }
