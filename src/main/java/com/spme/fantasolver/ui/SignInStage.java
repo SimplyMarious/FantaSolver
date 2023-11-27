@@ -29,6 +29,7 @@ public class SignInStage {
         signInController.handleInitialization();
     }
 
+    @Generated
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("signin-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -49,16 +50,21 @@ public class SignInStage {
         Application.getStage().show();
     }
 
+    @Generated
     public void setSignInButtonAbility(boolean ability) {
         buttonSignIn.setDisable(!ability);
     }
 
+    @Generated
     public boolean isSignInEnabled(){return !buttonSignIn.isDisable();}
 
+    @Generated
     public boolean isSignInDisabled(){return buttonSignIn.isDisable();}
 
+    @Generated
     public void showFailedSignInLabel() {labelSigninFailure.setVisible(true);}
 
+    @Generated
     public String getUsername() {return textFieldUsername.getText();}
 
     @Generated
