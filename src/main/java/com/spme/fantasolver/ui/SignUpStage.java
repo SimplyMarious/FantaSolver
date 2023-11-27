@@ -25,6 +25,7 @@ public class SignUpStage {
         signUpController.handleInitialization();
     }
 
+    @Generated
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("signup-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -61,10 +62,13 @@ public class SignUpStage {
         alert.showAndWait();
     }
 
+    @Generated
     public boolean isSignUpDisabled() {return buttonSignUp.isDisable();}
 
+    @Generated
     public boolean isSignUpEnabled() { return !buttonSignUp.isDisable(); }
 
+    @Generated
     public void setSignUpButtonAbility(boolean ability) {
         buttonSignUp.setDisable(!ability);
     }
