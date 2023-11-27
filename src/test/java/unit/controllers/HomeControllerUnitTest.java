@@ -3,7 +3,6 @@ package unit.controllers;
 import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.HomeController;
 import com.spme.fantasolver.ui.HomeStage;
-import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
