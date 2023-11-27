@@ -7,7 +7,8 @@ import com.spme.fantasolver.dao.*;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import static org.mockito.Mockito.mockStatic;
+import java.io.IOException;
+import static org.mockito.Mockito.*;
 
 public class DAOFactoryUnitTest {
 
@@ -48,6 +49,28 @@ public class DAOFactoryUnitTest {
     public void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
         try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("SomeDBMS");
+
+            UserDAO result = DAOFactory.getUserDAO();
+
+            assertThat(result, is(instanceOf(UserDAOMySQL.class)));
+        }
+    }
+
+    @Test
+    void testGetTeamDAOWithIOException() {
+        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
+            utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenThrow(IOException.class);
+
+            TeamDAO result = DAOFactory.getTeamDAO();
+
+            assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
+        }
+    }
+
+    @Test
+    void testGetUserDAOWithIOException() {
+        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
+            utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenThrow(IOException.class);
 
             UserDAO result = DAOFactory.getUserDAO();
 
