@@ -43,6 +43,7 @@
             </Button>
          </children>
       </VBox>
+      <Button fx:id="buttonSignOut" layoutX="478.0" layoutY="329.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Esci" />
 
    </children>
 </AnchorPane>

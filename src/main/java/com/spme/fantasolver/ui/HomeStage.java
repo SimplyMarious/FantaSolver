@@ -18,6 +18,7 @@ public class HomeStage {
     private VBox vBoxAddTeam;
     private VBox vBoxManageTeam;
     private Button buttonAddTeam;
+    private Button buttonSignOut;
 
     public HomeStage(boolean doesTeamExist) {
         this.homeController = HomeController.getInstance();
@@ -43,6 +44,9 @@ public class HomeStage {
 
         buttonAddTeam = (Button) fxmlLoader.getNamespace().get("buttonAddTeam");
         buttonAddTeam.setOnAction(actionEvent -> homeController.handlePressedManageTeamButton());
+
+        buttonSignOut = (Button) fxmlLoader.getNamespace().get("buttonSignOut");
+        buttonSignOut.setOnAction(actionEvent -> homeController.handlePressedSignOutButton());
 
     }
 

@@ -57,7 +57,7 @@ public class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetTeamDAOWithIOException() {
+    public void testGetTeamDAOWithIOException() {
         try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenThrow(IOException.class);
 
@@ -68,7 +68,7 @@ public class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetUserDAOWithIOException() {
+    public void testGetUserDAOWithIOException() {
         try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
             utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenThrow(IOException.class);
 

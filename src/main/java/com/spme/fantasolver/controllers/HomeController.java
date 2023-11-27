@@ -2,6 +2,7 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.ManageTeamStage;
+import com.spme.fantasolver.ui.SignInStage;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -48,5 +49,10 @@ public class HomeController {
 
     public void setHomeStage(HomeStage homeStage) {
         this.homeStage = homeStage;
+    }
+
+    public void handlePressedSignOutButton() {
+        AuthenticationManager.getInstance().signOut();
+        new SignInStage();
     }
 }
