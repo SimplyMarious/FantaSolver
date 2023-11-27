@@ -19,9 +19,7 @@ public class SignUpController {
         return signUpController;
     }
 
-    public void handleInitialization(SignUpStage signUpStage) {
-        this.signUpStage = signUpStage;
-
+    public void handleInitialization() {
         try {
             signUpStage.initializeStage();
         } catch (IOException e) {

@@ -28,9 +28,7 @@ public class SignInController {
         return signInController;
     }
 
-    public void handleInitialization(SignInStage signInStage) {
-        this.signInStage = signInStage;
-
+    public void handleInitialization() {
         try {
             signInStage.initializeStage();
         } catch (IOException e) {

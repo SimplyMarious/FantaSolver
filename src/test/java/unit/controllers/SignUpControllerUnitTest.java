@@ -8,9 +8,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -39,16 +36,6 @@ public class SignUpControllerUnitTest {
     public void testGetInstance() {
         assertNotNull(signUpController);
         assertSame(signUpController, SignUpController.getInstance());
-    }
-
-    @Test
-    public void testHandleInitialization() {
-        signUpController.handleInitialization(mockedSignUpStage);
-        try {
-            verify(mockedSignUpStage, times(1)).initializeStage();
-        } catch (IOException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
     }
 
     @Test

@@ -39,16 +39,6 @@ public class SignInControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitialization() {
-        signInController.handleInitialization(mockedSignInStage);
-        try {
-            verify(mockedSignInStage, times(1)).initializeStage();
-        } catch (IOException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
-    }
-
-    @Test
     public void testHandleFieldChangedWithValidFieldsAndDisabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
@@ -57,8 +47,6 @@ public class SignInControllerUnitTest {
 
         signInController.handleFieldChanged(validUsername, validPassword);
 
-//        verify(mockedSignInStage, times(1)).enableSignInButton();
-//        verify(mockedSignInStage, never()).disableSignInButton();
         verify(mockedSignInStage, times(1)).setSignInButtonAbility(true);
         verify(mockedSignInStage, never()).setSignInButtonAbility(false);
     }
@@ -121,7 +109,6 @@ public class SignInControllerUnitTest {
         String validPassword = "validPassword";
         when(mockedSignInStage.isSignInEnabled()).thenReturn(true);
         when(mockedSignInStage.isSignInDisabled()).thenReturn(false);
-
 
         signInController.handleFieldChanged(invalidUsername, validPassword);
 

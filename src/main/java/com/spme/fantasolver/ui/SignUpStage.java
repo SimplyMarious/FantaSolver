@@ -21,7 +21,7 @@ public class SignUpStage {
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
         signUpController.setSignUpStage(this);
-        signUpController.handleInitialization(this);
+        signUpController.handleInitialization();
     }
 
     public void initializeStage() throws IOException {
@@ -67,11 +67,6 @@ public class SignUpStage {
     public void setSignUpButtonAbility(boolean ability) {
         buttonSignUp.setDisable(!ability);
     }
-
-    public void enableSignUpButton() {
-        buttonSignUp.setDisable(false);}
-
-    public void disableSignUpButton() { buttonSignUp.setDisable(true); }
 
     private void onFieldChanged() {
         signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());

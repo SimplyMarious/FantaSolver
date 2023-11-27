@@ -25,7 +25,7 @@ public class SignInStage {
     public SignInStage() {
         this.signInController = SignInController.getInstance();
         signInController.setSignInStage(this);
-        signInController.handleInitialization(this);
+        signInController.handleInitialization();
     }
 
     public void initializeStage() throws IOException {
