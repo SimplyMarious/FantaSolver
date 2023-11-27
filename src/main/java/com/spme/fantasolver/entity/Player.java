@@ -1,5 +1,7 @@
 package com.spme.fantasolver.entity;
 
+import com.spme.fantasolver.annotations.Generated;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,28 +11,34 @@ public class Player {
     private Set<Role> roles;
     private static final short MAX_ROLES_PER_PLAYER = 3;
 
+    @Generated
     public Player(String name, Set<Role> roles){
         this.name = name;
         this.roles = roles;
     }
 
+    @Generated
     public Player(String name){
         this.name = name;
         this.roles = new HashSet<>();
     }
 
+    @Generated
     public String getName() {
         return name;
     }
 
+    @Generated
     public void setName(String name) {
         this.name = name;
     }
 
+    @Generated
     public Set<Role> getRoles() {
         return roles;
     }
 
+    @Generated
     public void setRoles(Set<Role> role) {
         this.roles = role;
     }

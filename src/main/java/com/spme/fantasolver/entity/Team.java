@@ -1,7 +1,10 @@
 package com.spme.fantasolver.entity;
 
+import com.spme.fantasolver.annotations.Generated;
+
 import java.util.Set;
 
+@Generated
 public class Team {
     private String name;
     private Set<Player> players;
