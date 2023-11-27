@@ -44,6 +44,7 @@ public class SignUpStage {
         signUpStage.show();
     }
 
+    @Generated
     public void showSuccessfulSignUp() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registrazione completata.");
@@ -53,6 +54,7 @@ public class SignUpStage {
         alert.showAndWait();
     }
 
+    @Generated
     public void showFailedSignUp() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registrazione fallita.");

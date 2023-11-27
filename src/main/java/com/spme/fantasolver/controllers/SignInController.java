@@ -45,6 +45,7 @@ public class SignInController {
         this.signInStage = signInStage;
     }
 
+    @Generated
     public void handlePressedSignUpButton() {
         new SignUpStage();
     }
