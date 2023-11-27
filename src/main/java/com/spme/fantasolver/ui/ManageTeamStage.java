@@ -55,68 +55,46 @@ public class ManageTeamStage {
         initializeRolesComboBoxes();
         buttonAddPlayer = (Button)fxmlLoader.getNamespace().get("buttonAddPlayer");
         buttonAddPlayer.setOnAction(actionEvent ->
-                manageTeamController.handlePressedAddPlayerButton(
-                        textFieldPlayerName.getText(),
-                        comboBoxPlayerFirstRole.getValue(),
-                        comboBoxPlayerSecondRole.getValue(),
-                        comboBoxPlayerThirdRole.getValue()));
+                onPressedButtonAddPlayer());
         buttonAddPlayer.setDisable(true);
 
         initializeTeamTable();
 
         buttonRemovePlayer = (Button)fxmlLoader.getNamespace().get("buttonRemovePlayer");
         buttonRemovePlayer.setDisable(true);
-        buttonRemovePlayer.setOnAction(actionEvent ->
-                manageTeamController.handlePressedRemovePlayerButton(
-                        tableViewPlayers.getSelectionModel().getSelectedItem()));
+        buttonRemovePlayer.setOnAction(actionEvent -> onPressedButtonRemovePlayer());
 
         buttonConfirm = (Button)fxmlLoader.getNamespace().get("buttonConfirm");
         buttonConfirm.setDisable(true);
-        buttonConfirm.setOnAction(actionEvent ->
-                manageTeamController.handlePressedConfirmButton(
-                        textFieldTeamName.getText(),
-                        players));
+        buttonConfirm.setOnAction(actionEvent -> onPressedButtonConfirm());
 
+    }
+
+    private void onPressedButtonAddPlayer() {
+        manageTeamController.handlePressedAddPlayerButton(
+                textFieldPlayerName.getText(),
+                comboBoxPlayerFirstRole.getValue(),
+                comboBoxPlayerSecondRole.getValue(),
+                comboBoxPlayerThirdRole.getValue());
     }
 
     private void initializeTeamNameTextField() {
         textFieldTeamName = (TextField)fxmlLoader.getNamespace().get("textFieldTeamName");
-        textFieldTeamName.setOnKeyTyped(keyEvent ->
-                manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size()));
+        textFieldTeamName.setOnKeyTyped(keyEvent -> onTeamPropertyChanged());
     }
 
     private void initializePlayerNameTextField() {
         textFieldPlayerName = (TextField)fxmlLoader.getNamespace().get("textFieldPlayerName");
-        textFieldPlayerName.setOnKeyTyped(keyEvent ->
-                manageTeamController.handlePlayerPropertyChanged(
-                        textFieldPlayerName.getText(),
-                        comboBoxPlayerFirstRole.getValue(),
-                        comboBoxPlayerSecondRole.getValue(),
-                        comboBoxPlayerThirdRole.getValue()));
+        textFieldPlayerName.setOnKeyTyped(keyEvent -> onPlayerPropertyChanged());
     }
 
     private void initializeRolesComboBoxes() {
         comboBoxPlayerFirstRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerFirstRole");
         comboBoxPlayerSecondRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerSecondRole");
         comboBoxPlayerThirdRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerThirdRole");
-        comboBoxPlayerFirstRole.setOnAction(actionEvent ->
-                manageTeamController.handlePlayerPropertyChanged(
-                        textFieldPlayerName.getText(),
-                        comboBoxPlayerFirstRole.getValue(),
-                        comboBoxPlayerSecondRole.getValue(),
-                        comboBoxPlayerThirdRole.getValue()));
-        comboBoxPlayerSecondRole.setOnAction(actionEvent ->
-                manageTeamController.handlePlayerPropertyChanged(
-                        textFieldPlayerName.getText(),
-                        comboBoxPlayerFirstRole.getValue(),
-                        comboBoxPlayerSecondRole.getValue(),
-                        comboBoxPlayerThirdRole.getValue()));
-        comboBoxPlayerThirdRole.setOnAction(actionEvent ->
-                manageTeamController.handlePlayerPropertyChanged(
-                        textFieldPlayerName.getText(),
-                        comboBoxPlayerFirstRole.getValue(),
-                        comboBoxPlayerSecondRole.getValue(),
-                        comboBoxPlayerThirdRole.getValue()));
+        comboBoxPlayerFirstRole.setOnAction(actionEvent -> onPlayerPropertyChanged());
+        comboBoxPlayerSecondRole.setOnAction(actionEvent -> onPlayerPropertyChanged());
+        comboBoxPlayerThirdRole.setOnAction(actionEvent ->  onPlayerPropertyChanged());
 
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.add("Nessuno");
@@ -137,8 +115,7 @@ public class ManageTeamStage {
         tableViewPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewPlayers");
         players = FXCollections.observableArrayList();
         players.addListener((ListChangeListener<? super Player>) change ->
-                manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size())
-                );
+                onTeamPropertyChanged());
         tableViewPlayers.setItems(players);
 
         TableColumn<Player, String> tableColumnPlayerName = (TableColumn<Player, String>)
@@ -164,10 +141,26 @@ public class ManageTeamStage {
 
         tableViewPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null){
-                manageTeamController.handleSelectedPlayerFromTableView();
+                onSelectedTableViewPlayer();
             }
         });
 
+    }
+
+    private void onPlayerPropertyChanged() {
+        manageTeamController.handlePlayerPropertyChanged(
+                textFieldPlayerName.getText(),
+                comboBoxPlayerFirstRole.getValue(),
+                comboBoxPlayerSecondRole.getValue(),
+                comboBoxPlayerThirdRole.getValue());
+    }
+
+    private void onTeamPropertyChanged() {
+        manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size());
+    }
+
+    private void onSelectedTableViewPlayer() {
+        manageTeamController.handleSelectedPlayerFromTableView();
     }
 
     public void setTextFieldTeamName(String name) {
@@ -200,12 +193,21 @@ public class ManageTeamStage {
         System.out.println("Setto a " + ability);
     }
 
+    private void onPressedButtonRemovePlayer() {
+        manageTeamController.handlePressedRemovePlayerButton(
+                tableViewPlayers.getSelectionModel().getSelectedItem());
+    }
+
     public void removePlayerFromTableView(Player player) {
         players.remove(player);
     }
 
     public void setConfirmButtonAbility(boolean ability) {
         buttonConfirm.setDisable(!ability);
+    }
+
+    private void onPressedButtonConfirm() {
+        manageTeamController.handlePressedConfirmButton(textFieldTeamName.getText(), players);
     }
 
     public void show(){
