@@ -40,6 +40,7 @@ public class SignInController {
         }
     }
 
+    @Generated
     public void setSignInStage(SignInStage signInStage) {
         this.signInStage = signInStage;
     }

@@ -32,6 +32,7 @@ public class SignUpController {
         }
     }
 
+    @Generated
     public void setSignUpStage(SignUpStage signUpStage) {
         this.signUpStage = signUpStage;
     }
