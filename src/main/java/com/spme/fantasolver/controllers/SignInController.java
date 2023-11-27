@@ -39,6 +39,10 @@ public class SignInController {
         }
     }
 
+    public void setSignInStage(SignInStage signInStage) {
+        this.signInStage = signInStage;
+    }
+
     public void handlePressedSignUpButton() {
         new SignUpStage();
     }

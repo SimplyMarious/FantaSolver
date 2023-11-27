@@ -20,6 +20,7 @@ public class SignUpStage {
 
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
+        signUpController.setSignUpStage(this);
         signUpController.handleInitialization(this);
     }
 

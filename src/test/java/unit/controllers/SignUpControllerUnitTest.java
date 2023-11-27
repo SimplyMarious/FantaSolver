@@ -1,5 +1,6 @@
 package unit.controllers;
 
+import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.SignUpController;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,7 +29,7 @@ public class SignUpControllerUnitTest {
         mockedUserDAO = mock(UserDAO.class);
         mockedSignUpStage = mock(SignUpStage.class);
         signUpController = SignUpController.getInstance();
-        signUpController.handleInitialization(mockedSignUpStage);
+        signUpController.setSignUpStage(mockedSignUpStage);
     }
 
     @AfterEach
@@ -43,6 +45,7 @@ public class SignUpControllerUnitTest {
 
     @Test
     public void testHandleInitialization() {
+        signUpController.handleInitialization(mockedSignUpStage);
         try {
             verify(mockedSignUpStage, times(1)).initializeStage();
         } catch (IOException e) {
@@ -181,14 +184,14 @@ public class SignUpControllerUnitTest {
         verify(mockedSignUpStage, times(1)).disableSignUpButton();
     }
 
-//    @Test
-//    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
-//        doThrow(new IOException()).when(mockedSignUpStage).initializeStage();
-//
-//        Logger mockedLogger = mock(Logger.class);
-//        mockedDAOFactory.when(() -> Logger.getLogger("SignUpController")).thenReturn(mockedLogger);
-//        doNothing().when(mockedLogger).info(any(String.class));
-//
-//        assertThrows(FXMLLoadException.class, () -> signUpController.handleInitialization(mockedSignUpStage));
-//    }
+    @Test
+    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+        doThrow(new IOException()).when(mockedSignUpStage).initializeStage();
+
+        Logger mockedLogger = mock(Logger.class);
+        mockedDAOFactory.when(() -> Logger.getLogger("SignUpController")).thenReturn(mockedLogger);
+        doNothing().when(mockedLogger).info(any(String.class));
+
+        assertThrows(FXMLLoadException.class, () -> signUpController.handleInitialization(mockedSignUpStage));
+    }
 }

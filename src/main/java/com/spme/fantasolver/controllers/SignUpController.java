@@ -31,6 +31,10 @@ public class SignUpController {
         }
     }
 
+    public void setSignUpStage(SignUpStage signUpStage) {
+        this.signUpStage = signUpStage;
+    }
+
     public void handleFieldChanged(String username, String password) {
         int minLength = 4;
         int maxLength = 20;

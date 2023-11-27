@@ -24,7 +24,7 @@ public class SignInControllerUnitTest {
         mockedDAOFactory = mockStatic(DAOFactory.class);
         mockedSignInStage = mock(SignInStage.class);
         signInController = SignInController.getInstance();
-        signInController.handleInitialization(mockedSignInStage);
+        signInController.setSignInStage(mockedSignInStage);
     }
 
     @AfterEach
@@ -40,6 +40,7 @@ public class SignInControllerUnitTest {
 
     @Test
     public void testHandleInitialization() {
+        signInController.handleInitialization(mockedSignInStage);
         try {
             verify(mockedSignInStage, times(1)).initializeStage();
         } catch (IOException e) {
