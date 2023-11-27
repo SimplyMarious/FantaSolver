@@ -42,14 +42,6 @@ public class SignUpStage {
         signUpStage.show();
     }
 
-    public void onFieldChanged() {
-        signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
-    }
-
-    public void onPressedSignUpButton() {
-        signUpController.handlePressedSignUpButton(textFieldUsername.getText(), fieldPassword.getText());
-    }
-
     public void showSuccessfulSignUp() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registrazione completata.");
@@ -75,4 +67,12 @@ public class SignUpStage {
     public void enableSignUpButton() {buttonSignup.setDisable(false);}
 
     public void disableSignUpButton() { buttonSignup.setDisable(true); }
+
+    private void onFieldChanged() {
+        signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
+    }
+
+    private void onPressedSignUpButton() {
+        signUpController.handlePressedSignUpButton(textFieldUsername.getText(), fieldPassword.getText());
+    }
 }

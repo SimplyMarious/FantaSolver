@@ -48,18 +48,6 @@ public class SignInStage {
         Application.getStage().show();
     }
 
-    public void onPressedSignUpButton() {
-        signInController.handlePressedSignUpButton();
-    }
-
-    public void onPressedSignInButton() {
-        signInController.handlePressedSignInButton(textFieldUsername.getText(), fieldPassword.getText());
-    }
-
-    public void onFieldChanged() {
-        signInController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
-    }
-
     public void enableSignInButton() {buttonSignin.setDisable(false);}
 
     public void disableSignInButton() {buttonSignin.setDisable(true);}
@@ -72,6 +60,17 @@ public class SignInStage {
 
     public String getUsername() {return textFieldUsername.getText();}
 
+    private void onPressedSignUpButton() {
+        signInController.handlePressedSignUpButton();
+    }
+
+    private void onPressedSignInButton() {
+        signInController.handlePressedSignInButton(textFieldUsername.getText(), fieldPassword.getText());
+    }
+
+    private void onFieldChanged() {
+        signInController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
+    }
 }
 
 

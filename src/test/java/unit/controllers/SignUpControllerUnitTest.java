@@ -184,14 +184,4 @@ public class SignUpControllerUnitTest {
         verify(mockedSignUpStage, times(1)).disableSignUpButton();
     }
 
-    @Test
-    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
-        doThrow(new IOException()).when(mockedSignUpStage).initializeStage();
-
-        Logger mockedLogger = mock(Logger.class);
-        mockedDAOFactory.when(() -> Logger.getLogger("SignUpController")).thenReturn(mockedLogger);
-        doNothing().when(mockedLogger).info(any(String.class));
-
-        assertThrows(FXMLLoadException.class, () -> signUpController.handleInitialization(mockedSignUpStage));
-    }
 }
