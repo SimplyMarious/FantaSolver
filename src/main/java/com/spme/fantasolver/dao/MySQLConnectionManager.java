@@ -16,11 +16,6 @@ public class MySQLConnectionManager {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/fantasolver?characterEncoding=utf8","root","root");
-
-//
-//            Logger logger = Logger.getLogger("MySQLConnectionManager");
-//            logger.info("Error while connection to database: " + e.getMessage());
         return connection;
     }
-
 }

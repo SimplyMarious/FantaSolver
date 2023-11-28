@@ -9,7 +9,7 @@ import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.SignInStage;
 import com.spme.fantasolver.ui.SignUpStage;
-import com.spme.fantasolver.utility.ErrorHandler;
+import com.spme.fantasolver.utility.Notifier;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -93,7 +93,7 @@ public class SignInController {
                 }
             }
             catch (InternalException exception){
-                ErrorHandler.handleInternalError("Errore imprevisto.");
+                Notifier.notifyError("Errore", "Errore imprevisto");
             }
         }
         else {
