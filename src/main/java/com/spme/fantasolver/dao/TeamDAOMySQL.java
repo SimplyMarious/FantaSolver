@@ -1,5 +1,6 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.*;
 
 import java.sql.*;
@@ -31,6 +32,7 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
+    @Generated
     private TeamData retrieveTeamData(User user) throws SQLException {
         String query = "SELECT id, name " +
                 "FROM team " +
@@ -50,6 +52,7 @@ public class TeamDAOMySQL implements TeamDAO {
 
     }
 
+    @Generated
     private Map<String, Set<String>> retrieveTeamPlayers(int teamID) throws SQLException {
         String query =
                 "SELECT player_name, role_name " +
@@ -75,6 +78,7 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
+    @Generated
     private static Set<Player> getTeamPlayers(Map<String, Set<String>> retrievedPlayersWithRoles) throws RoleException {
         Set<Player> teamPlayers = new HashSet<>();
         for(String playerName: retrievedPlayersWithRoles.keySet()) {
