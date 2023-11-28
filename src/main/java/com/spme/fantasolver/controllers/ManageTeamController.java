@@ -8,6 +8,7 @@ import com.spme.fantasolver.entity.RoleException;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.ui.PopUpStage;
+import com.spme.fantasolver.utility.ErrorHandler;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
@@ -123,7 +124,7 @@ public class ManageTeamController {
             manageTeamStage.close();
         }
         else{
-            handleInternalError("Errore imprevisto.");
+            ErrorHandler.handleInternalError("Errore imprevisto.");
         }
     }
 
@@ -132,8 +133,5 @@ public class ManageTeamController {
     }
 
 
-    public void handleInternalError(String message) {
-        PopUpStage popUpStage = new PopUpStage(message);
-        popUpStage.show();
-    }
+
 }

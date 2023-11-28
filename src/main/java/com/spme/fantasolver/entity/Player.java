@@ -57,4 +57,11 @@ public class Player {
         return Objects.equals(name, player.name);
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

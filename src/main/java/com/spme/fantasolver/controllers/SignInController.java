@@ -2,12 +2,14 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
+import com.spme.fantasolver.dao.InternalException;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.SignInStage;
 import com.spme.fantasolver.ui.SignUpStage;
+import com.spme.fantasolver.utility.ErrorHandler;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -78,14 +80,20 @@ public class SignInController {
         if(signInOutcome){
             User user = new User(signInStage.getUsername());
             AuthenticationManager.getInstance().signIn(user);
-            Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
 
-            if(team != null){
-                user.setTeam(team);
-                new HomeStage(true);
+            try{
+                Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
+
+                if(team != null){
+                    user.setTeam(team);
+                    new HomeStage(true);
+                }
+                else{
+                    new HomeStage(false);
+                }
             }
-            else{
-                new HomeStage(false);
+            catch (InternalException exception){
+                ErrorHandler.handleInternalError("Errore imprevisto.");
             }
         }
         else {
