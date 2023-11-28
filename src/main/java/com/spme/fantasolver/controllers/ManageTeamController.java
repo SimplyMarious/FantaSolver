@@ -30,7 +30,7 @@ public class ManageTeamController {
     private ManageTeamStage manageTeamStage;
     private static final short TEAM_NAME_MIN_LENGTH = 3;
     private static final short TEAM_NAME_MAX_LENGTH = 50;
-    private static final short TEAM_MIN_SIZE = 25;
+    private static final short TEAM_MIN_SIZE = 2;
     private static final short TEAM_MAX_SIZE = 30;
     private static final short PLAYER_NAME_MIN_LENGTH = 2;
     private static final short PLAYER_NAME_MAX_LENGTH = 50;

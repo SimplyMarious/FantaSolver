@@ -14,7 +14,7 @@ public class MySQLConnectionManager {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/fantasolver?characterEncoding=utf8","root","root");
+                "jdbc:mysql://localhost:3306/fantasolver?allowMultiQueries=true&characterEncoding=utf8","root","root");
         return connection;
     }
 }

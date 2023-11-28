@@ -95,6 +95,11 @@ public class TeamDAOMySQL implements TeamDAO {
     public boolean updateTeam(Team team, User user) {
         try{
             connection = MySQLConnectionManager.connectToDatabase();
+            deleteCurrentUserTeam(user);
+
+
+            insertTeam(team, user);
+
         }
         catch (ClassNotFoundException | SQLException exception){
             Logger logger = Logger.getLogger("TeamDAOMySQL");
@@ -102,10 +107,39 @@ public class TeamDAOMySQL implements TeamDAO {
             return false;
         }
 
-        //TODO: insert players -> insert players' roles
-        // select team id from user -> (update team name || insert team -> update user's team)
-        // select team id from user -> insert player in team
+        //TODO: delete team [on cascade on player_in_team] -> insert team -> update user's team)
+        // insert players -> insert players' roles
+        // select team id from user -> insert player in team where team_id in (select ... where id = <user_id>)
         return true;
+    }
+
+    private void insertTeam(Team team, User user) throws SQLException {
+        String query = "INSERT IGNORE INTO team(name, user_name) " +
+                       "VALUES (?, ?); " +
+                       "UPDATE user " +
+                       "SET team_id = (select id from team where user_name = ?) " +
+                       "WHERE name = ?";
+
+        ResultSet resultSet;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, team.getName());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getUsername());
+            preparedStatement.setString(4, user.getUsername());
+            preparedStatement.execute();
+        }
+
+
+    }
+
+    private void deleteCurrentUserTeam(User user) throws SQLException {
+        String query = "DELETE FROM team " +
+                       "WHERE user_name = ?";
+        ResultSet resultSet;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.execute();
+        }
     }
 
     static class TeamData{
@@ -117,7 +151,4 @@ public class TeamDAOMySQL implements TeamDAO {
             this.name = name;
         }
     }
-
-
-
 }
