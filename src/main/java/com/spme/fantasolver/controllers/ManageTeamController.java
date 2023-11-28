@@ -7,6 +7,7 @@ import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.RoleException;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.ui.ManageTeamStage;
+import com.spme.fantasolver.ui.PopUpStage;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class ManageTeamController {
     private ManageTeamStage manageTeamStage;
     private static final short TEAM_NAME_MIN_LENGTH = 3;
     private static final short TEAM_NAME_MAX_LENGTH = 50;
-    private static final short TEAM_MIN_SIZE = 25;
+    private static final short TEAM_MIN_SIZE = 2;
     private static final short TEAM_MAX_SIZE = 30;
     private static final short PLAYER_NAME_MIN_LENGTH = 2;
     private static final short PLAYER_NAME_MAX_LENGTH = 50;
@@ -121,6 +122,9 @@ public class ManageTeamController {
             AuthenticationManager.getInstance().getUser().setTeam(team);
             manageTeamStage.close();
         }
+        else{
+            handleInternalError("Errore imprevisto.");
+        }
     }
 
     public void setManageTeamStage(ManageTeamStage manageTeamStage){
@@ -128,4 +132,8 @@ public class ManageTeamController {
     }
 
 
+    public void handleInternalError(String message) {
+        PopUpStage popUpStage = new PopUpStage(message);
+        popUpStage.show();
+    }
 }

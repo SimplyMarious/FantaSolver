@@ -1,12 +1,16 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.controllers.ManageTeamController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class TeamDAOMySQL implements TeamDAO {
     @Override
@@ -16,6 +20,15 @@ public class TeamDAOMySQL implements TeamDAO {
 
     @Override
     public boolean updateTeam(Team team, User user) {
+        try{
+            Connection connection = MySQLConnectionManager.connectToDatabase();
+        }
+        catch (ClassNotFoundException | SQLException exception){
+            Logger logger = Logger.getLogger("TeamDAOMySQL");
+            logger.info("Error during the team retrieve: " + exception.getMessage());
+            return false;
+        }
+
         //TODO: insert players -> insert players' roles
         // select team id from user -> (update team name || insert team -> update user's team)
         // select team id from user -> insert player in team

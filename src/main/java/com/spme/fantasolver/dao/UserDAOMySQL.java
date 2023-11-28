@@ -11,9 +11,9 @@ public class UserDAOMySQL implements UserDAO{
     public boolean signUp(String username, String password) {
         try {
             return trySignUp(username, password);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException exception) {
             Logger logger = Logger.getLogger("UserDAOMySQL");
-            logger.info("Error during the sign up: " + e.getMessage());
+            logger.info("Error during the sign up: " + exception.getMessage());
             return false;
         }
     }
@@ -22,14 +22,14 @@ public class UserDAOMySQL implements UserDAO{
     public boolean signIn(String username, String password) {
         try {
             return trySignIn(username, password);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException exception) {
             Logger logger = Logger.getLogger("UserDAOMySQL");
-            logger.info("Error during the sign in: " + e.getMessage());
+            logger.info("Error during the sign in: " + exception.getMessage());
             return false;
         }
     }
 
-    public boolean isUserExist(String username) throws SQLException {
+    public boolean isUserExist(String username) throws ClassNotFoundException, SQLException {
         Connection connection = MySQLConnectionManager.connectToDatabase();
         String searchUser = "SELECT * FROM user WHERE name = ?";
 
@@ -43,7 +43,7 @@ public class UserDAOMySQL implements UserDAO{
     }
 
     @Generated
-    private boolean trySignUp(String username, String password) throws SQLException {
+    private boolean trySignUp(String username, String password) throws ClassNotFoundException, SQLException {
         if (isUserExist(username)) return false;
 
         Connection connection = MySQLConnectionManager.connectToDatabase();
@@ -59,7 +59,7 @@ public class UserDAOMySQL implements UserDAO{
     }
 
     @Generated
-    private boolean trySignIn(String username, String password) throws SQLException {
+    private boolean trySignIn(String username, String password) throws ClassNotFoundException, SQLException {
         Connection connection = MySQLConnectionManager.connectToDatabase();
         String insertQuery = "SELECT * FROM user WHERE name = ? AND password = ?";
 
