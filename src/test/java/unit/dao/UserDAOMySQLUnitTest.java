@@ -78,7 +78,7 @@ public class UserDAOMySQLUnitTest {
 
             assertFalse(result);
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
     }
