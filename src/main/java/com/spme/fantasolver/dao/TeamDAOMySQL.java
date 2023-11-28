@@ -1,6 +1,5 @@
 package com.spme.fantasolver.dao;
 
-import com.spme.fantasolver.controllers.ManageTeamController;
 import com.spme.fantasolver.entity.*;
 
 import java.sql.*;
@@ -36,7 +35,6 @@ public class TeamDAOMySQL implements TeamDAO {
         String query = "SELECT id, name " +
                 "FROM team " +
                 "WHERE user_name = ?";
-        System.out.println(query);
         ResultSet resultSet;
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
@@ -59,21 +57,22 @@ public class TeamDAOMySQL implements TeamDAO {
                         "WHERE player_name IN (SELECT player_name " +
                         "FROM player_in_team " +
                         "WHERE team_id = ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, teamID);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, teamID);
+            resultSet = preparedStatement.executeQuery();
+            Map<String, Set<String>> retrievedPlayersWithRoles = new HashMap<>();
+            while(resultSet.next()){
+                String playerName = resultSet.getString(1);
+                String playerRole = resultSet.getString(2);
 
-        Map<String, Set<String>> retrievedPlayersWithRoles = new HashMap<>();
-        while(resultSet.next()){
-            String playerName = resultSet.getString(1);
-            String playerRole = resultSet.getString(2);
-
-            if(!retrievedPlayersWithRoles.containsKey(playerName)){
-                retrievedPlayersWithRoles.put(playerName, new HashSet<>());
+                if(!retrievedPlayersWithRoles.containsKey(playerName)){
+                    retrievedPlayersWithRoles.put(playerName, new HashSet<>());
+                }
+                retrievedPlayersWithRoles.get(playerName).add(playerRole);
             }
-            retrievedPlayersWithRoles.get(playerName).add(playerRole);
+            return retrievedPlayersWithRoles;
         }
-        return retrievedPlayersWithRoles;
     }
 
     private static Set<Player> getTeamPlayers(Map<String, Set<String>> retrievedPlayersWithRoles) throws RoleException {
@@ -91,7 +90,7 @@ public class TeamDAOMySQL implements TeamDAO {
     @Override
     public boolean updateTeam(Team team, User user) {
         try{
-            Connection connection = MySQLConnectionManager.connectToDatabase();
+            connection = MySQLConnectionManager.connectToDatabase();
         }
         catch (ClassNotFoundException | SQLException exception){
             Logger logger = Logger.getLogger("TeamDAOMySQL");

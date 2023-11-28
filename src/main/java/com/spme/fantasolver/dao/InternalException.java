@@ -1,4 +1,4 @@
 package com.spme.fantasolver.dao;
 
-public class InternalException extends Throwable {
+public class InternalException extends Exception {
 }

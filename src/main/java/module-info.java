@@ -4,6 +4,7 @@ module com.spme.fantasolver {
             
         requires org.controlsfx.controls;
     requires java.sql;
+    requires mysql.connector.java;
 
     opens com.spme.fantasolver to javafx.fxml;
     exports com.spme.fantasolver;

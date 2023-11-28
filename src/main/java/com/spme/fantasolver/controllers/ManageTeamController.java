@@ -34,6 +34,7 @@ public class ManageTeamController {
     private static final short TEAM_MAX_SIZE = 30;
     private static final short PLAYER_NAME_MIN_LENGTH = 2;
     private static final short PLAYER_NAME_MAX_LENGTH = 50;
+    private static final String NO_ROLE_STRING = "Nessuno";
 
     public void handleInitialization() {
         try {
@@ -69,9 +70,9 @@ public class ManageTeamController {
 
     public void handlePlayerPropertyChanged(String playerName, String firstRole, String secondRole, String thirdRole) {
         boolean isPlayerNameValid = Utility.checkStringValidity(playerName, PLAYER_NAME_MIN_LENGTH, PLAYER_NAME_MAX_LENGTH);
-        boolean isFirstRoleValid = !firstRole.equals("Nessuno");
+        boolean isFirstRoleValid = !firstRole.equals(NO_ROLE_STRING);
         boolean areSecondAndThirdRolesValid =
-                (secondRole.equals("Nessuno") && thirdRole.equals("Nessuno")) ||
+                (secondRole.equals(NO_ROLE_STRING) && thirdRole.equals(NO_ROLE_STRING)) ||
                 Utility.areStringsDifferentFromEachOther(List.of(firstRole, secondRole, thirdRole));
 
         manageTeamStage.setAddPlayerButtonAbility(isPlayerNameValid && isFirstRoleValid && areSecondAndThirdRolesValid);
@@ -97,10 +98,10 @@ public class ManageTeamController {
     private Player createPlayerFromInput(String playerName, String firstRole, String secondRole, String thirdRole) throws RoleException {
         Player player = new Player(playerName);
         player.addRole(Role.valueOf(firstRole));
-        if(!secondRole.equals("Nessuno")){
+        if(!secondRole.equals(NO_ROLE_STRING)){
             player.addRole(Role.valueOf(secondRole));
         }
-        if(!thirdRole.equals("Nessuno")){
+        if(!thirdRole.equals(NO_ROLE_STRING)){
             player.addRole(Role.valueOf(thirdRole));
         }
         return player;
@@ -123,7 +124,6 @@ public class ManageTeamController {
             manageTeamStage.close();
         }
         else{
-//            ErrorHandler.handleInternalError("Errore imprevisto.");
             Notifier.notifyError("Errore", "Errore imprevisto");
         }
     }
