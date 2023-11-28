@@ -105,88 +105,9 @@ public class TeamDAOMySQL implements TeamDAO {
         return true;
     }
 
-    private Team stubTeam() {
-        Set<Player> players = new HashSet<>() {{
-            add(new Player("Iezzo", new HashSet<Role>() {{
-                add(Role.POR);
-            }}));
-            add(new Player("Cannavaro", new HashSet<Role>() {{
-                add(Role.DC);
-            }}));
-            add(new Player("Domizzi", new HashSet<Role>() {{
-                add(Role.DC);
-            }}));
-            add(new Player("Maggio", new HashSet<Role>() {{
-                add(Role.DC);
-                add(Role.C);
-            }}));
-            add(new Player("Santacroce", new HashSet<Role>() {{
-                add(Role.DC);
-            }}));
-            add(new Player("Gargano", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Hamsik", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Blasi", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Zalayeta", new HashSet<Role>() {{
-                add(Role.PC);
-            }}));
-            add(new Player("Lavezzi", new HashSet<Role>() {{
-                add(Role.PC);
-            }}));
-            add(new Player("Calaio'", new HashSet<Role>() {{
-                add(Role.PC);
-            }}));
-            add(new Player("Navarro", new HashSet<Role>() {{
-                add(Role.POR);
-            }}));
-            add(new Player("Sosa", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Bogliacino", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Mannini", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("De Zerbi", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Bogdani", new HashSet<Role>() {{
-                add(Role.PC);
-            }}));
-            add(new Player("Pia", new HashSet<Role>() {{
-                add(Role.POR);
-            }}));
-            add(new Player("Fornaroli", new HashSet<Role>() {{
-                add(Role.PC);
-            }}));
-            add(new Player("Santana", new HashSet<Role>() {{
-                add(Role.C);
-            }}));
-            add(new Player("Garics", new HashSet<Role>() {{
-                add(Role.DC);
-            }}));
-            add(new Player("Cribari", new HashSet<Role>() {{
-                add(Role.DC);
-            }}));
-            add(new Player("Gritti", new HashSet<Role>() {{
-                add(Role.POR);
-            }}));
-        }};
-
-        Team team = new Team("SSC Napoli", players);
-        return team;
-    }
-
-
     static class TeamData{
-        private int id;
-        private String name;
+        private final int id;
+        private final String name;
 
         public TeamData(int id, String name) {
             this.id = id;
