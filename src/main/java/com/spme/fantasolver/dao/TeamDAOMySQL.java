@@ -92,8 +92,6 @@ public class TeamDAOMySQL implements TeamDAO {
     public boolean updateTeam(Team team, User user) {
         try{
             Connection connection = MySQLConnectionManager.connectToDatabase();
-
-
         }
         catch (ClassNotFoundException | SQLException exception){
             Logger logger = Logger.getLogger("TeamDAOMySQL");
