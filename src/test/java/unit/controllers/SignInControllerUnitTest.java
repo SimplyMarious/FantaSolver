@@ -19,19 +19,12 @@ public class SignInControllerUnitTest {
 
     private SignInStage mockedSignInStage;
     private SignInController signInController;
-    private MockedStatic<DAOFactory> mockedDAOFactory;
 
     @BeforeEach
     public void setUp() {
-        mockedDAOFactory = mockStatic(DAOFactory.class);
         mockedSignInStage = mock(SignInStage.class);
         signInController = SignInController.getInstance();
         signInController.setSignInStage(mockedSignInStage);
-    }
-
-    @AfterEach
-    public void clean() {
-        mockedDAOFactory.close();
     }
 
     @Test

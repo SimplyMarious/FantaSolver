@@ -202,7 +202,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithhSetStringException() {
+    public void testSignInWithSetStringException() {
         try {
             dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
             when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
