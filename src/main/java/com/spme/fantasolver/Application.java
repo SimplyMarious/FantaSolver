@@ -16,6 +16,7 @@ public class Application extends javafx.application.Application {
             e.consume();
             closeApplication();
         });
+        //Test
     }
 
     public static Stage getStage(){
