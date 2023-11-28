@@ -3,9 +3,9 @@ package com.spme.fantasolver.ui;
 import com.spme.fantasolver.Application;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.SignUpController;
+import com.spme.fantasolver.utility.Notifier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -47,23 +47,12 @@ public class SignUpStage {
 
     @Generated
     public void showSuccessfulSignUp() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Registrazione completata.");
-        alert.setHeaderText(null);
-        alert.setContentText("Operazione completata con successo!");
-
-        alert.showAndWait();
-        stage.close();
+        Notifier.notifyInfo("Registrazione completata", "Registrazione completata: sei un Fantallenatore!");
     }
 
     @Generated
     public void showFailedSignUp() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Registrazione fallita.");
-        alert.setHeaderText(null);
-        alert.setContentText("Operazione fallita.");
-
-        alert.showAndWait();
+        Notifier.notifyError("Registrazione fallita", "Registrazione fallita, riprovare.");
     }
 
     @Generated
