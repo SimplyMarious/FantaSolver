@@ -121,7 +121,8 @@ public class ManageTeamController {
         boolean updateResult = DAOFactory.getTeamDAO().updateTeam(team, AuthenticationManager.getInstance().getUser());
         if(updateResult){
             AuthenticationManager.getInstance().getUser().setTeam(team);
-            manageTeamStage.close();
+            Notifier.notifyInfo("Rosa salvata",
+                    "Rosa salvata correttamente! L'asta sembra essere andata bene, vedo...");
         }
         else{
             Notifier.notifyError("Errore", "Errore imprevisto");
