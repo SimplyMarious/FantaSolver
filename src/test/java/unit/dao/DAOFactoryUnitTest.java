@@ -5,76 +5,92 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import com.spme.fantasolver.dao.*;
 import com.spme.fantasolver.utility.Utility;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import static org.mockito.Mockito.*;
 
 public class DAOFactoryUnitTest {
 
+    @Mock
+    MockedStatic<Utility> mockUtility;
+    @Mock
+    MockedStatic<Logger> mockStaticLogger;
+    @Mock
+    Logger mockLogger;
+
+    @BeforeEach
+    public void setUp() {
+        mockUtility = mockStatic(Utility.class);
+        mockStaticLogger = mockStatic(Logger.class);
+        mockLogger = mock(Logger.class);
+
+        mockStaticLogger.when(() -> Logger.getLogger("DAOFactory")).thenReturn(mockLogger);
+        doNothing().when(mockLogger).info(any(String.class));
+    }
+
+    @AfterEach
+    public void clean(){
+        mockUtility.close();
+        mockStaticLogger.close();
+    }
+
     @Test
     public void testGetTeamDAOWithMySQLAsTeamDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
-            utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("MySQL");
+        mockUtility.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("MySQL");
 
-            TeamDAO result = DAOFactory.getTeamDAO();
+        TeamDAO result = DAOFactory.getTeamDAO();
 
-            assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
-        }
+        assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
     }
 
     @Test
     public void testGetTeamDAOWithAnyOtherStringAsTeamDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
-            utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("SomeDBMS");
+        mockUtility.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("SomeDBMS");
 
-            TeamDAO result = DAOFactory.getTeamDAO();
+        TeamDAO result = DAOFactory.getTeamDAO();
 
-            assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
-        }
+        assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
     }
 
     @Test
     public void testGetUserDAOWithMySQLAsUserDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
-            utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("MySQL");
+        mockUtility.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("MySQL");
 
-            UserDAO result = DAOFactory.getUserDAO();
+        UserDAO result = DAOFactory.getUserDAO();
 
-            assertThat(result, is(instanceOf(UserDAOMySQL.class)));
-        }
+        assertThat(result, is(instanceOf(UserDAOMySQL.class)));
     }
 
     @Test
     public void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
-        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
-            utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("SomeDBMS");
+        mockUtility.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("SomeDBMS");
 
-            UserDAO result = DAOFactory.getUserDAO();
+        UserDAO result = DAOFactory.getUserDAO();
 
-            assertThat(result, is(instanceOf(UserDAOMySQL.class)));
-        }
+        assertThat(result, is(instanceOf(UserDAOMySQL.class)));
     }
 
     @Test
     public void testGetTeamDAOWithIOException() {
-        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
-            utilityMock.when(() -> Utility.getValueFromProperties("teamDAO")).thenThrow(IOException.class);
+        mockUtility.when(() -> Utility.getValueFromProperties("teamDAO")).thenThrow(IOException.class);
 
-            TeamDAO result = DAOFactory.getTeamDAO();
+        TeamDAO result = DAOFactory.getTeamDAO();
 
-            assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
-        }
+        assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
     }
 
     @Test
     public void testGetUserDAOWithIOException() {
-        try (MockedStatic<Utility> utilityMock = mockStatic(Utility.class)) {
-            utilityMock.when(() -> Utility.getValueFromProperties("userDAO")).thenThrow(IOException.class);
+        mockUtility.when(() -> Utility.getValueFromProperties("userDAO")).thenThrow(IOException.class);
 
-            UserDAO result = DAOFactory.getUserDAO();
+        UserDAO result = DAOFactory.getUserDAO();
 
-            assertThat(result, is(instanceOf(UserDAOMySQL.class)));
-        }
+        assertThat(result, is(instanceOf(UserDAOMySQL.class)));
     }
 }
