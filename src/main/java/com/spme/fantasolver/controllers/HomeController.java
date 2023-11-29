@@ -2,6 +2,7 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.ManageTeamStage;
+import com.spme.fantasolver.ui.ProposeLineupStage;
 import com.spme.fantasolver.ui.SignInStage;
 
 import java.io.IOException;
@@ -47,12 +48,16 @@ public class HomeController {
         new ManageTeamStage();
     }
 
-    public void setHomeStage(HomeStage homeStage) {
-        this.homeStage = homeStage;
+    public void handlePressedProposeLineupButton() {
+        new ProposeLineupStage(AuthenticationManager.getInstance().getUser().getTeam());
     }
 
     public void handlePressedSignOutButton() {
         AuthenticationManager.getInstance().signOut();
         new SignInStage();
+    }
+
+    public void setHomeStage(HomeStage homeStage) {
+        this.homeStage = homeStage;
     }
 }

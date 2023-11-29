@@ -94,7 +94,7 @@ public class TeamDAOMySQL implements TeamDAO {
     public boolean updateTeam(Team team, User user) {
         try{
             connection = MySQLConnectionManager.connectToDatabase();
-            if(deleteCurrentUserTeam(user) != 1){ return false; }
+            if(deleteCurrentUserTeam(user) > 1){ return false; }
             if(insertNewTeam(team, user) != 1){ return false; }
             if(insertPlayersInTeam(team) != team.getPlayers().size()) { return false; }
 
