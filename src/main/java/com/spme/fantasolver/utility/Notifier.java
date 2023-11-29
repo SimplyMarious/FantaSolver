@@ -1,7 +1,9 @@
 package com.spme.fantasolver.utility;
 
+import com.spme.fantasolver.annotations.Generated;
 import javafx.scene.control.Alert;
 
+@Generated
 public class Notifier {
     private Notifier(){}
 

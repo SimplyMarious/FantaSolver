@@ -107,6 +107,38 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
+    @Generated
+    private int deleteCurrentUserTeam(User user) throws SQLException {
+        String query = "DELETE FROM team " +
+                "WHERE user_name = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getUsername());
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("Deletion: " + affectedRows);
+            return affectedRows;
+        }
+    }
+
+    @Generated
+    private int insertNewTeam(Team team, User user) throws SQLException {
+        String query = "INSERT IGNORE INTO team(name, user_name) " +
+                "VALUES (?, ?); " +
+                "UPDATE user " +
+                "SET team_id = (select id from team where user_name = ?) " +
+                "WHERE name = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, team.getName());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getUsername());
+            preparedStatement.setString(4, user.getUsername());
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("New team insertion: " + affectedRows);
+            return affectedRows;
+        }
+    }
+
+    @Generated
     private int insertPlayersInTeam(Team team) throws SQLException {
         int playersCorrectlyInserted = 0;
         for(Player player: team.getPlayers()){
@@ -118,6 +150,7 @@ public class TeamDAOMySQL implements TeamDAO {
         return playersCorrectlyInserted;
     }
 
+    @Generated
     private void insertPlayer(Player player) throws SQLException {
         String query = "INSERT IGNORE INTO player " +
                        "VALUES (?)";
@@ -128,6 +161,7 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
+    @Generated
     private void insertPlayerRoles(Player player) throws SQLException {
         String query = "INSERT IGNORE INTO role_in_player " +
                        "VALUES (?, ?)";
@@ -141,6 +175,7 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
+    @Generated
     private int linkPlayerToTeam(Player player, Team team) throws SQLException {
         String query = "INSERT INTO player_in_team " +
                        "SELECT DISTINCT player.name, team.id " +
@@ -150,35 +185,6 @@ public class TeamDAOMySQL implements TeamDAO {
             preparedStatement.setString(1, player.getName());
             preparedStatement.setString(2, team.getName());
             return preparedStatement.executeUpdate();
-        }
-    }
-
-    private int insertNewTeam(Team team, User user) throws SQLException {
-        String query = "INSERT IGNORE INTO team(name, user_name) " +
-                       "VALUES (?, ?); " +
-                       "UPDATE user " +
-                       "SET team_id = (select id from team where user_name = ?) " +
-                       "WHERE name = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, team.getName());
-            preparedStatement.setString(2, user.getUsername());
-            preparedStatement.setString(3, user.getUsername());
-            preparedStatement.setString(4, user.getUsername());
-            int affectedRows = preparedStatement.executeUpdate();
-            System.out.println("New team insertion: " + affectedRows);
-            return affectedRows;
-        }
-    }
-
-    private int deleteCurrentUserTeam(User user) throws SQLException {
-        String query = "DELETE FROM team " +
-                       "WHERE user_name = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, user.getUsername());
-            int affectedRows = preparedStatement.executeUpdate();
-            System.out.println("Deletion: " + affectedRows);
-            return affectedRows;
         }
     }
 
