@@ -1,5 +1,6 @@
 package unit.dao;
 
+import com.spme.fantasolver.dao.InternalException;
 import com.spme.fantasolver.dao.MySQLConnectionManager;
 import com.spme.fantasolver.dao.TeamDAOMySQL;
 import com.spme.fantasolver.entity.Player;
@@ -16,8 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -92,6 +92,24 @@ public class TeamDAOMySQLUnitTest {
             boolean result = teamDAOMySQL.updateTeam(team, mockUser);
 
             assertTrue(result);
+        }
+    }
+
+    @Test
+    public void testUpdateTeamWithClassNotFoundExceptionThrown() {
+        try (MockedStatic<MySQLConnectionManager> mockMySQLConnectionManager = mockStatic(MySQLConnectionManager.class)) {
+            mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenThrow(ClassNotFoundException.class);
+
+            assertFalse(teamDAOMySQL.updateTeam(mockTeam, mockUser));
+        }
+    }
+
+    @Test
+    public void testUpdateTeamWithSQLExceptionThrown() {
+        try (MockedStatic<MySQLConnectionManager> mockMySQLConnectionManager = mockStatic(MySQLConnectionManager.class)) {
+            mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenThrow(SQLException.class);
+
+            assertFalse(teamDAOMySQL.updateTeam(mockTeam, mockUser));
         }
     }
 
