@@ -94,9 +94,10 @@ public class TeamDAOMySQL implements TeamDAO {
     public boolean updateTeam(Team team, User user) {
         try{
             connection = MySQLConnectionManager.connectToDatabase();
-            deleteCurrentUserTeam(user);
-            insertNewTeam(team, user);
-            insertPlayersInTeam(team);
+            if(deleteCurrentUserTeam(user) != 1){ return false; }
+            if(insertNewTeam(team, user) != 1){ return false; }
+            if(insertPlayersInTeam(team) != team.getPlayers().size()) { return false; }
+
             return true;
         }
         catch (ClassNotFoundException | SQLException exception){
@@ -104,18 +105,17 @@ public class TeamDAOMySQL implements TeamDAO {
             logger.info("Error during the team update: " + exception.getMessage());
             return false;
         }
-
-        //TODO: delete team [on cascade on player_in_team] -> insert team -> update user's team)
-        // insert players -> insert players' roles
-        // select team id from user -> insert player in team where team_id in (select ... where id = <user_id>)
     }
 
-    private void insertPlayersInTeam(Team team) throws SQLException {
+    private int insertPlayersInTeam(Team team) throws SQLException {
+        int playersCorrectlyInserted = 0;
         for(Player player: team.getPlayers()){
             insertPlayer(player);
             insertPlayerRoles(player);
-            linkPlayerToTeam(player, team);
+            playersCorrectlyInserted += linkPlayerToTeam(player, team);
+            System.out.println("Player correctly inserted: " + playersCorrectlyInserted);
         }
+        return playersCorrectlyInserted;
     }
 
     private void insertPlayer(Player player) throws SQLException {
@@ -141,7 +141,7 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
-    private void linkPlayerToTeam(Player player, Team team) throws SQLException {
+    private int linkPlayerToTeam(Player player, Team team) throws SQLException {
         String query = "INSERT INTO player_in_team " +
                        "SELECT DISTINCT player.name, team.id " +
                        "FROM player, team " +
@@ -149,11 +149,11 @@ public class TeamDAOMySQL implements TeamDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, player.getName());
             preparedStatement.setString(2, team.getName());
-            preparedStatement.execute();
+            return preparedStatement.executeUpdate();
         }
     }
 
-    private void insertNewTeam(Team team, User user) throws SQLException {
+    private int insertNewTeam(Team team, User user) throws SQLException {
         String query = "INSERT IGNORE INTO team(name, user_name) " +
                        "VALUES (?, ?); " +
                        "UPDATE user " +
@@ -165,18 +165,20 @@ public class TeamDAOMySQL implements TeamDAO {
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getUsername());
             preparedStatement.setString(4, user.getUsername());
-            preparedStatement.execute();
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("New team insertion: " + affectedRows);
+            return affectedRows;
         }
-
-
     }
 
-    private void deleteCurrentUserTeam(User user) throws SQLException {
+    private int deleteCurrentUserTeam(User user) throws SQLException {
         String query = "DELETE FROM team " +
                        "WHERE user_name = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.execute();
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("Deletion: " + affectedRows);
+            return affectedRows;
         }
     }
 
