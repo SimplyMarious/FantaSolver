@@ -156,8 +156,15 @@ public class TeamDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveTeamWithConnectionException() {
+    public void testRetrieveTeamWithConnectionSQLException() {
         mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenThrow(SQLException.class);
+
+        assertThrows(InternalException.class, ()->teamDAOMySQL.retrieveTeam(mockUser));
+    }
+
+    @Test
+    public void testRetrieveTeamWithConnectionClassNotFoundException() {
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenThrow(ClassNotFoundException.class);
 
         assertThrows(InternalException.class, ()->teamDAOMySQL.retrieveTeam(mockUser));
     }
