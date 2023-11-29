@@ -50,7 +50,7 @@ public class UserDAOMySQLIntegrationTest {
 
                 connection.close();
 
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -61,7 +61,7 @@ public class UserDAOMySQLIntegrationTest {
         try {
             Connection connection = connectToDatabase();
             connection.close();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
     }
