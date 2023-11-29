@@ -25,7 +25,7 @@ public class MySQLConnectionManager {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
-                "jdbc:mysql://"+host+":"+port+"/fantasolver?characterEncoding=utf8","root","root");
+                "jdbc:mysql://"+host+":"+port+"/fantasolver?allowMultiQueries=true&characterEncoding=utf8","root","root");
         return connection;
     }
 }

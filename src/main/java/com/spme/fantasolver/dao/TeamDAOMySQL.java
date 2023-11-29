@@ -54,8 +54,7 @@ public class TeamDAOMySQL implements TeamDAO {
 
     @Generated
     private Map<String, Set<String>> retrieveTeamPlayers(int teamID) throws SQLException {
-        String query =
-                "SELECT player_name, role_name " +
+        String query =  "SELECT player_name, role_name " +
                         "FROM role_in_player " +
                         "WHERE player_name IN (SELECT player_name " +
                         "FROM player_in_team " +
@@ -95,17 +94,98 @@ public class TeamDAOMySQL implements TeamDAO {
     public boolean updateTeam(Team team, User user) {
         try{
             connection = MySQLConnectionManager.connectToDatabase();
+            if(deleteCurrentUserTeam(user) != 1){ return false; }
+            if(insertNewTeam(team, user) != 1){ return false; }
+            if(insertPlayersInTeam(team) != team.getPlayers().size()) { return false; }
+
+            return true;
         }
         catch (ClassNotFoundException | SQLException exception){
             Logger logger = Logger.getLogger("TeamDAOMySQL");
-            logger.info("Error during the team retrieve: " + exception.getMessage());
+            logger.info("Error during the team update: " + exception.getMessage());
             return false;
         }
+    }
 
-        //TODO: insert players -> insert players' roles
-        // select team id from user -> (update team name || insert team -> update user's team)
-        // select team id from user -> insert player in team
-        return true;
+    @Generated
+    private int deleteCurrentUserTeam(User user) throws SQLException {
+        String query = "DELETE FROM team " +
+                "WHERE user_name = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getUsername());
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("Deletion: " + affectedRows);
+            return affectedRows;
+        }
+    }
+
+    @Generated
+    private int insertNewTeam(Team team, User user) throws SQLException {
+        String query = "INSERT IGNORE INTO team(name, user_name) " +
+                "VALUES (?, ?); " +
+                "UPDATE user " +
+                "SET team_id = (select id from team where user_name = ?) " +
+                "WHERE name = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, team.getName());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getUsername());
+            preparedStatement.setString(4, user.getUsername());
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("New team insertion: " + affectedRows);
+            return affectedRows;
+        }
+    }
+
+    @Generated
+    private int insertPlayersInTeam(Team team) throws SQLException {
+        int playersCorrectlyInserted = 0;
+        for(Player player: team.getPlayers()){
+            insertPlayer(player);
+            insertPlayerRoles(player);
+            playersCorrectlyInserted += linkPlayerToTeam(player, team);
+            System.out.println("Player correctly inserted: " + playersCorrectlyInserted);
+        }
+        return playersCorrectlyInserted;
+    }
+
+    @Generated
+    private void insertPlayer(Player player) throws SQLException {
+        String query = "INSERT IGNORE INTO player " +
+                       "VALUES (?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, player.getName());
+            preparedStatement.execute();
+        }
+    }
+
+    @Generated
+    private void insertPlayerRoles(Player player) throws SQLException {
+        String query = "INSERT IGNORE INTO role_in_player " +
+                       "VALUES (?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            for(Role role: player.getRoles()){
+                preparedStatement.setString(1, player.getName());
+                preparedStatement.setString(2, role.toString());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        }
+    }
+
+    @Generated
+    private int linkPlayerToTeam(Player player, Team team) throws SQLException {
+        String query = "INSERT INTO player_in_team " +
+                       "SELECT DISTINCT player.name, team.id " +
+                       "FROM player, team " +
+                       "WHERE player.name = ? AND team.name = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, player.getName());
+            preparedStatement.setString(2, team.getName());
+            return preparedStatement.executeUpdate();
+        }
     }
 
     static class TeamData{
@@ -117,7 +197,4 @@ public class TeamDAOMySQL implements TeamDAO {
             this.name = name;
         }
     }
-
-
-
 }
