@@ -1,21 +1,26 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class MySQLConnectionManager {
 
     private MySQLConnectionManager() {}
 
-    public static Connection connectToDatabase() throws ClassNotFoundException, SQLException{
+    public static Connection connectToDatabase() throws ClassNotFoundException, SQLException {
         try {
             return tryConnectToDatabase();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger logger = Logger.getLogger("MySQLConnectionManager");
+            logger.info("Error while connection: " + e.getMessage());
+            Notifier.notifyError("Errore", "Connesione al database fallita.");
+            return null;
         }
     }
 
