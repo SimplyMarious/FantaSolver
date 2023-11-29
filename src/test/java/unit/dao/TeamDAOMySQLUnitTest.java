@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -36,6 +37,10 @@ public class TeamDAOMySQLUnitTest {
     private MockedStatic<MySQLConnectionManager> mockMySQLConnectionManager;
     @Mock
     private ResultSet mockResultSet;
+    @Mock
+    MockedStatic<Logger> mockStaticLogger;
+    @Mock
+    Logger mockLogger;
 
     private TeamDAOMySQL teamDAOMySQL;
 
@@ -45,10 +50,16 @@ public class TeamDAOMySQLUnitTest {
         mockUser = mock(User.class);
         mockConnection = mock(Connection.class);
         mockPreparedStatement = mock(PreparedStatement.class);
-        teamDAOMySQL = new TeamDAOMySQL();
         mockMySQLConnectionManager = mockStatic(MySQLConnectionManager.class);
         mockResultSet = mock(ResultSet.class);
+        mockStaticLogger = mockStatic(Logger.class);
+        mockLogger = mock(Logger.class);
         teamDAOMySQL = new TeamDAOMySQL();
+
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
+
+        mockStaticLogger.when(() -> Logger.getLogger("TeamDAOMySQL")).thenReturn(mockLogger);
+        doNothing().when(mockLogger).info(any(String.class));
     }
 
     @AfterEach
@@ -58,6 +69,8 @@ public class TeamDAOMySQLUnitTest {
             mockConnection.close();
             mockPreparedStatement.close();
             mockResultSet.close();
+            mockStaticLogger.close();
+
         } catch (SQLException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -65,7 +78,6 @@ public class TeamDAOMySQLUnitTest {
 
     @Test
     public void testUpdateTeamWithUndoneTeamDeletion() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
 
         when(mockPreparedStatement.executeUpdate()).thenReturn(0); // Change as needed
@@ -77,7 +89,6 @@ public class TeamDAOMySQLUnitTest {
 
     @Test
     public void testUpdateTeamWithDoneTeamDeletionUndoneNewTeamInsertion() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
 
         when(mockPreparedStatement.executeUpdate()).thenReturn(1, 0); // Change as needed
@@ -89,7 +100,6 @@ public class TeamDAOMySQLUnitTest {
 
     @Test
     public void testUpdateTeamWithDoneTeamDeletionDoneNewTeamInsertionUndonePlayersInTeamInsertion() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
 
         Team team = new Team("TestTeam", Set.of(new Player("Player1"), new Player("Player2")));
@@ -102,7 +112,6 @@ public class TeamDAOMySQLUnitTest {
 
     @Test
     public void testUpdateTeamWithDoneTeamDeletionDoneNewTeamInsertionDonePlayersInTeamInsertion() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
 
         Team team = new Team("TestTeam", Set.of(new Player("Player1"), new Player("Player2")));
@@ -127,45 +136,34 @@ public class TeamDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveTeamWithTeamNotInDatabase() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
+    public void testRetrieveTeamWithTeamNotInDatabase() throws SQLException, InternalException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(false);
 
-        try {
-            Team result = teamDAOMySQL.retrieveTeam(mockUser);
-            assertNull(result);
-        } catch (InternalException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
-
+        Team result = teamDAOMySQL.retrieveTeam(mockUser);
+        assertNull(result);
     }
 
     @Test
-    public void testRetrieveTeamWithTeamInDatabase() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
+    public void testRetrieveTeamWithTeamInDatabase() throws SQLException, InternalException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(true, false);
 
-        try {
-            Team result = teamDAOMySQL.retrieveTeam(mockUser);
-            assertNotNull(result);
-        } catch (InternalException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        Team result = teamDAOMySQL.retrieveTeam(mockUser);
+        assertNotNull(result);
     }
 
     @Test
     public void testRetrieveTeamWithConnectionException() {
         mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenThrow(SQLException.class);
+
         assertThrows(InternalException.class, ()->teamDAOMySQL.retrieveTeam(mockUser));
     }
 
     @Test
     public void testRetrieveTeamWithPreparedStatementException() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
         assertThrows(InternalException.class, ()->teamDAOMySQL.retrieveTeam(mockUser));
@@ -173,7 +171,6 @@ public class TeamDAOMySQLUnitTest {
 
     @Test
     public void testRetrieveTeamWithExecuteQueryException() throws SQLException {
-        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenThrow(new SQLException());
 

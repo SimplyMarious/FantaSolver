@@ -5,215 +5,168 @@ import com.spme.fantasolver.dao.UserDAOMySQL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class UserDAOMySQLUnitTest {
 
+    @Mock
+    private MockedStatic<MySQLConnectionManager> mockMySQLConnectionManager;
+    @Mock
+    private Connection mockConnection;
+    @Mock
+    private PreparedStatement mockPreparedStatement;
+    @Mock
+    private ResultSet mockResultSet;
+    @Mock
+    MockedStatic<Logger> mockStaticLogger;
+    @Mock
+    Logger mockLogger;
+
+
+    private UserDAOMySQL userDAOMySQL;
     private String username;
     private String password;
-    private MockedStatic<MySQLConnectionManager> dataRetrieverMock;
-    private Connection mockedConnection;
-    private PreparedStatement mockedPreparedStatement;
-    private ResultSet mockedResultSet;
-    private UserDAOMySQL userDAOMySQL;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SQLException {
         username = "testUser";
         password = "testPassword";
-        dataRetrieverMock = mockStatic(MySQLConnectionManager.class);
-        mockedConnection = mock(Connection.class);
-        mockedPreparedStatement = mock(PreparedStatement.class);
-        mockedResultSet = mock(ResultSet.class);
+        mockMySQLConnectionManager = mockStatic(MySQLConnectionManager.class);
+        mockConnection = mock(Connection.class);
+        mockPreparedStatement = mock(PreparedStatement.class);
+        mockResultSet = mock(ResultSet.class);
+        mockStaticLogger = mockStatic(Logger.class);
+        mockLogger = mock(Logger.class);
         userDAOMySQL = new UserDAOMySQL();
+
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        mockStaticLogger.when(() -> Logger.getLogger("UserDAOMySQL")).thenReturn(mockLogger);
+        doNothing().when(mockLogger).info(any(String.class));
     }
 
     @AfterEach
     public void clean() {
         try {
-            dataRetrieverMock.close();
-            mockedConnection.close();
-            mockedPreparedStatement.close();
-            mockedResultSet.close();
+            mockMySQLConnectionManager.close();
+            mockConnection.close();
+            mockPreparedStatement.close();
+            mockResultSet.close();
+            mockStaticLogger.close();
         } catch (SQLException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
     }
 
     @Test
-    public void testSignUpWithUserNotInDatabase() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
+    public void testSignUpWithUserNotInDatabase() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
 
-            boolean result = userDAOMySQL.signUp(username, password);
+        boolean result = userDAOMySQL.signUp(username, password);
 
-            assertTrue(result);
-            verify(mockedConnection, times(2)).close();
-            verify(mockedPreparedStatement, times(1)).executeUpdate();
-            verify(mockedPreparedStatement, times(1)).executeQuery();
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertTrue(result);
+        verify(mockConnection, times(2)).close();
+        verify(mockPreparedStatement, times(1)).executeUpdate();
+        verify(mockPreparedStatement, times(1)).executeQuery();
     }
 
     @Test
-    public void testSignUpWithUserInDatabase() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mock(Connection.class));
-            UserDAOMySQL mockedUserDAOMySQL = spy(new UserDAOMySQL());
-            doReturn(true).when(mockedUserDAOMySQL).isUserExist(username);
+    public void testSignUpWithUserInDatabase() throws SQLException, ClassNotFoundException {
+        UserDAOMySQL mockedUserDAOMySQL = spy(new UserDAOMySQL());
+        doReturn(true).when(mockedUserDAOMySQL).isUserExist(username);
 
-            boolean result = mockedUserDAOMySQL.signUp(username, password);
+        boolean result = mockedUserDAOMySQL.signUp(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 
     @Test
-    public void testSignUpWithPreparedStatementException() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
+    public void testSignUpWithPreparedStatementException() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
-            boolean result = userDAOMySQL.signUp(username, password);
+        boolean result = userDAOMySQL.signUp(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 
     @Test
-    public void testSignUpWithExecuteUpdateException() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            when(mockedPreparedStatement.executeUpdate()).thenThrow(new SQLException());
+    public void testSignUpWithExecuteUpdateException() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException());
 
-            boolean result = userDAOMySQL.signUp(username, password);
+        boolean result = userDAOMySQL.signUp(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 
     @Test
-    public void testSignUpWithSetStringException() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            doThrow(new SQLException()).when(mockedPreparedStatement).setString(eq(1), anyString());
+    public void testSignUpWithSetStringException() throws SQLException {
+        doThrow(new SQLException()).when(mockPreparedStatement).setString(eq(1), anyString());
 
-            boolean result = userDAOMySQL.signUp(username, password);
+        boolean result = userDAOMySQL.signUp(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 
     @Test
-    public void testSignInWithUserInDatabase() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
-            when(mockedResultSet.next()).thenReturn(true);
+    public void testSignInWithUserInDatabase() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true);
 
-            boolean result = userDAOMySQL.signIn(username, password);
+        boolean result = userDAOMySQL.signIn(username, password);
 
-            assertTrue(result);
-            verify(mockedConnection, times(1)).close();
-            verify(mockedPreparedStatement, times(1)).executeQuery();
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertTrue(result);
+        verify(mockConnection, times(1)).close();
+        verify(mockPreparedStatement, times(1)).executeQuery();
     }
 
     @Test
-    public void testSignInWithUserNotInDatabase() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
-            when(mockedResultSet.next()).thenReturn(false);
+    public void testSignInWithUserNotInDatabase() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false);
 
-            boolean result = userDAOMySQL.signIn(username, password);
+        boolean result = userDAOMySQL.signIn(username, password);
 
-            assertFalse(result);
-            verify(mockedConnection, times(1)).close();
-            verify(mockedPreparedStatement, times(1)).executeQuery();
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
+        verify(mockConnection, times(1)).close();
+        verify(mockPreparedStatement, times(1)).executeQuery();
     }
 
     @Test
-    public void testSignInWithPreparedStatementException() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenThrow(new SQLException());
+    public void testSignInWithPreparedStatementException() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
-            boolean result = userDAOMySQL.signIn(username, password);
+        boolean result = userDAOMySQL.signIn(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 
     @Test
-    public void testSignInWithExecuteUpdateException() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedPreparedStatement.executeQuery()).thenReturn(mockedResultSet);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            when(mockedPreparedStatement.executeUpdate()).thenThrow(new SQLException());
+    public void testSignInWithExecuteUpdateException() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException());
 
-            boolean result = userDAOMySQL.signIn(username, password);
+        boolean result = userDAOMySQL.signIn(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 
     @Test
-    public void testSignInWithSetStringException() {
-        try {
-            dataRetrieverMock.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockedConnection);
-            when(mockedConnection.prepareStatement(anyString())).thenReturn(mockedPreparedStatement);
-            doThrow(new SQLException()).when(mockedPreparedStatement).setString(eq(1), anyString());
+    public void testSignInWithSetStringException() throws SQLException {
+        doThrow(new SQLException()).when(mockPreparedStatement).setString(eq(1), anyString());
 
-            boolean result = userDAOMySQL.signIn(username, password);
+        boolean result = userDAOMySQL.signIn(username, password);
 
-            assertFalse(result);
-
-        } catch (SQLException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+        assertFalse(result);
     }
 }

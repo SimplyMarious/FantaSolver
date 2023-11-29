@@ -9,8 +9,10 @@ import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.utility.Utility;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
@@ -28,14 +30,24 @@ public class ManageTeamControllerUnitTest {
 
     private ManageTeamController manageTeamController;
     private AuthenticationManager authenticationManager;
+    @Mock
     private ManageTeamStage mockManageTeamStage;
+    @Mock
+    MockedStatic<Utility> mockUtility;
 
     @BeforeEach
     public void setUp() {
+        mockUtility = mockStatic(Utility.class);
         manageTeamController = ManageTeamController.getInstance();
         authenticationManager = AuthenticationManager.getInstance();
         mockManageTeamStage = mock(ManageTeamStage.class);
         manageTeamController.setManageTeamStage(mockManageTeamStage);
+    }
+
+    @AfterEach
+    public void clean(){
+        mockUtility.close();
+        mockManageTeamStage.close();
     }
 
     @Test
@@ -79,15 +91,15 @@ public class ManageTeamControllerUnitTest {
         String teamName = "ValidTeam";
         int playersSize = 25;
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                            thenReturn(true);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                any(String.class),
+                                any(Integer.class),
+                                any(Integer.class))).thenReturn(true);
 
-            manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
+        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(true);
-        }
+        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(true);
+
     }
 
     @Test
@@ -95,15 +107,14 @@ public class ManageTeamControllerUnitTest {
         String teamName = "Te";
         int playersSize = 25;
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(false);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                any(String.class),
+                                any(Integer.class),
+                                any(Integer.class))).thenReturn(false);
 
-            manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
+        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
-        }
+        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
     }
 
     @Test
@@ -111,15 +122,14 @@ public class ManageTeamControllerUnitTest {
         String teamName = "TestTeam";
         int playersSize = 4;
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(true);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                any(String.class),
+                                any(Integer.class),
+                                any(Integer.class))).thenReturn(true);
 
-            manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
+        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
-        }
+        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
     }
 
     @Test
@@ -127,15 +137,14 @@ public class ManageTeamControllerUnitTest {
         String teamName = "Te";
         int playersSize = 10;
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(false);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(false);
 
-            manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
+        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
-        }
+        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
     }
 
     @Test
@@ -143,16 +152,15 @@ public class ManageTeamControllerUnitTest {
         String teamName = "Te";
         int playersSize = 0;
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(false);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(false);
 
-            manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
+        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
-            verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
-            verify(mockManageTeamStage, times(1)).setRemovePlayerButtonAbility(false);
-        }
+        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
+        verify(mockManageTeamStage, times(1)).setRemovePlayerButtonAbility(false);
     }
 
     @Test
@@ -162,17 +170,16 @@ public class ManageTeamControllerUnitTest {
         String secondRole = "DC";
         String thirdRole = "DD";
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                            thenReturn(true);
-            mockedUtility.when(() ->
-                            Utility.areStringsDifferentFromEachOther(any(List.class))).
-                            thenReturn(true);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                any(String.class),
+                                any(Integer.class),
+                                any(Integer.class))).thenReturn(true);
 
-            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
-            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(true);
-        }
+        mockUtility.when(() -> Utility.areStringsDifferentFromEachOther(
+                                any(List.class))).thenReturn(true);
+
+        manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+        verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(true);
     }
 
     @Test
@@ -182,17 +189,15 @@ public class ManageTeamControllerUnitTest {
         String secondRole = "Nessuno";
         String thirdRole = "DD";
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(true);
-            mockedUtility.when(() ->
-                            Utility.areStringsDifferentFromEachOther(any(List.class))).
-                    thenReturn(true);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(true);
+        mockUtility.when(() -> Utility.areStringsDifferentFromEachOther(
+                                    any(List.class))).thenReturn(true);
 
-            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
-            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(true);
-        }
+        manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+        verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(true);
     }
 
     @Test
@@ -202,17 +207,15 @@ public class ManageTeamControllerUnitTest {
         String secondRole = "DC";
         String thirdRole = "DD";
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(false);
-            mockedUtility.when(() ->
-                            Utility.areStringsDifferentFromEachOther(any(List.class))).
-                    thenReturn(true);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(false);
+        mockUtility.when(() -> Utility.areStringsDifferentFromEachOther(
+                                    any(List.class))).thenReturn(true);
 
-            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
-            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
-        }
+        manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+        verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
     }
 
     @Test
@@ -222,17 +225,15 @@ public class ManageTeamControllerUnitTest {
         String secondRole = "DC";
         String thirdRole = "DD";
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(true);
-            mockedUtility.when(() ->
-                            Utility.areStringsDifferentFromEachOther(any(List.class))).
-                    thenReturn(true);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(true);
+        mockUtility.when(() -> Utility.areStringsDifferentFromEachOther(
+                                    any(List.class))).thenReturn(true);
 
-            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
-            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
-        }
+        manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+        verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
     }
 
     @Test
@@ -242,17 +243,15 @@ public class ManageTeamControllerUnitTest {
         String secondRole = "DC";
         String thirdRole = "DD";
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(true);
-            mockedUtility.when(() ->
-                            Utility.areStringsDifferentFromEachOther(any(List.class))).
-                    thenReturn(false);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(true);
+        mockUtility.when(() -> Utility.areStringsDifferentFromEachOther
+                                    (any(List.class))).thenReturn(false);
 
-            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
-            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
-        }
+        manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+        verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
     }
 
     @Test
@@ -262,16 +261,14 @@ public class ManageTeamControllerUnitTest {
         String secondRole = "DC";
         String thirdRole = "DD";
 
-        try(MockedStatic<Utility> mockedUtility = mockStatic(Utility.class)){
-            mockedUtility.when(() ->
-                            Utility.checkStringValidity(any(String.class), any(Integer.class), any(Integer.class))).
-                    thenReturn(false);
-            mockedUtility.when(() ->
-                            Utility.areStringsDifferentFromEachOther(any(List.class))).
-                    thenReturn(false);
+        mockUtility.when(() -> Utility.checkStringValidity(
+                                    any(String.class),
+                                    any(Integer.class),
+                                    any(Integer.class))).thenReturn(false);
+        mockUtility.when(() -> Utility.areStringsDifferentFromEachOther(
+                                    any(List.class))).thenReturn(false);
 
-            manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
-            verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
-        }
+        manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
+        verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
     }
 }

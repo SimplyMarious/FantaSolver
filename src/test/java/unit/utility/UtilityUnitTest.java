@@ -1,6 +1,7 @@
 package unit.utility;
 import com.spme.fantasolver.utility.Utility;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -33,7 +34,6 @@ public class UtilityUnitTest {
         openMocks(this);
         Utility.setPropertiesReadingTools(mockProperties, mockFileInputStream);
     }
-
 
     @Test
     public void testGetValueFromPropertiesWithRightKeyAndValue() throws IOException {

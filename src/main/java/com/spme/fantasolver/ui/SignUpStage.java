@@ -48,6 +48,7 @@ public class SignUpStage {
     @Generated
     public void showSuccessfulSignUp() {
         Notifier.notifyInfo("Registrazione completata", "Registrazione completata: sei un Fantallenatore!");
+        stage.close();
     }
 
     @Generated

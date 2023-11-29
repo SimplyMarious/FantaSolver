@@ -39,31 +39,23 @@ public class UserDAOMySQLIntegrationTest {
     }
 
     @AfterEach
-    public void clean() {
+    public void clean() throws SQLException, ClassNotFoundException {
         if(signUpResult){
-            try {
-                Connection connection = connectToDatabase();
-                String deleteQuery = "DELETE FROM user WHERE name = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
-                preparedStatement.setString(1, username);
-                preparedStatement.executeUpdate();
+            Connection connection = connectToDatabase();
+            String deleteQuery = "DELETE FROM user WHERE name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
 
-                connection.close();
-
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            connection.close();
         }
     }
 
     @Test
-    public void testConnectionToDatabase() {
-        try {
-            Connection connection = connectToDatabase();
-            connection.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            fail("Unexpected exception: " + e.getMessage());
-        }
+    public void testConnectionToDatabase() throws SQLException, ClassNotFoundException {
+        Connection connection = connectToDatabase();
+        assertNotNull(connection);
+        connection.close();
     }
 
     @Test
