@@ -1,10 +1,11 @@
 package com.spme.fantasolver;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.ui.SignInStage;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-public class Application extends javafx.application.Application {
+public class FantaSolver extends javafx.application.Application {
     private static Stage stage;
 
     @Override
@@ -16,20 +17,26 @@ public class Application extends javafx.application.Application {
             e.consume();
             closeApplication();
         });
-        //Test
     }
 
+    @Generated
     public static Stage getStage(){
         return stage;
     }
 
+    @Generated
+
     private static void setStage(Stage stage) {
-        Application.stage = stage;
+        FantaSolver.stage = stage;
     }
+
+    @Generated
 
     public static void closeApplication() {
         Platform.exit();
     }
+
+    @Generated
     public static void main(String[] args) {
         launch();
     }

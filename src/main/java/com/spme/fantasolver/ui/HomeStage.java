@@ -1,6 +1,7 @@
 package com.spme.fantasolver.ui;
 
-import com.spme.fantasolver.Application;
+import com.spme.fantasolver.FantaSolver;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.AuthenticationManager;
 import com.spme.fantasolver.controllers.HomeController;
 import javafx.fxml.FXMLLoader;
@@ -29,14 +30,15 @@ public class HomeStage {
     }
 
     public void initializeStage() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("home-stage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("home-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        Application.getStage().setScene(scene);
-        Application.getStage().setTitle("FantaSolver - Home");
+        FantaSolver.getStage().setScene(scene);
+        FantaSolver.getStage().setTitle("FantaSolver - Home");
 
         initializeUIComponents(fxmlLoader);
     }
 
+    @Generated
     private void initializeUIComponents(FXMLLoader fxmlLoader) {
         labelWelcomeUser = (Label) fxmlLoader.getNamespace().get("labelWelcomeUser");
         labelWelcomeUser.setText("Benvenuto, " + AuthenticationManager.getInstance().getUser().getUsername() + "!");
@@ -69,6 +71,6 @@ public class HomeStage {
     }
 
     public void show() {
-        Application.getStage().show();
+        FantaSolver.getStage().show();
     }
 }
