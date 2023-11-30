@@ -1,5 +1,6 @@
 package com.spme.fantasolver.controllers;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.ui.ProposeLineupStage;
@@ -44,10 +45,12 @@ public class HomeController {
         homeStage.show();
     }
 
+    @Generated
     public void handlePressedManageTeamButton() {
         new ManageTeamStage();
     }
 
+    @Generated
     public void handlePressedProposeLineupButton() {
         new ProposeLineupStage(AuthenticationManager.getInstance().getUser().getTeam());
     }
