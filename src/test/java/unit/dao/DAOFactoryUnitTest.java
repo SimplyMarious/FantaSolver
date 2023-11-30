@@ -13,6 +13,7 @@ import org.mockito.MockedStatic;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 public class DAOFactoryUnitTest {
@@ -57,6 +58,7 @@ public class DAOFactoryUnitTest {
         TeamDAO result = DAOFactory.getTeamDAO();
 
         assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
+        assertSame(TeamDAOMySQL.class, DAOFactory.getTeamDAO().getClass());
     }
 
     @Test
@@ -75,6 +77,7 @@ public class DAOFactoryUnitTest {
         UserDAO result = DAOFactory.getUserDAO();
 
         assertThat(result, is(instanceOf(UserDAOMySQL.class)));
+        assertSame(UserDAOMySQL.class, DAOFactory.getUserDAO().getClass());
     }
 
     @Test
