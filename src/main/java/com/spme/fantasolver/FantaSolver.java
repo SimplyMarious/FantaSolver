@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class FantaSolver extends javafx.application.Application {
     private static Stage stage;
 
+    @Generated
     @Override
     public void start(Stage stage){
         setStage(stage);
