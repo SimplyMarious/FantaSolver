@@ -19,7 +19,7 @@ public class MySQLConnectionManager {
         } catch (IOException e) {
             Logger logger = Logger.getLogger("MySQLConnectionManager");
             logger.info("Error while connection: " + e.getMessage());
-            Notifier.notifyError("Errore", "Connesione al database fallita.");
+            Notifier.notifyError("Errore", "Connessione al database fallita.");
             return null;
         }
     }
