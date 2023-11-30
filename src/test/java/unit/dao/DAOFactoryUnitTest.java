@@ -38,6 +38,7 @@ public class DAOFactoryUnitTest {
     public void clean(){
         mockUtility.close();
         mockStaticLogger.close();
+        DAOFactory.resetFactory();
     }
 
     @Test
@@ -78,19 +79,21 @@ public class DAOFactoryUnitTest {
 
     @Test
     public void testGetTeamDAOWithIOException() {
-        mockUtility.when(() -> Utility.getValueFromProperties("teamDAO")).thenThrow(IOException.class);
+        mockUtility.when(() -> Utility.getValueFromProperties(eq("teamDAO"))).thenThrow(new IOException("Simulated IOException"));
 
         TeamDAO result = DAOFactory.getTeamDAO();
 
         assertThat(result, is(instanceOf(TeamDAOMySQL.class)));
+        verify(mockLogger).info("Error getting the DBMS value for TeamDAO: Simulated IOException");
     }
 
     @Test
     public void testGetUserDAOWithIOException() {
-        mockUtility.when(() -> Utility.getValueFromProperties("userDAO")).thenThrow(IOException.class);
+        mockUtility.when(() -> Utility.getValueFromProperties(eq("userDAO"))).thenThrow(new IOException("Simulated IOException"));
 
         UserDAO result = DAOFactory.getUserDAO();
 
         assertThat(result, is(instanceOf(UserDAOMySQL.class)));
+        verify(mockLogger).info("Error getting the DBMS value for UserDAO: Simulated IOException");
     }
 }

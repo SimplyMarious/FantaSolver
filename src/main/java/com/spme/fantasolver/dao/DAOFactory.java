@@ -54,4 +54,9 @@ public class DAOFactory {
         }
         return userDAO;
     }
+
+    public static void resetFactory() {
+        teamDAO = null;
+        userDAO = null;
+    }
 }
