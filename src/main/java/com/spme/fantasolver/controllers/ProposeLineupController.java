@@ -1,5 +1,6 @@
 package com.spme.fantasolver.controllers;
 
+import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.ui.ProposeLineupStage;
 
 import java.io.IOException;
@@ -30,6 +31,19 @@ public class ProposeLineupController {
 
         proposeLineupStage.show();
 
+    }
+
+    public void handleSelectedTableViewTeamPlayer() {
+        proposeLineupStage.setAddPlayerToLineupButtonAbility(true);
+    }
+
+    public void handlePressedAddPlayerToLineupButton(Player player) {
+        if(!proposeLineupStage.getLineupPlayers().contains(player)){
+            proposeLineupStage.addPlayerToLineupTableView(player);
+        }
+        else {
+            proposeLineupStage.highlightPlayerInTeamTableView(player);
+        }
     }
 
     public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {
