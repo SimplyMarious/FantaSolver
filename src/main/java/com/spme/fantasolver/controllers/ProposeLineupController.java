@@ -46,6 +46,20 @@ public class ProposeLineupController {
         }
     }
 
+    public void handleSelectedTableViewLineupPlayer() {
+        proposeLineupStage.setRemovePlayerFromLineupButtonAbility(true);
+    }
+
+    public void handlePressedRemovePlayerFromLineupButton(Player player) {
+        proposeLineupStage.removePlayerFromLineupTableView(player);
+    }
+
+    public void handleLineUpTableViewChanged(int lineupSize) {
+        if(lineupSize == 0){
+            proposeLineupStage.setRemovePlayerFromLineupButtonAbility(false);
+        }
+    }
+
     public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {
         this.proposeLineupStage = proposeLineupStage;
     }

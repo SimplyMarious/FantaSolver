@@ -2,7 +2,6 @@ package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.Application;
 import com.spme.fantasolver.controllers.ProposeLineupController;
-import com.spme.fantasolver.controllers.ProposeLineupController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.Team;
@@ -34,6 +33,8 @@ public class ProposeLineupStage {
     private Button buttonAddPlayerToLineup;
     private TableView<Player> tableViewLineupPlayers;
     private ObservableList<Player> lineupPlayers;
+    private Button buttonRemovePlayerFromLineup;
+    
 
     public ProposeLineupStage(Team team){
         this.proposeLineupController = ProposeLineupController.getInstance();
@@ -78,6 +79,9 @@ public class ProposeLineupStage {
             return new SimpleStringProperty(rolesString.toString());
         });
 
+        tableViewTeamPlayers.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldSelection, newSelection) -> onSelectedTableViewTeamPlayer());
+
 
         tableViewLineupPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewLineupPlayers");
         lineupPlayers = FXCollections.observableArrayList();
@@ -100,14 +104,25 @@ public class ProposeLineupStage {
             }
             return new SimpleStringProperty(rolesString.toString());
         });
-        tableViewTeamPlayers.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldSelection, newSelection) -> onSelectedTableViewTeamPlayer());
+
+        tableViewLineupPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if(newSelection != null){
+                onSelectedLineupTableViewPlayer();
+            }
+        });
+
+        lineupPlayers.addListener((ListChangeListener<? super Player>) change ->
+                onLineupTableViewChanged());
     }
 
     private void initializeButtons() {
         buttonAddPlayerToLineup = (Button) fxmlLoader.getNamespace().get("buttonAddPlayerToLineup");
         buttonAddPlayerToLineup.setOnAction(actionEvent -> onPressedAddPlayerToLineupButton());
         buttonAddPlayerToLineup.setDisable(true);
+
+        buttonRemovePlayerFromLineup = (Button) fxmlLoader.getNamespace().get("buttonRemovePlayerFromLineup");
+        buttonRemovePlayerFromLineup.setOnAction(actionEvent -> onPressedRemovePlayerFromLineupButton());
+        buttonRemovePlayerFromLineup.setDisable(true);
     }
 
     public List<Player> getLineupPlayers() {
@@ -135,8 +150,29 @@ public class ProposeLineupStage {
         lineupPlayers.add(player);
     }
 
+    private void onSelectedLineupTableViewPlayer() {
+        proposeLineupController.handleSelectedTableViewLineupPlayer();
+    }
+
+    private void onPressedRemovePlayerFromLineupButton() {
+        proposeLineupController.handlePressedRemovePlayerFromLineupButton(
+                tableViewLineupPlayers.getSelectionModel().getSelectedItem()
+        );
+    }
+
+    private void onLineupTableViewChanged() {
+        proposeLineupController.handleLineUpTableViewChanged(lineupPlayers.size());
+    }
+
+    public void removePlayerFromLineupTableView(Player player) {
+        lineupPlayers.remove(player);
+    }
 
     public void show() {
         stage.show();
+    }
+
+    public void setRemovePlayerFromLineupButtonAbility(boolean ability) {
+        buttonRemovePlayerFromLineup.setDisable(!ability);
     }
 }
