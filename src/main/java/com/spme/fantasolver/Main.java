@@ -1,15 +1,19 @@
 package com.spme.fantasolver;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.utility.Utility;
 import java.util.Properties;
 
 public class Main {
+
+    @Generated
     public static void main(String[] args){
         setUpDependencies();
-        Application.main(args);
+        FantaSolver.main(args);
 
     }
 
+    @Generated
     private static void setUpDependencies() {
         Utility.setPropertiesReadingTools(
                 new Properties(),

@@ -1,7 +1,8 @@
 package com.spme.fantasolver.ui;
 
-import com.spme.fantasolver.Application;
+import com.spme.fantasolver.FantaSolver;
 import com.spme.fantasolver.controllers.ProposeLineupController;
+import com.spme.fantasolver.Application;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.Team;
@@ -44,7 +45,7 @@ public class ProposeLineupStage {
     }
 
     public void initializeStage() throws IOException {
-        fxmlLoader = new FXMLLoader(Application.class.getResource("propose-lineup-stage.fxml"));
+        fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("propose-lineup-stage.fxml"));
         stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load(), 920, 527);
         stage.setScene(scene);

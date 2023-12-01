@@ -1,6 +1,6 @@
 package com.spme.fantasolver.ui;
 
-import com.spme.fantasolver.Application;
+import com.spme.fantasolver.FantaSolver;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.SignInController;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +31,7 @@ public class SignInStage {
 
     @Generated
     public void initializeStage() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("signin-stage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signin-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
@@ -45,9 +45,9 @@ public class SignInStage {
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
-        Application.getStage().setTitle("FantaSolver - SignIn");
-        Application.getStage().setScene(scene);
-        Application.getStage().show();
+        FantaSolver.getStage().setTitle("FantaSolver - SignIn");
+        FantaSolver.getStage().setScene(scene);
+        FantaSolver.getStage().show();
     }
 
     @Generated

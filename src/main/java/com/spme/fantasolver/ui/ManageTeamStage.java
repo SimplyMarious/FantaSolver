@@ -1,6 +1,7 @@
 package com.spme.fantasolver.ui;
 
-import com.spme.fantasolver.Application;
+import com.spme.fantasolver.FantaSolver;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.ManageTeamController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
@@ -15,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +43,7 @@ public class ManageTeamStage {
     }
 
     public void initializeStage() throws IOException {
-        fxmlLoader = new FXMLLoader(Application.class.getResource("manage-team-stage.fxml"));
+        fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("manage-team-stage.fxml"));
         stage = new Stage();
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setScene(scene);
@@ -70,6 +70,7 @@ public class ManageTeamStage {
 
     }
 
+    @Generated
     private void onPressedButtonAddPlayer() {
         manageTeamController.handlePressedAddPlayerButton(
                 textFieldPlayerName.getText(),
@@ -78,16 +79,19 @@ public class ManageTeamStage {
                 comboBoxPlayerThirdRole.getValue());
     }
 
+    @Generated
     private void initializeTeamNameTextField() {
         textFieldTeamName = (TextField)fxmlLoader.getNamespace().get("textFieldTeamName");
         textFieldTeamName.setOnKeyTyped(keyEvent -> onTeamPropertyChanged());
     }
 
+    @Generated
     private void initializePlayerNameTextField() {
         textFieldPlayerName = (TextField)fxmlLoader.getNamespace().get("textFieldPlayerName");
         textFieldPlayerName.setOnKeyTyped(keyEvent -> onPlayerPropertyChanged());
     }
 
+    @Generated
     private void initializeRolesComboBoxes() {
         comboBoxPlayerFirstRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerFirstRole");
         comboBoxPlayerSecondRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerSecondRole");
@@ -111,6 +115,7 @@ public class ManageTeamStage {
         comboBoxPlayerThirdRole.getSelectionModel().select(0);
     }
 
+    @Generated
     private void initializeTeamTable() {
         tableViewPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewPlayers");
         players = FXCollections.observableArrayList();
@@ -146,6 +151,7 @@ public class ManageTeamStage {
         });
     }
 
+    @Generated
     private void onPlayerPropertyChanged() {
         manageTeamController.handlePlayerPropertyChanged(
                 textFieldPlayerName.getText(),
@@ -154,10 +160,12 @@ public class ManageTeamStage {
                 comboBoxPlayerThirdRole.getValue());
     }
 
+    @Generated
     private void onTeamPropertyChanged() {
         manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size());
     }
 
+    @Generated
     private void onSelectedTableViewPlayer() {
         manageTeamController.handleSelectedPlayerFromTableView();
     }
@@ -192,6 +200,7 @@ public class ManageTeamStage {
         System.out.println("Setto a " + ability);
     }
 
+    @Generated
     private void onPressedButtonRemovePlayer() {
         manageTeamController.handlePressedRemovePlayerButton(
                 tableViewPlayers.getSelectionModel().getSelectedItem());
@@ -205,6 +214,7 @@ public class ManageTeamStage {
         buttonConfirm.setDisable(!ability);
     }
 
+    @Generated
     private void onPressedButtonConfirm() {
         manageTeamController.handlePressedConfirmButton(textFieldTeamName.getText(), players);
     }

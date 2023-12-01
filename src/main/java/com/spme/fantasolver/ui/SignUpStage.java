@@ -1,6 +1,6 @@
 package com.spme.fantasolver.ui;
 
-import com.spme.fantasolver.Application;
+import com.spme.fantasolver.FantaSolver;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.SignUpController;
 import com.spme.fantasolver.utility.Notifier;
@@ -28,7 +28,7 @@ public class SignUpStage {
 
     @Generated
     public void initializeStage() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("signup-stage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signup-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");

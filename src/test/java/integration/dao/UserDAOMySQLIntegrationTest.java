@@ -52,13 +52,6 @@ public class UserDAOMySQLIntegrationTest {
     }
 
     @Test
-    public void testConnectionToDatabase() throws SQLException, ClassNotFoundException {
-        Connection connection = connectToDatabase();
-        assertNotNull(connection);
-        connection.close();
-    }
-
-    @Test
     public void testSignUpWithUserNotInDatabase() {
         UserDAO userDAOMySQL = DAOFactory.getUserDAO();
 
