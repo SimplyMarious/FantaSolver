@@ -8,6 +8,7 @@ public class DAOFactory {
 
     private static TeamDAO teamDAO;
     private static UserDAO userDAO;
+    private static FormationDAO formationDAO;
 
     private DAOFactory() {}
 
@@ -55,8 +56,31 @@ public class DAOFactory {
         return userDAO;
     }
 
+    public static FormationDAO getFormationDAO() {
+        if (formationDAO == null) {
+            String formationDAOSource;
+            try {
+                formationDAOSource = Utility.getValueFromProperties("formationDAO");
+                //TODO: refactor switch
+                switch (formationDAOSource) {
+                    case "MySQL":
+                        formationDAO = new FormationDAOMySQL();
+                        break;
+                    default:
+                        formationDAO = new FormationDAOMySQL();
+                }
+            } catch (IOException e) {
+                Logger logger = Logger.getLogger("DAOFactory");
+                logger.info("Error getting the DBMS value for FormationDAO: " + e.getMessage());
+                formationDAO = new FormationDAOMySQL();            }
+
+        }
+        return formationDAO;
+    }
+
     public static void resetFactory() {
         teamDAO = null;
         userDAO = null;
+        formationDAO = null;
     }
 }
