@@ -114,7 +114,6 @@ public class TeamDAOMySQL implements TeamDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
             int affectedRows = preparedStatement.executeUpdate();
-            System.out.println("Deletion: " + affectedRows);
             return affectedRows;
         }
     }
@@ -133,7 +132,6 @@ public class TeamDAOMySQL implements TeamDAO {
             preparedStatement.setString(3, user.getUsername());
             preparedStatement.setString(4, user.getUsername());
             int affectedRows = preparedStatement.executeUpdate();
-            System.out.println("New team insertion: " + affectedRows);
             return affectedRows;
         }
     }
@@ -145,7 +143,6 @@ public class TeamDAOMySQL implements TeamDAO {
             insertPlayer(player);
             insertPlayerRoles(player);
             playersCorrectlyInserted += linkPlayerToTeam(player, team);
-            System.out.println("Player correctly inserted: " + playersCorrectlyInserted);
         }
         return playersCorrectlyInserted;
     }
