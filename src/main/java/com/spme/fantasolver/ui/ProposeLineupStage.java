@@ -2,7 +2,6 @@ package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.FantaSolver;
 import com.spme.fantasolver.controllers.ProposeLineupController;
-import com.spme.fantasolver.Application;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.Team;
