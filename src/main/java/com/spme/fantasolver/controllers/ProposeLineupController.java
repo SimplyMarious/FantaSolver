@@ -19,6 +19,7 @@ public class ProposeLineupController {
 
 
     private ProposeLineupStage proposeLineupStage;
+    private static final int LINEUP_SIZE = 11;
 
     public void handleInitialization() {
         try {
@@ -30,11 +31,12 @@ public class ProposeLineupController {
         }
 
         proposeLineupStage.show();
-
     }
 
-    public void handleSelectedTableViewTeamPlayer() {
-        proposeLineupStage.setAddPlayerToLineupButtonAbility(true);
+    public void handleSelectedTableViewTeamPlayer(int playersSize) {
+        if(playersSize < LINEUP_SIZE){
+            proposeLineupStage.setAddPlayerToLineupButtonAbility(true);
+        }
     }
 
     public void handlePressedAddPlayerToLineupButton(Player player) {
@@ -55,9 +57,20 @@ public class ProposeLineupController {
     }
 
     public void handleLineUpTableViewChanged(int lineupSize) {
-        if(lineupSize == 0){
+        if(lineupSize == LINEUP_SIZE){
+            proposeLineupStage.setAddPlayerToLineupButtonAbility(false);
+            proposeLineupStage.setVerifyLineupButtonAbility(true);
+        }
+        else if(lineupSize > 0){
+            proposeLineupStage.setAddPlayerToLineupButtonAbility(true);
+            proposeLineupStage.setVerifyLineupButtonAbility(false);
+        }
+        else{
             proposeLineupStage.setRemovePlayerFromLineupButtonAbility(false);
         }
+    }
+
+    public void handlePressedVerifyLineupButton() {
     }
 
     public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {

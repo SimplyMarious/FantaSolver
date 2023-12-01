@@ -144,7 +144,6 @@ public class ManageTeamStage {
                 onSelectedTableViewPlayer();
             }
         });
-
     }
 
     private void onPlayerPropertyChanged() {

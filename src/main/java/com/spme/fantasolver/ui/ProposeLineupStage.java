@@ -34,7 +34,7 @@ public class ProposeLineupStage {
     private TableView<Player> tableViewLineupPlayers;
     private ObservableList<Player> lineupPlayers;
     private Button buttonRemovePlayerFromLineup;
-    
+    private Button buttonVerifyLineup;
 
     public ProposeLineupStage(Team team){
         this.proposeLineupController = ProposeLineupController.getInstance();
@@ -123,6 +123,9 @@ public class ProposeLineupStage {
         buttonRemovePlayerFromLineup = (Button) fxmlLoader.getNamespace().get("buttonRemovePlayerFromLineup");
         buttonRemovePlayerFromLineup.setOnAction(actionEvent -> onPressedRemovePlayerFromLineupButton());
         buttonRemovePlayerFromLineup.setDisable(true);
+
+        buttonVerifyLineup = (Button) fxmlLoader.getNamespace().get("buttonVerifyLineup");
+        buttonVerifyLineup.setOnAction(actionEvent -> onPressedVerifyLineupButton());
     }
 
     public List<Player> getLineupPlayers() {
@@ -130,7 +133,7 @@ public class ProposeLineupStage {
     }
 
     private void onSelectedTableViewTeamPlayer() {
-        proposeLineupController.handleSelectedTableViewTeamPlayer();
+        proposeLineupController.handleSelectedTableViewTeamPlayer(lineupPlayers.size());
     }
 
     public void setAddPlayerToLineupButtonAbility(boolean ability) {
@@ -166,6 +169,14 @@ public class ProposeLineupStage {
 
     public void removePlayerFromLineupTableView(Player player) {
         lineupPlayers.remove(player);
+    }
+
+    public void setVerifyLineupButtonAbility(boolean ability) {
+        buttonVerifyLineup.setDisable(!ability);
+    }
+
+    private void onPressedVerifyLineupButton() {
+        proposeLineupController.handlePressedVerifyLineupButton();
     }
 
     public void show() {
