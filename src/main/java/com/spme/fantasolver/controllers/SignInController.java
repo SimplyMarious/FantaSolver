@@ -83,10 +83,11 @@ public class SignInController {
 
             try{
                 Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
-
                 if(team != null) {
                     user.setTeam(team);
                 }
+
+                new HomeStage();
             }
             catch (InternalException exception){
                 Notifier.notifyError("Errore", "Errore imprevisto");

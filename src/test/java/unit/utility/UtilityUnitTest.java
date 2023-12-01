@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -174,4 +175,35 @@ public class UtilityUnitTest {
         assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
     }
 
+    public void testGetFormattedStringsWithNullList() {
+        assertThrows(IllegalArgumentException.class, () -> Utility.getFormattedStrings(null));
+    }
+
+    @Test
+    public void testGetFormattedStringsWithEmptyList() {
+        List<String> strings = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> Utility.getFormattedStrings(strings));
+
+    }
+
+    @Test
+    public void testGetFormattedStringsWithSingleString() {
+        List<String> strings = List.of("One");
+        String result = Utility.getFormattedStrings(strings);
+        assertThat(result, is("One"));
+    }
+
+    @Test
+    public void testGetFormattedStringsWithMultipleStrings() {
+        List<String> strings = List.of("One", "Two", "Three");
+        String result = Utility.getFormattedStrings(strings);
+        assertThat(result, is("One, Two, Three"));
+    }
+
+    @Test
+    public void testGetFormattedStringsWithWhitespace() {
+        List<String> strings = List.of("  One  ", "Two", "   Three   ");
+        String result = Utility.getFormattedStrings(strings);
+        assertThat(result, is("  One  , Two,    Three   "));
+    }
 }

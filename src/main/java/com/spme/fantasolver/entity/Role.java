@@ -1,5 +1,10 @@
 package com.spme.fantasolver.entity;
 
+import com.spme.fantasolver.utility.Utility;
+import javafx.beans.property.SimpleStringProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public enum Role {
@@ -26,5 +31,16 @@ public enum Role {
             throw new RoleLimitExceededException();
         }
         return true;
+    }
+
+    public static SimpleStringProperty getFormattedRoles(Set<Role> roles){
+        if(roles == null || roles.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        List<String> rolesNames = new ArrayList<>();
+        for(Role role: roles){
+            rolesNames.add(role.name());
+        }
+        return new SimpleStringProperty(Utility.getFormattedStrings(rolesNames));
     }
 }

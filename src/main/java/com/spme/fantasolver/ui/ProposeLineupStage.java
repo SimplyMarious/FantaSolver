@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -69,7 +70,9 @@ public class ProposeLineupStage {
         TableColumn<Player, String> tableColumnTeamPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnTeamPlayerRoles");
         tableColumnTeamPlayerRoles.setCellValueFactory(cellData ->
-                        new SimpleStringProperty(Utility.getFormattedRoles(cellData.getValue().getRoles())));
+                Role.getFormattedRoles(cellData.getValue().getRoles())
+        );
+
 
         tableViewTeamPlayers.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> onSelectedTableViewTeamPlayer());
@@ -86,7 +89,7 @@ public class ProposeLineupStage {
         TableColumn<Player, String> tableColumnLineupPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnLineupPlayerRoles");
         tableColumnLineupPlayerRoles.setCellValueFactory(cellData ->
-                        new SimpleStringProperty(Utility.getFormattedRoles(cellData.getValue().getRoles())));
+                        Role.getFormattedRoles(cellData.getValue().getRoles()));
 
         tableViewLineupPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null){

@@ -1,13 +1,23 @@
 package unit.entity;
 
 import com.spme.fantasolver.entity.*;
+import com.spme.fantasolver.utility.Utility;
+import javafx.beans.property.SimpleStringProperty;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mockStatic;
 
 public class RoleUnitTest {
     private static final short MAX_ROLES = 3;
@@ -59,4 +69,34 @@ public class RoleUnitTest {
         roles.add(Role.DD);
         assertThrows(RoleLimitExceededException.class, () -> Role.checkNewRoleSuitability(Role.M, roles, MAX_ROLES));
     }
+
+    @Test
+    public void getFormattedRolesShouldThrowExceptionForNullRoles() {
+        assertThrows(IllegalArgumentException.class, () -> Role.getFormattedRoles(null));
+    }
+
+    @Test
+    public void getFormattedRolesShouldThrowExceptionForEmptyRoles() {
+        Set<Role> roles = new HashSet<>();
+        assertThrows(IllegalArgumentException.class, () -> Role.getFormattedRoles(roles));
+    }
+
+    @Test
+    public void getFormattedRolesWithValidRoles() {
+        Set<Role> roles = Set.of(Role.DC, Role.DD);
+        List<String> rolesNames = List.of("DC", "DD");
+        String formattedRoles = "DC, DD";
+
+        try(MockedStatic<Utility> utilityMockedStatic = mockStatic(Utility.class)) {
+            utilityMockedStatic.when(() -> Utility.getFormattedStrings(rolesNames)).thenReturn(formattedRoles);
+
+            SimpleStringProperty result = Role.getFormattedRoles(roles);
+            assertThat(result.get(), is("DC, DD"));
+        }
+
+    }
+
+
+
+
 }

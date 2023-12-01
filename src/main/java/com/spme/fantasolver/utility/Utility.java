@@ -39,14 +39,17 @@ public class Utility {
         return stringSet.size() == strings.size();
     }
 
-    public static String getFormattedRoles(Set<Role> roles) {
-        StringBuilder rolesString = new StringBuilder();
-        for (Role role: roles) {
-            rolesString.append(role.name()).append(", ");
+    public static String getFormattedStrings(List<String> strings) {
+        if(strings == null || strings.isEmpty()){
+            throw new IllegalArgumentException();
         }
-        if (rolesString.length() > 0) {
-            rolesString.setLength(rolesString.length() - 2);
+        StringBuilder formattedStrings = new StringBuilder();
+        for (String string: strings) {
+            formattedStrings.append(string).append(", ");
         }
-        return rolesString.toString();
+        if (formattedStrings.length() > 0) {
+            formattedStrings.setLength(formattedStrings.length() - 2);
+        }
+        return formattedStrings.toString();
     }
 }

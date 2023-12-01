@@ -131,7 +131,7 @@ public class ManageTeamStage {
         TableColumn<Player, String> tableColumnPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnPlayerRoles");
         tableColumnPlayerRoles.setCellValueFactory(cellData ->
-                new SimpleStringProperty(Utility.getFormattedRoles(cellData.getValue().getRoles())));
+                        Role.getFormattedRoles(cellData.getValue().getRoles()));
 
         tableViewPlayers.getColumns().set(0, tableColumnPlayerName);
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);
@@ -189,7 +189,6 @@ public class ManageTeamStage {
 
     public void setRemovePlayerButtonAbility(boolean ability) {
         buttonRemovePlayer.setDisable(!ability);
-        System.out.println("Setto a " + ability);
     }
 
     @Generated
