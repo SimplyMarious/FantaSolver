@@ -11,6 +11,11 @@ public class Slot {
     private static final short MAX_ROLES_PER_SLOT = 3;
 
     @Generated
+    public Slot(short id){
+        this.id = id;
+    }
+
+    @Generated
     public short getId() {
         return id;
     }
