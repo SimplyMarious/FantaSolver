@@ -1,5 +1,9 @@
 package com.spme.fantasolver.utility;
 
+import com.spme.fantasolver.entity.Role;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -33,5 +37,16 @@ public class Utility {
         }
         Set<String> stringSet = new HashSet<>(strings);
         return stringSet.size() == strings.size();
+    }
+
+    public static String getFormattedRoles(Set<Role> roles) {
+        StringBuilder rolesString = new StringBuilder();
+        for (Role role: roles) {
+            rolesString.append(role.name()).append(", ");
+        }
+        if (rolesString.length() > 0) {
+            rolesString.setLength(rolesString.length() - 2);
+        }
+        return rolesString.toString();
     }
 }

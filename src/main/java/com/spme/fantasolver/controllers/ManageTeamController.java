@@ -32,7 +32,7 @@ public class ManageTeamController {
     private static final short TEAM_NAME_MAX_LENGTH = 50;
     private static final short TEAM_MIN_SIZE = 25;
     private static final short TEAM_MAX_SIZE = 30;
-    private static final short PLAYER_NAME_MIN_LENGTH = 2;
+    private static final short PLAYER_NAME_MIN_LENGTH = 25;
     private static final short PLAYER_NAME_MAX_LENGTH = 50;
     private static final String NO_ROLE_STRING = "Nessuno";
 
@@ -123,6 +123,7 @@ public class ManageTeamController {
             AuthenticationManager.getInstance().getUser().setTeam(team);
             Notifier.notifyInfo("Rosa salvata",
                     "Rosa salvata correttamente! L'asta sembra essere andata bene, vedo...");
+
         }
         else{
             Notifier.notifyError("Errore", "Errore imprevisto");

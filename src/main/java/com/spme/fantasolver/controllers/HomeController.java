@@ -1,6 +1,8 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
+import com.spme.fantasolver.entity.User;
+import com.spme.fantasolver.entity.UserObserver;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.ui.ProposeLineupStage;
@@ -9,7 +11,7 @@ import com.spme.fantasolver.ui.SignInStage;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class HomeController {
+public class HomeController implements UserObserver {
 
     private static HomeController homeController = null;
     private HomeController(){}
@@ -22,10 +24,9 @@ public class HomeController {
     }
 
     private HomeStage homeStage;
-    private boolean doesTeamExist;
 
-    public void handleInitialization(boolean doesTeamExist){
-        this.doesTeamExist = doesTeamExist;
+    public void handleInitialization(){
+        AuthenticationManager.getInstance().getUser().addObserver(this);
 
         try {
             homeStage.initializeStage();
@@ -35,7 +36,7 @@ public class HomeController {
             throw new FXMLLoadException();
         }
 
-        if(doesTeamExist){
+        if(AuthenticationManager.getInstance().getUser().getTeam() != null){
             homeStage.setManageTeamScreenVisible();
         }
         else {
@@ -62,5 +63,10 @@ public class HomeController {
 
     public void setHomeStage(HomeStage homeStage) {
         this.homeStage = homeStage;
+    }
+
+    @Override
+    public void onTeamChanged(User user) {
+        homeStage.setManageTeamScreenVisible();
     }
 }

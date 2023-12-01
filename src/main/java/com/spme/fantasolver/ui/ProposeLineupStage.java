@@ -2,10 +2,10 @@ package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.FantaSolver;
 import com.spme.fantasolver.controllers.ProposeLineupController;
-import com.spme.fantasolver.Application;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.Team;
+import com.spme.fantasolver.utility.Utility;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -68,17 +68,8 @@ public class ProposeLineupStage {
 
         TableColumn<Player, String> tableColumnTeamPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnTeamPlayerRoles");
-        tableColumnTeamPlayerRoles.setCellValueFactory(cellData -> {
-            Set<Role> roles = cellData.getValue().getRoles();
-            StringBuilder rolesString = new StringBuilder();
-            for (Role role: roles) {
-                rolesString.append(role.name()).append(", ");
-            }
-            if (rolesString.length() > 0) {
-                rolesString.setLength(rolesString.length() - 2);
-            }
-            return new SimpleStringProperty(rolesString.toString());
-        });
+        tableColumnTeamPlayerRoles.setCellValueFactory(cellData ->
+                        new SimpleStringProperty(Utility.getFormattedRoles(cellData.getValue().getRoles())));
 
         tableViewTeamPlayers.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> onSelectedTableViewTeamPlayer());
@@ -94,17 +85,8 @@ public class ProposeLineupStage {
 
         TableColumn<Player, String> tableColumnLineupPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnLineupPlayerRoles");
-        tableColumnLineupPlayerRoles.setCellValueFactory(cellData -> {
-            Set<Role> roles = cellData.getValue().getRoles();
-            StringBuilder rolesString = new StringBuilder();
-            for (Role role: roles) {
-                rolesString.append(role.name()).append(", ");
-            }
-            if (rolesString.length() > 0) {
-                rolesString.setLength(rolesString.length() - 2);
-            }
-            return new SimpleStringProperty(rolesString.toString());
-        });
+        tableColumnLineupPlayerRoles.setCellValueFactory(cellData ->
+                        new SimpleStringProperty(Utility.getFormattedRoles(cellData.getValue().getRoles())));
 
         tableViewLineupPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null){

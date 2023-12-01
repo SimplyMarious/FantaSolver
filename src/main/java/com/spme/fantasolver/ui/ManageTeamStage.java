@@ -5,6 +5,7 @@ import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.ManageTeamController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
+import com.spme.fantasolver.utility.Utility;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -129,17 +130,8 @@ public class ManageTeamStage {
 
         TableColumn<Player, String> tableColumnPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnPlayerRoles");
-        tableColumnPlayerRoles.setCellValueFactory(cellData -> {
-            Set<Role> roles = cellData.getValue().getRoles();
-            StringBuilder rolesString = new StringBuilder();
-            for (Role role: roles) {
-                rolesString.append(role.name()).append(", ");
-            }
-            if (rolesString.length() > 0) {
-                rolesString.setLength(rolesString.length() - 2);
-            }
-            return new SimpleStringProperty(rolesString.toString());
-        });
+        tableColumnPlayerRoles.setCellValueFactory(cellData ->
+                new SimpleStringProperty(Utility.getFormattedRoles(cellData.getValue().getRoles())));
 
         tableViewPlayers.getColumns().set(0, tableColumnPlayerName);
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);

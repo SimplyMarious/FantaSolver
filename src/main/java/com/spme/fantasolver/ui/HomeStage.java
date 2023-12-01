@@ -23,10 +23,10 @@ public class HomeStage {
     private Button buttonProposeLineup;
     private Button buttonSignOut;
 
-    public HomeStage(boolean doesTeamExist) {
+    public HomeStage() {
         this.homeController = HomeController.getInstance();
         homeController.setHomeStage(this);
-        homeController.handleInitialization(doesTeamExist);
+        homeController.handleInitialization();
     }
 
     public void initializeStage() throws IOException {

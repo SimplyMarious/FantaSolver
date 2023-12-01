@@ -1,13 +1,19 @@
 package unit.controllers;
 
+import com.spme.fantasolver.controllers.AuthenticationManager;
 import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.HomeController;
+import com.spme.fantasolver.entity.Player;
+import com.spme.fantasolver.entity.Team;
+import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.HomeStage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,19 +23,23 @@ public class HomeControllerUnitTest {
 
     private HomeController homeController;
     private HomeStage mockHomeStage;
+    private User testUser;
 
     @BeforeEach
     public void setUp() {
         homeController = HomeController.getInstance();
         mockHomeStage = mock(HomeStage.class);
         homeController.setHomeStage(mockHomeStage);
+
+        testUser = new User("TestUser");
+        AuthenticationManager.getInstance().signIn(testUser);
     }
 
     @Test
     public void testHandleInitializationWithExistingTeam() throws IOException {
-        boolean doesTeamExist = true;
+        testUser.setTeam(new Team("TestTeam", Set.of(new Player("Player1"), new Player("Player2"))));
 
-        homeController.handleInitialization(doesTeamExist);
+        homeController.handleInitialization();
 
         verify(mockHomeStage, times(1)).initializeStage();
         verify(mockHomeStage, times(1)).setManageTeamScreenVisible();
@@ -39,9 +49,7 @@ public class HomeControllerUnitTest {
 
     @Test
     public void testHandleInitializationWithNoExistingTeam() throws IOException {
-        boolean doesTeamExist = false;
-        
-        homeController.handleInitialization(doesTeamExist);
+        homeController.handleInitialization();
 
         verify(mockHomeStage, times(1)).initializeStage();
         verify(mockHomeStage, times(1)).setAddTeamScreenVisible();
@@ -51,7 +59,6 @@ public class HomeControllerUnitTest {
 
     @Test
     public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
-        boolean doesTeamExist = true;
         doThrow(new IOException()).when(mockHomeStage).initializeStage();
 
         try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
@@ -59,7 +66,7 @@ public class HomeControllerUnitTest {
             loggerMockedStatic.when(() -> Logger.getLogger("HomeController")).thenReturn(mockedLogger);
             doNothing().when(mockedLogger).info(any(String.class));
 
-            assertThrows(FXMLLoadException.class, () -> homeController.handleInitialization(doesTeamExist));
+            assertThrows(FXMLLoadException.class, () -> homeController.handleInitialization());
         }
     }
 }

@@ -84,12 +84,8 @@ public class SignInController {
             try{
                 Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
 
-                if(team != null){
+                if(team != null) {
                     user.setTeam(team);
-                    new HomeStage(true);
-                }
-                else{
-                    new HomeStage(false);
                 }
             }
             catch (InternalException exception){
