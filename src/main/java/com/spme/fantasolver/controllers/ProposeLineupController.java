@@ -1,9 +1,14 @@
 package com.spme.fantasolver.controllers;
 
+import com.spme.fantasolver.annotations.Generated;
+import com.spme.fantasolver.dao.DAOFactory;
+import com.spme.fantasolver.entity.Formation;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.ui.ProposeLineupStage;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class ProposeLineupController {
@@ -17,12 +22,13 @@ public class ProposeLineupController {
         return proposeLineupController;
     }
 
-
     private ProposeLineupStage proposeLineupStage;
     private static final int LINEUP_SIZE = 11;
+    private Set<Formation> formations = new HashSet<>();
 
     public void handleInitialization() {
         try {
+            initializeFormations();
             proposeLineupStage.initializeStage();
         } catch (IOException e) {
             Logger logger = Logger.getLogger("ProposeLineupController");
@@ -75,5 +81,10 @@ public class ProposeLineupController {
 
     public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {
         this.proposeLineupStage = proposeLineupStage;
+    }
+
+    @Generated
+    private void initializeFormations() {
+        this.formations = DAOFactory.getFormationDAO().retrieveFormations();
     }
 }
