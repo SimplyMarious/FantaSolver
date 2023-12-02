@@ -11,6 +11,10 @@ public class Player {
     private Set<Role> roles;
     private static final short MAX_ROLES_PER_PLAYER = 3;
 
+    public Player(){
+        this.roles = new HashSet<>();
+    }
+
     @Generated
     public Player(String name, Set<Role> roles){
         this.name = name;

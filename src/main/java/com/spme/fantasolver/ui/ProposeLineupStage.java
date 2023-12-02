@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -162,7 +163,7 @@ public class ProposeLineupStage {
     }
 
     private void onPressedVerifyLineupButton() {
-        proposeLineupController.handlePressedVerifyLineupButton();
+        proposeLineupController.handlePressedVerifyLineupButton(new HashSet<>(lineupPlayers));
     }
 
     public void show() {

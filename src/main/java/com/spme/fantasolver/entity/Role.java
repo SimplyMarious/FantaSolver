@@ -11,9 +11,9 @@ import java.util.EnumSet;
 
 public enum Role {
     POR,
+    DS,
     DC,
     DD,
-    DS,
     E,
     M,
     C,

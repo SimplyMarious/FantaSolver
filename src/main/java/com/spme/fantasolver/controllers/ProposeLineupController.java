@@ -2,12 +2,14 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
-import com.spme.fantasolver.entity.Formation;
-import com.spme.fantasolver.entity.Player;
+import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.ProposeLineupStage;
+import com.spme.fantasolver.utility.Notifier;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -76,15 +78,54 @@ public class ProposeLineupController {
         }
     }
 
-    public void handlePressedVerifyLineupButton() {
+    public void handlePressedVerifyLineupButton(Set<Player> players) {
+        Lineup lineup = getSuitableLineup(players);
+        if(lineup != null){
+            Notifier.notifyInfo(
+                    "Esito verifica", "Bravo! Esiste un modulo. E' il " + lineup.getFormation().getName());
+        }
+        else{
+            Notifier.notifyInfo(
+                    "Esito verifica", "Mi dispiace, non esiste un modulo adatto alla tua formazione... Dovevi pensarci all'asta!");
+        }
     }
 
-    public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {
-        this.proposeLineupStage = proposeLineupStage;
+    @Generated
+    private Lineup getSuitableLineup(Set<Player> players) {
+        for(Formation formation: formations){
+            Set<Player> currentPlayers = new HashSet<>(players);
+            Lineup lineup = new Lineup();
+            for(Slot slot: formation.getSlots()){
+                for(Player player: currentPlayers){
+                    Set<Role> commonRoles = new HashSet<>(slot.getRoles());
+                    commonRoles.retainAll(player.getRoles());
+                    if(!commonRoles.isEmpty()){
+                        lineup.setPlayer(player, slot);
+                        currentPlayers.remove(player);
+                        break;
+                    }
+                }
+                if(lineup.getPlayers()[slot.getId()] == null){
+                    break;
+                }
+            }
+            if(lineup.checkValidity()){
+                lineup.setFormation(formation);
+                return lineup;
+            }
+        }
+        return null;
     }
+
+
 
     @Generated
     private void initializeFormations() {
         this.formations = DAOFactory.getFormationDAO().retrieveFormations();
+    }
+
+    @Generated
+    public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {
+        this.proposeLineupStage = proposeLineupStage;
     }
 }

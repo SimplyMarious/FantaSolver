@@ -32,7 +32,7 @@ public class ManageTeamController {
     private static final short TEAM_NAME_MAX_LENGTH = 50;
     private static final short TEAM_MIN_SIZE = 25;
     private static final short TEAM_MAX_SIZE = 30;
-    private static final short PLAYER_NAME_MIN_LENGTH = 25;
+    private static final short PLAYER_NAME_MIN_LENGTH = 2;
     private static final short PLAYER_NAME_MAX_LENGTH = 50;
     private static final String NO_ROLE_STRING = "Nessuno";
 
@@ -58,7 +58,7 @@ public class ManageTeamController {
         try{
             manageTeamStage.setConfirmButtonAbility(
                     Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
-                            TEAM_MIN_SIZE <= playersSize && playersSize <= TEAM_MAX_SIZE);
+                            TEAM_MIN_SIZE <= playersSize && playersSize < TEAM_MAX_SIZE);
             if(playersSize == 0){
                 manageTeamStage.setRemovePlayerButtonAbility(false);
             }
