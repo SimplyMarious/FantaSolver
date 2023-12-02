@@ -1,12 +1,10 @@
 package com.spme.fantasolver.dao;
 
-import com.spme.fantasolver.Main;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.Formation;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.RoleException;
 import com.spme.fantasolver.entity.Slot;
-import com.spme.fantasolver.utility.Utility;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +15,7 @@ import java.util.logging.Logger;
 
 public class FormationDAOMySQL implements FormationDAO{
 
-    Map<String, Formation> formationsMap = new HashMap<>();
+    private final Map<String, Formation> formationsMap = new HashMap<>();
 
     @Override
     public Set<Formation> retrieveFormations() {
@@ -101,22 +99,12 @@ public class FormationDAOMySQL implements FormationDAO{
             while(formationSlot.next()) {
                 String name = formationSlot.getString(1);
                 short idSlot = formationSlot.getShort(2);
-                Role role = roleFromString(formationSlot.getString(3));
+                Role role = Role.roleFromString(formationSlot.getString(3));
                 formationSlots.add(new FormationSlot(name, idSlot, role));
             }
         }
         connection.close();
         return formationSlots;
-    }
-
-    @Generated
-    private Role roleFromString(String roleName) throws RoleNotFoundException {
-        for (Role role : EnumSet.allOf(Role.class)) {
-            if (role.name().equalsIgnoreCase(roleName)) {
-                return role;
-            }
-        }
-        throw new RoleNotFoundException("Role not found: " + roleName);
     }
 
     static class FormationSlot {
