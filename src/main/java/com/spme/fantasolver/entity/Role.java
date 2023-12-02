@@ -1,5 +1,9 @@
 package com.spme.fantasolver.entity;
 
+import com.spme.fantasolver.annotations.Generated;
+import com.spme.fantasolver.dao.RoleNotFoundException;
+
+import java.util.EnumSet;
 import java.util.Set;
 
 public enum Role {
@@ -26,5 +30,14 @@ public enum Role {
             throw new RoleLimitExceededException();
         }
         return true;
+    }
+
+    public static Role roleFromString(String roleName) throws RoleNotFoundException {
+        for (Role role : EnumSet.allOf(Role.class)) {
+            if (role.name().equalsIgnoreCase(roleName)) {
+                return role;
+            }
+        }
+        throw new RoleNotFoundException("Role not found: " + roleName);
     }
 }
