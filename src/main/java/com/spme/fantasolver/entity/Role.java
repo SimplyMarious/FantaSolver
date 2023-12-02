@@ -1,11 +1,14 @@
 package com.spme.fantasolver.entity;
 
 import com.spme.fantasolver.utility.Utility;
+import com.spme.fantasolver.dao.RoleNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.EnumSet;
+
 
 public enum Role {
     POR,
@@ -42,5 +45,14 @@ public enum Role {
             rolesNames.add(role.name());
         }
         return new SimpleStringProperty(Utility.getFormattedStrings(rolesNames));
+    }
+
+    public static Role roleFromString(String roleName) throws RoleNotFoundException {
+        for (Role role : EnumSet.allOf(Role.class)) {
+            if (role.name().equalsIgnoreCase(roleName)) {
+                return role;
+            }
+        }
+        throw new RoleNotFoundException("Role not found: " + roleName);
     }
 }
