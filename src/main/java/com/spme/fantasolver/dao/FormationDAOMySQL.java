@@ -1,10 +1,7 @@
 package com.spme.fantasolver.dao;
 
 import com.spme.fantasolver.annotations.Generated;
-import com.spme.fantasolver.entity.Formation;
-import com.spme.fantasolver.entity.Role;
-import com.spme.fantasolver.entity.RoleException;
-import com.spme.fantasolver.entity.Slot;
+import com.spme.fantasolver.entity.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

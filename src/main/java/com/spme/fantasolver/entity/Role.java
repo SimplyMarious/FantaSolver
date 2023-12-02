@@ -1,7 +1,6 @@
 package com.spme.fantasolver.entity;
 
 import com.spme.fantasolver.utility.Utility;
-import com.spme.fantasolver.dao.RoleNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
