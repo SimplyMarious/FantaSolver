@@ -1,13 +1,9 @@
 package unit.controllers;
 
-import com.spme.fantasolver.controllers.AuthenticationManager;
 import com.spme.fantasolver.controllers.FXMLLoadException;
-import com.spme.fantasolver.controllers.ProposeLineupController;
 import com.spme.fantasolver.controllers.ProposeLineupController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.ui.ProposeLineupStage;
-import com.spme.fantasolver.ui.ProposeLineupStage;
-import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,12 +24,9 @@ public class ProposeLineupControllerUnitTest {
 
     @Mock
     private ProposeLineupStage mockProposeLineupStage;
-    @Mock
-    MockedStatic<Utility> mockUtility;
 
     @BeforeEach
     public void setUp() {
-        mockUtility = mockStatic(Utility.class);
         proposeLineupController = ProposeLineupController.getInstance();
         mockProposeLineupStage = mock(ProposeLineupStage.class);
         proposeLineupController.setProposeLineupStage(mockProposeLineupStage);
