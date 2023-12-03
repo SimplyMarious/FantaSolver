@@ -84,11 +84,10 @@ public class RoleUnitTest {
     @Test
     public void getFormattedRolesWithValidRoles() {
         Set<Role> roles = Set.of(Role.DC, Role.DD);
-        List<String> rolesNames = List.of("DC", "DD");
         String formattedRoles = "DC, DD";
 
         try(MockedStatic<Utility> utilityMockedStatic = mockStatic(Utility.class)) {
-            utilityMockedStatic.when(() -> Utility.getFormattedStrings(rolesNames)).thenReturn(formattedRoles);
+            utilityMockedStatic.when(() -> Utility.getFormattedStrings(anyList())).thenReturn(formattedRoles);
 
             SimpleStringProperty result = Role.getFormattedRoles(roles);
             assertThat(result.get(), is("DC, DD"));
