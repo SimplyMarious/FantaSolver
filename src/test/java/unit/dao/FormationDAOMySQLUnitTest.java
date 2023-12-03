@@ -1,0 +1,138 @@
+package unit.dao;
+
+import com.spme.fantasolver.dao.*;
+import com.spme.fantasolver.entity.Formation;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockedStatic;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import static java.util.Collections.emptySet;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+public class FormationDAOMySQLUnitTest {
+
+    @Mock
+    private Connection mockConnection;
+    @Mock
+    private PreparedStatement mockPreparedStatement;
+    @Mock
+    private MockedStatic<MySQLConnectionManager> mockMySQLConnectionManager;
+    @Mock
+    private ResultSet mockResultSet;
+    @Mock
+    MockedStatic<Logger> mockStaticLogger;
+    @Mock
+    Logger mockLogger;
+    private FormationDAOMySQL formationDAOMySQL;
+
+    @BeforeEach
+    public void setUp(){
+
+        mockConnection = mock(Connection.class);
+        mockPreparedStatement = mock(PreparedStatement.class);
+        mockMySQLConnectionManager = mockStatic(MySQLConnectionManager.class);
+        mockResultSet = mock(ResultSet.class);
+        mockStaticLogger = mockStatic(Logger.class);
+        mockLogger = mock(Logger.class);
+        formationDAOMySQL = new FormationDAOMySQL();
+
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
+
+        mockStaticLogger.when(() -> Logger.getLogger("FormationDAOMySQL")).thenReturn(mockLogger);
+        doNothing().when(mockLogger).info(any(String.class));
+    }
+
+    @AfterEach
+    public void clean() {
+        try {
+            mockMySQLConnectionManager.close();
+            mockConnection.close();
+            mockPreparedStatement.close();
+            mockResultSet.close();
+            mockStaticLogger.close();
+
+        } catch (SQLException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
+
+//    @Test
+//    public void testRetrieveFormationWithFormationsInDatabase() throws SQLException {
+//        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+//        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+//        when(mockResultSet.next()).thenReturn(true, false);
+//
+//        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+//
+//        assertThat(result, is(not(emptySet())));
+//    }
+
+    @Test
+    public void testRetrieveFormationWithFormationsNotInDatabase() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false);
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(empty()));
+    }
+
+    @Test
+    public void testRetrieveFormationWithConnectionSQLException() {
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase)
+                .thenThrow(new SQLException("Simulated SQLException"));
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(emptySet()));
+        verify(mockLogger).info("Error during the retrieve formations: Simulated SQLException");
+    }
+
+    @Test
+    public void testRetrieveFormationWithConnectionClassNotFoundException() {
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase)
+                .thenThrow(new ClassNotFoundException("Simulated ClassNotFoundException"));
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(emptySet()));
+        verify(mockLogger).info("Error during the retrieve formations: Simulated ClassNotFoundException");
+    }
+
+    @Test
+    public void testRetrieveFormationWithExecuteQueryException() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.executeQuery()).thenThrow(new SQLException("Simulated SQLException"));
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(emptySet()));
+        verify(mockLogger).info("Error during the retrieve formations: Simulated SQLException");
+    }
+
+    @Test
+    public void testRetrieveFormationWithPrepareStatementException() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Simulated SQLException"));
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(emptySet()));
+        verify(mockLogger).info("Error during the retrieve formations: Simulated SQLException");
+    }
+
+}
