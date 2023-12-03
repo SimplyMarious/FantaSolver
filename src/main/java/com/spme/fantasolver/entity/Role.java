@@ -3,10 +3,7 @@ package com.spme.fantasolver.entity;
 import com.spme.fantasolver.utility.Utility;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.EnumSet;
+import java.util.*;
 
 
 public enum Role {
@@ -53,5 +50,10 @@ public enum Role {
             }
         }
         throw new RoleNotFoundException("Role not found: " + roleName);
+    }
+
+    public static Role[] sortRoles(Role[] roles) {
+        Arrays.sort(roles, Comparator.comparingInt(Enum::ordinal));
+        return roles;
     }
 }
