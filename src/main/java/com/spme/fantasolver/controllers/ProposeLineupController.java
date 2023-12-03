@@ -93,23 +93,37 @@ public class ProposeLineupController {
     @Generated
     private Lineup getSuitableLineup(Set<Player> players) {
         for(Formation formation: formations){
+            System.out.println(formation.getName());
             Set<Player> currentPlayers = new HashSet<>(players);
             Lineup lineup = new Lineup();
-            for(Slot slot: formation.getSlots()){
-                for(Player player: currentPlayers){
+
+            List<Player> sortedPlayers = Player.sortPlayers(new ArrayList<>(currentPlayers));
+            Slot[] sortedSlots = Slot.sortSlotsByRolesSize(formation.getSlots());
+
+            for(Slot slot: sortedSlots){
+                System.out.println("Slot: " + slot.getId());
+                for(Player player: sortedPlayers){
+                    System.out.println("Provo " + player.getName());
                     Set<Role> commonRoles = new HashSet<>(slot.getRoles());
                     commonRoles.retainAll(player.getRoles());
                     if(!commonRoles.isEmpty()){
+                        System.out.println(player.getName() + " va in Slot " + slot.getId() +
+                                " con ruoli: ");
+                        for(Role role: commonRoles){
+                            System.out.println(role);
+                        }
                         lineup.setPlayer(player, slot);
-                        currentPlayers.remove(player);
+                        sortedPlayers.remove(player);
                         break;
                     }
                 }
                 if(lineup.getPlayers()[slot.getId()] == null){
+                    System.out.println("Slot " + slot.getId() + " nullo");
                     break;
                 }
             }
             if(lineup.checkValidity()){
+                System.out.println("Modulo trovato: " + formation.getName());
                 lineup.setFormation(formation);
                 return lineup;
             }
@@ -122,6 +136,15 @@ public class ProposeLineupController {
     @Generated
     private void initializeFormations() {
         this.formations = DAOFactory.getFormationDAO().retrieveFormations();
+
+        for(Formation formation: formations){
+            System.out.println("Formation: " + formation.getName());
+            Slot[] sortedSlots = Slot.sortSlotsByRolesSize(formation.getSlots());
+            for(Slot sortedSlot: sortedSlots){
+                System.out.println("Id: " + sortedSlot.getId());
+                System.out.println("Roles: " + sortedSlot.getRoles());
+            }
+        }
     }
 
     @Generated

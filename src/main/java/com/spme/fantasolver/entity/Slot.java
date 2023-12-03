@@ -2,10 +2,9 @@ package com.spme.fantasolver.entity;
 
 import com.spme.fantasolver.annotations.Generated;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Slot {
+public class Slot implements Comparable<Slot>{
     private short id;
     private Set<Role> roles = new HashSet<>();
     private static final short MAX_ROLES_PER_SLOT = 3;
@@ -30,9 +29,34 @@ public class Slot {
         return roles;
     }
 
+    @Generated
+    public int getRolesSize() {
+        return roles.size();
+    }
+
     public void addRole(Role role) throws RoleException {
         if(Role.checkNewRoleSuitability(role, roles, MAX_ROLES_PER_SLOT)){
             roles.add(role);
         }
+    }
+
+    @Override
+    public int compareTo(Slot slot) {
+//        return Comparator.comparingInt(Slot::getRolesSize).
+//                thenComparing(Slot::getId).compare(this, slot);
+
+        return Comparator.comparingInt(Slot::getRolesSize).thenComparingInt(s -> s.getFirstRole().ordinal()).
+                compare(this, slot);
+    }
+
+    private Role getFirstRole() {
+        return (Role)roles.toArray()[0];
+    }
+
+    public static Slot[] sortSlotsByRolesSize(Slot[] slots){
+        List<Slot> slotsList = new ArrayList<>(Arrays.stream(slots).toList());
+        Collections.sort(slotsList);
+        Slot[] sortedSlots = new Slot[11];
+        return slotsList.toArray(sortedSlots);
     }
 }

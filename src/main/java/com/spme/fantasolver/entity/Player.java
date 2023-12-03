@@ -2,11 +2,9 @@ package com.spme.fantasolver.entity;
 
 import com.spme.fantasolver.annotations.Generated;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
-public class Player {
+public class Player implements Comparable<Player>{
     private String name;
     private Set<Role> roles;
     private static final short MAX_ROLES_PER_PLAYER = 3;
@@ -43,6 +41,11 @@ public class Player {
     }
 
     @Generated
+    public int getRolesSize() {
+        return roles.size();
+    }
+
+    @Generated
     public void setRoles(Set<Role> role) {
         this.roles = role;
     }
@@ -67,5 +70,20 @@ public class Player {
                 "name='" + name + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Player player) {
+        return Comparator.comparingInt(Player::getRolesSize).thenComparingInt(p -> p.getFirstRole().ordinal()).
+                        compare(this, player);
+    }
+
+    private Role getFirstRole(){
+        return (Role)roles.toArray()[0];
+    }
+
+    public static List<Player> sortPlayers(List<Player> players){
+        Collections.sort(players);
+        return players;
     }
 }
