@@ -68,12 +68,12 @@ public class PlayerUnitTest {
         assertTrue(result);
     }
 
-//    @Test
-//    public void testEqualsWithDifferentPlayers() {
-//        Player differentPlayer = new Player();
-//        boolean result = player.equals(differentPlayer);
-//        assertFalse(result);
-//    }
+    @Test
+    public void testEqualsWithDifferentPlayers() {
+        Player differentPlayer = new Player("Castolo");
+        boolean result = player.equals(differentPlayer);
+        assertFalse(result);
+    }
 
     @Test
     public void testEqualsWithNull() {
