@@ -152,16 +152,6 @@
               <excludes>
                 <exclude>**/integration/**/*.java</exclude>
               </excludes>
-              <argLine>
-                --add-opens=com.spme.fantasolver/unit.dao=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.controllers=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.entity=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.utility=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/integration.dao=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/integration.controllers=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/integration.entity=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/integration.utility=ALL-UNNAMED
-              </argLine>
             </configuration>
             <executions>
               <execution>

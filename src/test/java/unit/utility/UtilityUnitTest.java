@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Properties;
 
 
-class UtilityUnitTest {
+public class UtilityUnitTest {
 
     @Mock
     private Properties mockProperties;
@@ -28,13 +28,13 @@ class UtilityUnitTest {
     private FileInputStream mockFileInputStream;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         openMocks(this);
         Utility.setPropertiesReadingTools(mockProperties, mockFileInputStream);
     }
 
     @Test
-    void testGetValueFromPropertiesWithRightKeyAndValue() throws IOException {
+    public void testGetValueFromPropertiesWithRightKeyAndValue() throws IOException {
         String key = "testKey";
         String expectedValue = "testValue";
 
@@ -49,7 +49,7 @@ class UtilityUnitTest {
 
 
     @Test
-    void testCheckStringValidityWithValidStringAndValidBoundaries() {
+    public void testCheckStringValidityWithValidStringAndValidBoundaries() {
         String string = "ValidString";
         int minLength = 5;
         int maxLength = 15;
@@ -58,7 +58,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithTooShortStringAndValidBoundaries() {
+    public void testCheckStringValidityWithTooShortStringAndValidBoundaries() {
         String string = "test";
         int minLength = 5;
         int maxLength = 15;
@@ -67,7 +67,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithTooLongStringAndValidBoundaries() {
+    public void testCheckStringValidityWithTooLongStringAndValidBoundaries() {
         String string = "testStringTooLong";
         int minLength = 5;
         int maxLength = 10;
@@ -76,7 +76,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithNullStringAndValidBoundaries() {
+    public void testCheckStringValidityWithNullStringAndValidBoundaries() {
         String string = null;
         int minLength = 5;
         int maxLength = 15;
@@ -85,7 +85,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithNullStringAndInvalidBoundaries() {
+    public void testCheckStringValidityWithNullStringAndInvalidBoundaries() {
         String string = null;
         int minLength = 5;
         int maxLength = 1;
@@ -94,7 +94,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithValidStringAndMinHigherThanMax() {
+    public void testCheckStringValidityWithValidStringAndMinHigherThanMax() {
         String string = "ValidString";
         int minLength = 10;
         int maxLength = 5;
@@ -103,7 +103,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithNegativeMin() {
+    public void testCheckStringValidityWithNegativeMin() {
         String string = "ValidString";
         int minLength = -3;
         int maxLength = 5;
@@ -112,7 +112,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithNegativeMax() {
+    public void testCheckStringValidityWithNegativeMax() {
         String string = "ValidString";
         int minLength = 3;
         int maxLength = -10;
@@ -121,7 +121,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithNegativeBoundaries() {
+    public void testCheckStringValidityWithNegativeBoundaries() {
         String string = "ValidString";
         int minLength = -3;
         int maxLength = 5;
@@ -130,7 +130,7 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testCheckStringValidityWithEqualeBoundaries() {
+    public void testCheckStringValidityWithEqualeBoundaries() {
         String string = "ValidStrin";
         int minLength = 10;
         int maxLength = 10;
@@ -139,67 +139,67 @@ class UtilityUnitTest {
     }
 
     @Test
-    void testAreStringsDifferentFromEachOtherWithAllDifferentStrings() {
+    public void testAreStringsDifferentFromEachOtherWithAllDifferentStrings() {
         List<String> strings = List.of("one", "two", "three");
         assertTrue(Utility.areStringsDifferentFromEachOther(strings));
     }
 
     @Test
-    void testAreStringsDifferentFromEachOtherWithAllEqualStrings() {
+    public void testAreStringsDifferentFromEachOtherWithAllEqualStrings() {
         List<String> strings = List.of("one", "one", "one");
         assertFalse(Utility.areStringsDifferentFromEachOther(strings));
     }
 
     @Test
-    void testAreStringsDifferentFromEachOtherWithEqualStringPair() {
+    public void testAreStringsDifferentFromEachOtherWithEqualStringPair() {
         List<String> strings = List.of("one", "two", "one");
         assertFalse(Utility.areStringsDifferentFromEachOther(strings));
     }
     @Test
-    void testAreStringsDifferentFromEachOtherWithNullList() {
+    public void testAreStringsDifferentFromEachOtherWithNullList() {
         assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(null));
     }
 
     @Test
-    void testAreStringsDifferentFromEachOtherWithEmptyList() {
+    public void testAreStringsDifferentFromEachOtherWithEmptyList() {
         List<String> strings = new ArrayList<>();
         assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
     }
 
     @Test
-    void testAreStringsDifferentFromEachOtherWithOneString() {
+    public void testAreStringsDifferentFromEachOtherWithOneString() {
         List<String> strings = List.of("one");
         assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
     }
 
     @Test
-    void testGetFormattedStringsWithNullList() {
+    public void testGetFormattedStringsWithNullList() {
         assertThrows(IllegalArgumentException.class, () -> Utility.getFormattedStrings(null));
     }
 
     @Test
-    void testGetFormattedStringsWithEmptyList() {
+    public void testGetFormattedStringsWithEmptyList() {
         List<String> strings = new ArrayList<>();
         assertThrows(IllegalArgumentException.class, () -> Utility.getFormattedStrings(strings));
 
     }
 
     @Test
-    void testGetFormattedStringsWithSingleString() {
+    public void testGetFormattedStringsWithSingleString() {
         List<String> strings = List.of("One");
         String result = Utility.getFormattedStrings(strings);
         assertThat(result, is("One"));
     }
 
     @Test
-    void testGetFormattedStringsWithMultipleStrings() {
+    public void testGetFormattedStringsWithMultipleStrings() {
         List<String> strings = List.of("One", "Two", "Three");
         String result = Utility.getFormattedStrings(strings);
         assertThat(result, is("One, Two, Three"));
     }
 
     @Test
-    void testGetFormattedStringsWithWhitespace() {
+    public void testGetFormattedStringsWithWhitespace() {
         List<String> strings = List.of("  One  ", "Two", "   Three   ");
         String result = Utility.getFormattedStrings(strings);
         assertThat(result, is("  One  , Two,    Three   "));

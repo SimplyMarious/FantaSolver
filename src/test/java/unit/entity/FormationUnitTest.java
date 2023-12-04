@@ -13,16 +13,16 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class FormationUnitTest {
+public class FormationUnitTest {
     private Formation formation;
 
     @BeforeEach
-    void setUp(){
+    public void setUp(){
         formation = new Formation("TestFormation");
     }
 
     @Test
-    void testSetSlot(){
+    public void testSetSlot(){
         Slot slot = new Slot((short)1);
 
         formation.setSlot(slot);
@@ -32,7 +32,7 @@ class FormationUnitTest {
     }
 
     @Test
-    void testAddRole() throws RoleException {
+    public void testAddRole() throws RoleException {
         Slot slot = new Slot((short)2);
         formation.setSlot(slot);
 
@@ -42,7 +42,7 @@ class FormationUnitTest {
     }
 
     @Test
-    void addRoleWithDuplicateRolesExceptionTest() throws RoleException {
+    public void addRoleWithDuplicateRolesExceptionTest() throws RoleException {
         Slot slot = new Slot((short)2);
         formation.setSlot(slot);
         formation.addRole(slot.getId(), Role.A);
@@ -51,7 +51,7 @@ class FormationUnitTest {
     }
 
     @Test
-    void testAddRoleWithRoleLimitExceededException() throws RoleException {
+    public void testAddRoleWithRoleLimitExceededException() throws RoleException {
         Slot slot = new Slot((short)2);
         formation.setSlot(slot);
         formation.addRole(slot.getId(), Role.A);
@@ -62,7 +62,7 @@ class FormationUnitTest {
     }
 
     @Test
-    void testAddRoleWithNullPointerException() {
+    public void testAddRoleWithNullPointerException() {
         Slot slot = new Slot((short)2);
         formation.setSlot(slot);
 

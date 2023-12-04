@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
-class LineupVerifierUnitTest {
+public class LineupVerifierUnitTest {
 
     private static LineupVerifier lineupVerifier;
 
@@ -29,7 +29,7 @@ class LineupVerifierUnitTest {
     private FormationDAO mockFormationDAO;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockDAOFactory = mockStatic(DAOFactory.class);
         mockFormationDAO = mock(FormationDAO.class);
         mockDAOFactory.when(DAOFactory::getFormationDAO).thenReturn(mockFormationDAO);
@@ -39,18 +39,18 @@ class LineupVerifierUnitTest {
     }
 
     @AfterEach
-    void clean() {
+    public void clean() {
         mockDAOFactory.close();
     }
 
     @Test
-    void testGetInstance() {
+    public void testGetInstance() {
         assertNotNull(lineupVerifier);
         assertSame(lineupVerifier, LineupVerifier.getInstance());
     }
 
     @Test
-    void testGetSuitableLineupWithoutPlayers(){
+    public void testGetSuitableLineupWithoutPlayers(){
         Set<Player> players = new HashSet<>();
 
         Lineup lineup = lineupVerifier.getSuitableLineup(players);

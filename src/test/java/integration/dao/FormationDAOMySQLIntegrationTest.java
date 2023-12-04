@@ -15,17 +15,17 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-class FormationDAOMySQLIntegrationTest {
+public class FormationDAOMySQLIntegrationTest {
 
     @BeforeAll
-    static void initialize() {
+    public static void initialize() {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
     }
 
     @Test
-    void testRetrieveFormationWithFormationsInDatabase() {
+    public void testRetrieveFormationWithFormationsInDatabase() {
         FormationDAO formationDAO = DAOFactory.getFormationDAO();
 
         Set<Formation> result = formationDAO.retrieveFormations();

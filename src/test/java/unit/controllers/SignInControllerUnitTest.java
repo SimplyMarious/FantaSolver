@@ -13,26 +13,26 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class SignInControllerUnitTest {
+public class SignInControllerUnitTest {
 
     private SignInStage mockSignInStage;
     private SignInController signInController;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockSignInStage = mock(SignInStage.class);
         signInController = SignInController.getInstance();
         signInController.setSignInStage(mockSignInStage);
     }
 
     @Test
-    void testGetInstance() {
+    public void testGetInstance() {
         assertNotNull(signInController);
         assertSame(signInController, SignInController.getInstance());
     }
 
     @Test
-    void testHandleInitializationWithNotNullSignInStage() throws IOException {
+    public void testHandleInitializationWithNotNullSignInStage() throws IOException {
         doNothing().when(mockSignInStage).initializeStage();
 
         signInController.handleInitialization();
@@ -41,7 +41,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleInitializationWithNullSignInStage() throws IOException {
+    public void testHandleInitializationWithNullSignInStage() throws IOException {
         doNothing().when(mockSignInStage).initializeStage();
         signInController.setSignInStage(null);
 
@@ -49,7 +49,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
         doThrow(new IOException()).when(mockSignInStage).initializeStage();
 
         try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
@@ -62,7 +62,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithValidFieldsAndDisabledButton() {
+    public void testHandleFieldChangedWithValidFieldsAndDisabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
         when(mockSignInStage.isSignInEnabled()).thenReturn(false);
@@ -75,7 +75,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithValidFieldsAndEnabledButton() {
+    public void testHandleFieldChangedWithValidFieldsAndEnabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
         when(mockSignInStage.isSignInEnabled()).thenReturn(true);
@@ -88,7 +88,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithInvalidFieldsAndDisabledButton() {
+    public void testHandleFieldChangedWithInvalidFieldsAndDisabledButton() {
         String invalidUsername = "inv";
         String invalidPassword = "inv";
         when(mockSignInStage.isSignInEnabled()).thenReturn(false);
@@ -101,7 +101,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithInvalidFieldsAndEnabledButton() {
+    public void testHandleFieldChangedWithInvalidFieldsAndEnabledButton() {
         String invalidUsername = "inv";
         String invalidPassword = "inv";
         when(mockSignInStage.isSignInEnabled()).thenReturn(true);
@@ -114,7 +114,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithInvalidUsernameAndDisabledButton() {
+    public void testHandleFieldChangedWithInvalidUsernameAndDisabledButton() {
         String invalidUsername = "inv";
         String validPassword = "validPassword";
         when(mockSignInStage.isSignInEnabled()).thenReturn(false);
@@ -127,7 +127,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithInvalidUsernameAndEnabledButton() {
+    public void testHandleFieldChangedWithInvalidUsernameAndEnabledButton() {
         String invalidUsername = "inv";
         String validPassword = "validPassword";
         when(mockSignInStage.isSignInEnabled()).thenReturn(true);
@@ -140,7 +140,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithInvalidPasswordAndDisabledButton() {
+    public void testHandleFieldChangedWithInvalidPasswordAndDisabledButton() {
         String validUsername = "validUsername";
         String invalidPassword = "inv";
         when(mockSignInStage.isSignInEnabled()).thenReturn(false);
@@ -153,7 +153,7 @@ class SignInControllerUnitTest {
     }
 
     @Test
-    void testHandleFieldChangedWithInvalidPasswordAndEnabledButton() {
+    public void testHandleFieldChangedWithInvalidPasswordAndEnabledButton() {
         String validUsername = "validUsername";
         String invalidPassword = "inv";
         when(mockSignInStage.isSignInEnabled()).thenReturn(true);

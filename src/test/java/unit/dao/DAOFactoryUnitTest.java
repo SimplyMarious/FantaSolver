@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
-class DAOFactoryUnitTest {
+public class DAOFactoryUnitTest {
 
     @Mock
     MockedStatic<Utility> mockUtility;
@@ -26,7 +26,7 @@ class DAOFactoryUnitTest {
     Logger mockLogger;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockUtility = mockStatic(Utility.class);
         mockStaticLogger = mockStatic(Logger.class);
         mockLogger = mock(Logger.class);
@@ -36,14 +36,14 @@ class DAOFactoryUnitTest {
     }
 
     @AfterEach
-    void clean(){
+    public void clean(){
         mockUtility.close();
         mockStaticLogger.close();
         DAOFactory.resetFactory();
     }
 
     @Test
-    void testGetTeamDAOWithMySQLAsTeamDAOValueInProperties() {
+    public void testGetTeamDAOWithMySQLAsTeamDAOValueInProperties() {
         mockUtility.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("MySQL");
 
         TeamDAO result = DAOFactory.getTeamDAO();
@@ -52,7 +52,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetTeamDAOWithAnyOtherStringAsTeamDAOValueInProperties() {
+    public void testGetTeamDAOWithAnyOtherStringAsTeamDAOValueInProperties() {
         mockUtility.when(() -> Utility.getValueFromProperties("teamDAO")).thenReturn("SomeDBMS");
 
         TeamDAO result = DAOFactory.getTeamDAO();
@@ -62,7 +62,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetUserDAOWithMySQLAsUserDAOValueInProperties() {
+    public void testGetUserDAOWithMySQLAsUserDAOValueInProperties() {
         mockUtility.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("MySQL");
 
         UserDAO result = DAOFactory.getUserDAO();
@@ -71,7 +71,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
+    public void testGetUserDAOWithAnyOtherStringAsUserDAOValueInProperties() {
         mockUtility.when(() -> Utility.getValueFromProperties("userDAO")).thenReturn("SomeDBMS");
 
         UserDAO result = DAOFactory.getUserDAO();
@@ -81,7 +81,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetTeamDAOWithIOException() {
+    public void testGetTeamDAOWithIOException() {
         mockUtility.when(() -> Utility.getValueFromProperties(eq("teamDAO"))).thenThrow(new IOException("Simulated IOException"));
 
         TeamDAO result = DAOFactory.getTeamDAO();
@@ -91,7 +91,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetUserDAOWithIOException() {
+    public void testGetUserDAOWithIOException() {
         mockUtility.when(() -> Utility.getValueFromProperties(eq("userDAO"))).thenThrow(new IOException("Simulated IOException"));
 
         UserDAO result = DAOFactory.getUserDAO();
@@ -101,7 +101,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetFormationDAOWithMySQLAsUserDAOValueInProperties() {
+    public void testGetFormationDAOWithMySQLAsUserDAOValueInProperties() {
         mockUtility.when(() -> Utility.getValueFromProperties("formationDAO")).thenReturn("MySQL");
 
         FormationDAO result = DAOFactory.getFormationDAO();
@@ -110,7 +110,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetFormationDAOWithAnyOtherStringAsUserDAOValueInProperties() {
+    public void testGetFormationDAOWithAnyOtherStringAsUserDAOValueInProperties() {
         mockUtility.when(() -> Utility.getValueFromProperties("formationDAO")).thenReturn("SomeDBMS");
 
         FormationDAO result = DAOFactory.getFormationDAO();
@@ -120,7 +120,7 @@ class DAOFactoryUnitTest {
     }
 
     @Test
-    void testGetFormationDAOWithIOException() {
+    public void testGetFormationDAOWithIOException() {
         mockUtility.when(() -> Utility.getValueFromProperties(eq("formationDAO"))).thenThrow(new IOException("Simulated IOException"));
 
         FormationDAO result = DAOFactory.getFormationDAO();

@@ -16,11 +16,11 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class LineupVerifierIntegrationTest {
+public class LineupVerifierIntegrationTest {
     private static LineupVerifier lineupVerifier;
 
     @BeforeAll
-    static void setUp() {
+    public static void setUp() {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
@@ -28,7 +28,7 @@ class LineupVerifierIntegrationTest {
         lineupVerifier = LineupVerifier.getInstance();
     }
     @Test
-    void testGetSuitableLineupWithPlayers(){
+    public void testGetSuitableLineupWithPlayers(){
         Set<Player> players = new HashSet<>();
 
         players.add(new Player("Felipe Anderson", new HashSet<>(List.of(new Role[]{Role.A, Role.W}))));

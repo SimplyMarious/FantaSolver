@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class MySQLConnectionManagerUnitTest {
+public class MySQLConnectionManagerUnitTest {
     @Mock
     MockedStatic<Utility> mockUtility;
     @Mock
@@ -32,7 +32,7 @@ class MySQLConnectionManagerUnitTest {
     Logger mockLogger;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockUtility = mockStatic(Utility.class);
         mockStaticLogger = mockStatic(Logger.class);
         mockDriverManager = mockStatic(DriverManager.class);
@@ -44,7 +44,7 @@ class MySQLConnectionManagerUnitTest {
     }
 
     @AfterEach
-    void clean(){
+    public void clean(){
         mockUtility.close();
         mockNotifier.close();
         mockStaticLogger.close();
@@ -52,7 +52,7 @@ class MySQLConnectionManagerUnitTest {
     }
 
     @Test
-    void testConnectToDatabaseSuccess() throws ClassNotFoundException, SQLException {
+    public void testConnectToDatabaseSuccess() throws ClassNotFoundException, SQLException {
         Connection mockConnection = mock(Connection.class);
         mockDriverManager.when(()->DriverManager.getConnection(anyString(), anyString(),anyString()))
                 .thenReturn(mockConnection);
@@ -64,7 +64,7 @@ class MySQLConnectionManagerUnitTest {
     }
 
     @Test
-    void testConnectToDatabaseWithIOException() throws SQLException, ClassNotFoundException {
+    public void testConnectToDatabaseWithIOException() throws SQLException, ClassNotFoundException {
         mockUtility.when(() -> Utility.getValueFromProperties(anyString())).thenThrow(new IOException("Simulated IOException"));
 
         Connection connection = MySQLConnectionManager.connectToDatabase();
