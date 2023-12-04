@@ -1,24 +1,17 @@
 package unit.controllers;
 
-import com.spme.fantasolver.Main;
 import com.spme.fantasolver.controllers.LineupVerifier;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.FormationDAO;
-import com.spme.fantasolver.entity.Formation;
 import com.spme.fantasolver.entity.Lineup;
 import com.spme.fantasolver.entity.Player;
-import com.spme.fantasolver.entity.Role;
-import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;

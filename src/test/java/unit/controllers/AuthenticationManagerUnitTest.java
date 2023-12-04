@@ -1,7 +1,6 @@
 package unit.controllers;
 
 import com.spme.fantasolver.controllers.AuthenticationManager;
-import com.spme.fantasolver.controllers.SignInController;
 import com.spme.fantasolver.entity.User;
 import org.junit.jupiter.api.*;
 

@@ -66,6 +66,6 @@ public class FormationUnitTest {
         Slot slot = new Slot((short)2);
         formation.setSlot(slot);
 
-        assertThrows(NullPointerException.class, ()-> formation.addRole(slot.getId(), null));
+        assertThrows(NullPointerException.class, ()-> formation.addRole((short) 2, null));
     }
 }
