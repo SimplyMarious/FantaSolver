@@ -3,8 +3,6 @@ package com.spme.fantasolver.entity;
 import com.spme.fantasolver.annotations.Generated;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Slot implements Comparable<Slot>{
     private short id;
