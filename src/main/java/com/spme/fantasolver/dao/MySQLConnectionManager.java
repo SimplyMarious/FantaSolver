@@ -40,7 +40,7 @@ public class MySQLConnectionManager {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
                 "jdbc:mysql://"+host+":"+port+"/fantasolver?allowMultiQueries=true&characterEncoding=utf8",
-                username,password);
+                username, password);
         return connection;
     }
 }

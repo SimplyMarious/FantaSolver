@@ -18,14 +18,14 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class VerifiedLineupControllerUnitTest {
+class VerifiedLineupControllerUnitTest {
 
     private VerifiedLineupController verifiedLineupController;
     @Mock
     private VerifiedLineupStage mockVerifiedLineupStage;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockVerifiedLineupStage = mock(VerifiedLineupStage.class);
         verifiedLineupController = VerifiedLineupController.getInstance();
         verifiedLineupController.setVerifiedLineupStage(mockVerifiedLineupStage);
@@ -33,7 +33,7 @@ public class VerifiedLineupControllerUnitTest {
 
 
     @Test
-    public void testHandleInitializationWithFailure() throws IOException {
+    void testHandleInitializationWithFailure() throws IOException {
         doThrow(new IOException()).when(mockVerifiedLineupStage).initializeStage();
 
         try (MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)) {

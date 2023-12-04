@@ -18,21 +18,21 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class ProposeLineupControllerUnitTest {
+class ProposeLineupControllerUnitTest {
     private ProposeLineupController proposeLineupController;
 
     @Mock
     private ProposeLineupStage mockProposeLineupStage;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         proposeLineupController = ProposeLineupController.getInstance();
         mockProposeLineupStage = mock(ProposeLineupStage.class);
         proposeLineupController.setProposeLineupStage(mockProposeLineupStage);
     }
 
     @Test
-    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+    void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
@@ -49,7 +49,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandleSelectedTableViewTeamPlayerWithPlayerSizeLessThanLineupSize() {
+    void testHandleSelectedTableViewTeamPlayerWithPlayerSizeLessThanLineupSize() {
         int playersSize = 3;
 
         proposeLineupController.handleSelectedTableViewTeamPlayer(playersSize);
@@ -58,7 +58,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandleSelectedTableViewTeamPlayerWithPlayerSizeEqualToLineupSize() {
+    void testHandleSelectedTableViewTeamPlayerWithPlayerSizeEqualToLineupSize() {
         int playersSize = 11;
 
         proposeLineupController.handleSelectedTableViewTeamPlayer(playersSize);
@@ -67,7 +67,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandleSelectedTableViewTeamPlayerWithPlayerSizeGreaterThanLineupSize() {
+    void testHandleSelectedTableViewTeamPlayerWithPlayerSizeGreaterThanLineupSize() {
         int playersSize = 15;
 
         proposeLineupController.handleSelectedTableViewTeamPlayer(playersSize);
@@ -76,7 +76,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedAddPlayerToLineupButtonWithEmptyLineup() {
+    void testHandlePressedAddPlayerToLineupButtonWithEmptyLineup() {
         Player playerToAdd = new Player("TestPlayer1");
 
         when(mockProposeLineupStage.getLineupPlayers()).thenReturn(new ArrayList<>());
@@ -88,7 +88,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedAddPlayerToLineupButtonWithPlayerNotInLineup() {
+    void testHandlePressedAddPlayerToLineupButtonWithPlayerNotInLineup() {
         Player playerToAdd = new Player("TestPlayer1");
 
         when(mockProposeLineupStage.getLineupPlayers()).thenReturn(List.of(
@@ -101,7 +101,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedAddPlayerToLineupButtonWithPlayerInLineup() {
+    void testHandlePressedAddPlayerToLineupButtonWithPlayerInLineup() {
         Player playerToAdd = new Player("TestPlayer1");
 
         when(mockProposeLineupStage.getLineupPlayers()).thenReturn(List.of(
@@ -114,7 +114,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandleLineUpTableViewChangedWithLineupSizeEqualsToCorrectLineupSize() {
+    void testHandleLineUpTableViewChangedWithLineupSizeEqualsToCorrectLineupSize() {
         int lineupSize = 11;
 
         proposeLineupController.handleLineUpTableViewChanged(lineupSize);
@@ -125,7 +125,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandleLineUpTableViewChangedWithLineupSizeLessThanCorrectLineupSize() {
+    void testHandleLineUpTableViewChangedWithLineupSizeLessThanCorrectLineupSize() {
         int lineupSize = 5;
 
         proposeLineupController.handleLineUpTableViewChanged(lineupSize);
@@ -136,7 +136,7 @@ public class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    public void testHandleLineUpTableViewChangedWithLineupSizeEqualsTo0() {
+    void testHandleLineUpTableViewChangedWithLineupSizeEqualsTo0() {
         int lineupSize = 0;
 
         proposeLineupController.handleLineUpTableViewChanged(lineupSize);

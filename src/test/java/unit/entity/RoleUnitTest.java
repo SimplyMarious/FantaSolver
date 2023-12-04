@@ -16,24 +16,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mockStatic;
 
-public class RoleUnitTest {
+class RoleUnitTest {
     private static final short MAX_ROLES = 3;
 
     @Test
-    public void testCheckNewRoleSuitabilityWithEmptyRolesSet() throws RoleException {
+    void testCheckNewRoleSuitabilityWithEmptyRolesSet() throws RoleException {
         Set<Role> roles = new HashSet<>();
         assertTrue(Role.checkNewRoleSuitability(Role.DC, roles, MAX_ROLES));
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingADifferentRole() throws RoleException {
+    void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingADifferentRole() throws RoleException {
         Set<Role> roles = new HashSet<>();
         roles.add(Role.DC);
         assertTrue(Role.checkNewRoleSuitability(Role.DD, roles, MAX_ROLES));
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingTwoDifferentRoles() throws RoleException {
+    void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingTwoDifferentRoles() throws RoleException {
         Set<Role> roles = new HashSet<>();
         roles.add(Role.DC);
         roles.add(Role.DS);
@@ -41,25 +41,25 @@ public class RoleUnitTest {
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithNullRole() {
+    void testCheckNewRoleSuitabilityWithNullRole() {
         Set<Role> roles = new HashSet<>();
         assertThrows(NullPointerException.class, () -> Role.checkNewRoleSuitability(null, roles, MAX_ROLES));
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithNullRolesSet() {
+    void testCheckNewRoleSuitabilityWithNullRolesSet() {
         assertThrows(NullPointerException.class, () -> Role.checkNewRoleSuitability(Role.A, null, MAX_ROLES));
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingTheNewRole(){
+    void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingTheNewRole(){
         Set<Role> roles = new HashSet<>();
         roles.add(Role.DC);
         assertThrows(DuplicateRoleException.class, () -> Role.checkNewRoleSuitability(Role.DC, roles, MAX_ROLES));
     }
 
     @Test
-    public void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingThreeRoles(){
+    void testCheckNewRoleSuitabilityWithRolesSetAlreadyContainingThreeRoles(){
         Set<Role> roles = new HashSet<>();
         roles.add(Role.DC);
         roles.add(Role.DS);
@@ -68,18 +68,18 @@ public class RoleUnitTest {
     }
 
     @Test
-    public void testGetFormattedRolesShouldThrowExceptionForNullRoles() {
+    void testGetFormattedRolesShouldThrowExceptionForNullRoles() {
         assertThrows(IllegalArgumentException.class, () -> Role.getFormattedRoles(null));
     }
 
     @Test
-    public void testGetFormattedRolesShouldThrowExceptionForEmptyRoles() {
+    void testGetFormattedRolesShouldThrowExceptionForEmptyRoles() {
         Set<Role> roles = new HashSet<>();
         assertThrows(IllegalArgumentException.class, () -> Role.getFormattedRoles(roles));
     }
 
     @Test
-    public void testGetFormattedRolesWithValidRoles() {
+    void testGetFormattedRolesWithValidRoles() {
         Set<Role> roles = Set.of(Role.DC, Role.DD);
         String formattedRoles = "DC, DD";
 
@@ -93,7 +93,7 @@ public class RoleUnitTest {
     }
 
     @Test
-    public void testRoleFromString() throws RoleNotFoundException {
+    void testRoleFromString() throws RoleNotFoundException {
         String roleName = "DC";
 
         Role role = Role.roleFromString(roleName);
@@ -102,14 +102,14 @@ public class RoleUnitTest {
     }
 
     @Test
-    public void testRoleFromStringWithRoleNotFoundException() {
+    void testRoleFromStringWithRoleNotFoundException() {
         String nonExistentRoleName = "ABC";
 
         assertThrows(RoleNotFoundException.class, ()->Role.roleFromString(nonExistentRoleName));
     }
 
     @Test
-    public void testSortRoles(){
+    void testSortRoles(){
         Role[] unsortedRoles = {Role.W, Role.PC, Role.POR};
         Role[] expectedSorting = {Role.POR, Role.W, Role.PC};
 

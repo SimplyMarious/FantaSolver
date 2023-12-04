@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 import java.lang.reflect.*;
 
 
-public class ManageTeamControllerUnitTest {
+class ManageTeamControllerUnitTest {
 
     private ManageTeamController manageTeamController;
     private AuthenticationManager authenticationManager;
@@ -44,7 +44,7 @@ public class ManageTeamControllerUnitTest {
     private AuthenticationManager mockAuthenticationManager;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockUtility = mockStatic(Utility.class);
         manageTeamController = ManageTeamController.getInstance();
         authenticationManager = AuthenticationManager.getInstance();
@@ -55,13 +55,13 @@ public class ManageTeamControllerUnitTest {
     }
 
     @AfterEach
-    public void clean(){
+    void clean(){
         mockUtility.close();
         mockManageTeamStage.close();
     }
 
     @Test
-    public void testHandleInitializationWithExistingTeam() {
+    void testHandleInitializationWithExistingTeam() {
         Set<Player> players = Set.of(new Player("TestPlayer", Set.of(Role.POR, Role.DC)));
         Team team = new Team("TestTeam", players);
         User user = new User("TestUser");
@@ -74,7 +74,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithNotExistingTeam() {
+    void testHandleInitializationWithNotExistingTeam() {
         User user = new User("TestUser");
         authenticationManager.signIn(user);
 
@@ -84,7 +84,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+    void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
         doThrow(new IOException()).when(mockManageTeamStage).initializeStage();
 
         try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
@@ -97,7 +97,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleTeamPropertyChangedWithValidTeamAndValidPlayersSize() {
+    void testHandleTeamPropertyChangedWithValidTeamAndValidPlayersSize() {
         String teamName = "ValidTeam";
         int playersSize = 25;
 
@@ -113,7 +113,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleTeamPropertyChangedWithInvalidTeamAndValidPlayersSize() {
+    void testHandleTeamPropertyChangedWithInvalidTeamAndValidPlayersSize() {
         String teamName = "Te";
         int playersSize = 25;
 
@@ -128,7 +128,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleTeamPropertyChangedWithValidTeamAndInvalidPlayersSize() {
+    void testHandleTeamPropertyChangedWithValidTeamAndInvalidPlayersSize() {
         String teamName = "TestTeam";
         int playersSize = 4;
 
@@ -143,7 +143,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleTeamPropertyChangedWithInvalidTeamAndInvalidPlayersSize() {
+    void testHandleTeamPropertyChangedWithInvalidTeamAndInvalidPlayersSize() {
         String teamName = "Te";
         int playersSize = 10;
 
@@ -158,7 +158,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandleTeamPropertyChangedWithValidTeamAnd0PlayerSize() {
+    void testHandleTeamPropertyChangedWithValidTeamAnd0PlayerSize() {
         String teamName = "Te";
         int playersSize = 0;
 
@@ -174,7 +174,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidRoles() {
+    void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidRoles() {
         String playerName = "John Doe";
         String firstRole = "DS";
         String secondRole = "DC";
@@ -193,7 +193,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidFirstRoleAndOneUnvaluedRole() {
+    void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidFirstRoleAndOneUnvaluedRole() {
         String playerName = "John Doe";
         String firstRole = "DC";
         String secondRole = "Nessuno";
@@ -211,7 +211,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePlayerPropertyChangedWithInvalidPlayerNameAndValidRoles() {
+    void testHandlePlayerPropertyChangedWithInvalidPlayerNameAndValidRoles() {
         String playerName = "A";
         String firstRole = "DS";
         String secondRole = "DC";
@@ -229,7 +229,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndInvalidFirstRole() {
+    void testHandlePlayerPropertyChangedWithValidPlayerNameAndInvalidFirstRole() {
         String playerName = "John Doe";
         String firstRole = "Nessuno";
         String secondRole = "DC";
@@ -247,7 +247,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePlayerPropertyChangedWithValidPlayerNameAndDuplicateRoles() {
+    void testHandlePlayerPropertyChangedWithValidPlayerNameAndDuplicateRoles() {
         String playerName = "John Doe";
         String firstRole = "DC";
         String secondRole = "DC";
@@ -265,7 +265,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePlayerPropertyChangedWithInvalidPlayerNameAndDuplicateRoles() {
+    void testHandlePlayerPropertyChangedWithInvalidPlayerNameAndDuplicateRoles() {
         String playerName = "A";
         String firstRole = "DC";
         String secondRole = "DC";
@@ -283,7 +283,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedAddPlayerButtonWithPlayerNotInList(){
+    void testHandlePressedAddPlayerButtonWithPlayerNotInList(){
         String playerName = "John Doe";
         String firstRole = "DC";
         String secondRole = "DD";
@@ -298,7 +298,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedAddPlayerButtonWithPlayerAlreadyInList(){
+    void testHandlePressedAddPlayerButtonWithPlayerAlreadyInList(){
         String playerName = "John Doe";
         String firstRole = "DC";
         String secondRole = "DD";
@@ -314,7 +314,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedAddPlayerButtonWithInvalidRoles(){
+    void testHandlePressedAddPlayerButtonWithInvalidRoles(){
         String playerName = "John Doe";
         String firstRole = "DC";
         String secondRole = "DC";
@@ -330,7 +330,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedConfirmButtonWithSuccessfulUpdate() {
+    void testHandlePressedConfirmButtonWithSuccessfulUpdate() {
         String teamName = "TestTeam";
         List<Player> players = List.of(new Player("Player1"), new Player("Player2"));
 
@@ -353,7 +353,7 @@ public class ManageTeamControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedConfirmButtonWithFailingUpdate() {
+    void testHandlePressedConfirmButtonWithFailingUpdate() {
         String teamName = "TestTeam";
         List<Player> players = List.of(new Player("Player1"), new Player("Player2"));
         try (MockedStatic<DAOFactory> daoFactoryMockedStatic = mockStatic(DAOFactory.class)) {
