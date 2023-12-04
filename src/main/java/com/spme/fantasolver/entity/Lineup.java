@@ -33,14 +33,6 @@ public class Lineup {
 
     public boolean checkValidity(){
         for(short i = 0; i < 11; i++){
-            System.out.println("Slot: " + i + ", player: ");
-            if(players[i] != null) {
-                System.out.println(players[i].getName());
-            }
-            else{
-                System.out.println("no");
-            }
-
             if(players[i] == null){
                 return false;
             }

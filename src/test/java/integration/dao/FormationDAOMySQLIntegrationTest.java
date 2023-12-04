@@ -25,7 +25,7 @@ public class FormationDAOMySQLIntegrationTest {
     }
 
     @Test
-    public void testRetrieveFormationWithFormationsInDatabase() throws SQLException {
+    public void testRetrieveFormationWithFormationsInDatabase() {
         FormationDAO formationDAO = DAOFactory.getFormationDAO();
 
         Set<Formation> result = formationDAO.retrieveFormations();
