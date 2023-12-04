@@ -6,29 +6,29 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AuthenticationManagerUnitTest {
+class AuthenticationManagerUnitTest {
     private static AuthenticationManager authManager;
 
     @BeforeAll
-    public static void initialize(){
+    static void initialize(){
         authManager = AuthenticationManager.getInstance();
     }
 
     @AfterEach
-    public void clean(){
+    void clean(){
         if (authManager.getUser() != null){
             authManager.signOut();
         }
     }
 
     @Test
-    public void testGetInstance() {
+    void testGetInstance() {
         assertNotNull(authManager);
         assertSame(authManager, AuthenticationManager.getInstance());
     }
 
     @Test
-    public void testSignIn(){
+    void testSignIn(){
         authManager.signIn(new User("TestUser"));
 
         User user = authManager.getUser();
@@ -37,7 +37,7 @@ public class AuthenticationManagerUnitTest {
     }
 
     @Test
-    public void testSignOut(){
+    void testSignOut(){
         authManager.signOut();
 
         User user = authManager.getUser();
