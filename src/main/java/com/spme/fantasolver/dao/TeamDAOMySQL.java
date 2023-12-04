@@ -97,9 +97,7 @@ public class TeamDAOMySQL implements TeamDAO {
             connection = MySQLConnectionManager.connectToDatabase();
             if(deleteCurrentUserTeam(user) > 1){ return false; }
             if(insertNewTeam(team, user) != 1){ return false; }
-            if(insertPlayersInTeam(team) != team.getPlayers().size()) { return false; }
-
-            return true;
+            return insertPlayersInTeam(team) == team.getPlayers().size();
         }
         catch (ClassNotFoundException | SQLException exception){
             Logger logger = Logger.getLogger(CLASS_NAME);
@@ -114,8 +112,7 @@ public class TeamDAOMySQL implements TeamDAO {
                 "WHERE user_name = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
-            int affectedRows = preparedStatement.executeUpdate();
-            return affectedRows;
+            return preparedStatement.executeUpdate();
         }
     }
 
@@ -132,8 +129,7 @@ public class TeamDAOMySQL implements TeamDAO {
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getUsername());
             preparedStatement.setString(4, user.getUsername());
-            int affectedRows = preparedStatement.executeUpdate();
-            return affectedRows;
+            return preparedStatement.executeUpdate();
         }
     }
 
