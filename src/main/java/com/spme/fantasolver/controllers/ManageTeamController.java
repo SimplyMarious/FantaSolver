@@ -46,7 +46,7 @@ public class ManageTeamController {
             }
             manageTeamStage.show();
         } catch (IOException e) {
-            Logger logger = Logger.getLogger(this.getClass().getName());
+            Logger logger = Logger.getLogger("ManageTeamController");
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
@@ -62,7 +62,7 @@ public class ManageTeamController {
             }
         }
         catch (IllegalArgumentException exception){
-            Logger.getLogger(this.getClass().getName()).info(exception.getMessage());
+            Logger.getLogger("ManageTeamController").info(exception.getMessage());
         }
     }
 
