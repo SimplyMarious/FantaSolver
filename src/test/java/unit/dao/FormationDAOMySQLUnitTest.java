@@ -2,6 +2,7 @@ package unit.dao;
 
 import com.spme.fantasolver.dao.*;
 import com.spme.fantasolver.entity.Formation;
+import com.spme.fantasolver.entity.Role;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,16 +71,19 @@ public class FormationDAOMySQLUnitTest {
         }
     }
 
-//    @Test
-//    public void testRetrieveFormationWithFormationsInDatabase() throws SQLException {
-//        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-//        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-//        when(mockResultSet.next()).thenReturn(true, false);
-//
-//        Set<Formation> result = formationDAOMySQL.retrieveFormations();
-//
-//        assertThat(result, is(not(emptySet())));
-//    }
+    @Test
+    public void testRetrieveFormationWithFormationsInDatabase() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString(1)).thenReturn("dummyString");
+        when(mockResultSet.getShort(2)).thenReturn((short) 5);
+        when(mockResultSet.getString(3)).thenReturn(Role.PC.toString());
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(not(empty())));
+    }
 
     @Test
     public void testRetrieveFormationWithFormationsNotInDatabase() throws SQLException {
