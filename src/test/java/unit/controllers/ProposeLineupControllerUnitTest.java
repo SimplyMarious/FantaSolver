@@ -1,6 +1,7 @@
 package unit.controllers;
 
 import com.spme.fantasolver.Main;
+import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.ProposeLineupController;
 import com.spme.fantasolver.entity.Lineup;
 import com.spme.fantasolver.entity.Player;
@@ -10,10 +11,14 @@ import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ProposeLineupControllerUnitTest {
@@ -29,18 +34,22 @@ public class ProposeLineupControllerUnitTest {
         proposeLineupController.setProposeLineupStage(mockProposeLineupStage);
     }
 
-//    @Test
-//    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
-//        doThrow(new IOException()).when(mockProposeLineupStage).initializeStage();
-//
-//        try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
-//            Logger mockedLogger = mock(Logger.class);
-//            loggerMockedStatic.when(() -> Logger.getLogger("ProposeLineupController")).thenReturn(mockedLogger);
-//            doNothing().when(mockedLogger).info(any(String.class));
-//
-//            assertThrows(FXMLLoadException.class, () -> proposeLineupController.handleInitialization());
-//        }
-//    }
+    @Test
+    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+        Utility.setPropertiesReadingTools(
+                new Properties(),
+                Main.class.getResourceAsStream("/config.properties"));
+
+        doThrow(new IOException()).when(mockProposeLineupStage).initializeStage();
+
+        try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
+            Logger mockedLogger = mock(Logger.class);
+            loggerMockedStatic.when(() -> Logger.getLogger("ProposeLineupController")).thenReturn(mockedLogger);
+            doNothing().when(mockedLogger).info(any(String.class));
+
+            assertThrows(FXMLLoadException.class, () -> proposeLineupController.handleInitialization());
+        }
+    }
 
     @Test
     public void testHandleSelectedTableViewTeamPlayerWithPlayerSizeLessThanLineupSize() {
