@@ -88,6 +88,17 @@ public class TeamDAOMySQLUnitTest {
     }
 
     @Test
+    public void testUpdateTeamWithMoreThanOneTeamDeletion() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+
+        when(mockPreparedStatement.executeUpdate()).thenReturn(2); // Change as needed
+        boolean result = teamDAOMySQL.updateTeam(mockTeam, mockUser);
+
+        assertFalse(result);
+
+    }
+
+    @Test
     public void testUpdateTeamWithDoneTeamDeletionUndoneNewTeamInsertion() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
 
