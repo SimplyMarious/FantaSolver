@@ -16,7 +16,7 @@ public class Player implements Comparable<Player>{
     @Generated
     public Player(String name, Set<Role> roles){
         this.name = name;
-        this.roles = roles;
+        this.roles = new HashSet<>(roles);
     }
 
     @Generated
@@ -78,6 +78,7 @@ public class Player implements Comparable<Player>{
                         compare(this, player);
     }
 
+    @Generated
     private Role getFirstRole(){
         return (Role)roles.toArray()[0];
     }
