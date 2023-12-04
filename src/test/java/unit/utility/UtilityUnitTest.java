@@ -1,13 +1,11 @@
 package unit.utility;
 import com.spme.fantasolver.utility.Utility;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,7 +15,6 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -175,6 +172,7 @@ public class UtilityUnitTest {
         assertThrows(IllegalArgumentException.class, () -> Utility.areStringsDifferentFromEachOther(strings));
     }
 
+    @Test
     public void testGetFormattedStringsWithNullList() {
         assertThrows(IllegalArgumentException.class, () -> Utility.getFormattedStrings(null));
     }
