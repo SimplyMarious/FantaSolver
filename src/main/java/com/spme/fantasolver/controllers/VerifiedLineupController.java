@@ -3,7 +3,6 @@ package com.spme.fantasolver.controllers;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.VerifiedLineupStage;
-import com.spme.fantasolver.ui.VerifiedLineupStage;
 
 import java.io.IOException;
 import java.util.Set;
@@ -12,6 +11,8 @@ import java.util.logging.Logger;
 public class VerifiedLineupController {
 
     private static VerifiedLineupController verifiedLineupController = null;
+
+    @Generated
     private VerifiedLineupController(){}
 
     public static VerifiedLineupController getInstance(){
@@ -39,10 +40,12 @@ public class VerifiedLineupController {
         verifiedLineupStage.show();
     }
 
+    @Generated
     private void adaptLineupForVisualization(Lineup lineup) {
         lineup.setPlayers(getPlayersWithRolesFittingToOwnSlot(lineup.getPlayers(), lineup.getFormation().getSlots()));
     }
 
+    @Generated
     private static Player[] getPlayersWithRolesFittingToOwnSlot(Player[] players, Slot[] slots) {
         for(int i = 0; i < 11; i++){
             Set<Role> playerRoles = players[i].getRoles();

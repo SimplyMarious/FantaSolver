@@ -67,14 +67,17 @@ public class VerifiedLineupStage {
                 Role.getFormattedRoles(cellData.getValue().getRoles()));
     }
 
+    @Generated
     public void setLineupFormationLabelText(String text){
         labelLineupFormation.setText(text);
     }
 
+    @Generated
     public void loadPlayersInTable(Player[] players) {
         lineupPlayers.addAll(players);
     }
 
+    @Generated
     public void show() {
         stage.show();
     }
