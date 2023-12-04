@@ -3,6 +3,7 @@ package unit.dao;
 import com.spme.fantasolver.dao.*;
 import com.spme.fantasolver.entity.Formation;
 import com.spme.fantasolver.entity.Role;
+import com.spme.fantasolver.entity.RoleException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,4 +140,15 @@ public class FormationDAOMySQLUnitTest {
         verify(mockLogger).info("Error during the retrieve formations: Simulated SQLException");
     }
 
+    @Test
+    public void testRetrieveFormationsWithRoleException() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenThrow(SQLException.class);
+        RoleException mockRoleException = mock(RoleException.class);
+        doNothing().when(mockLogger).info(anyString());
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, empty());
+        verify(mockLogger).info("Error during the retrieve formations: " + mockRoleException.getMessage());
+    }
 }
