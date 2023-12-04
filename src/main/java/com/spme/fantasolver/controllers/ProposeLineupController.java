@@ -4,6 +4,7 @@ import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.ProposeLineupStage;
+import com.spme.fantasolver.ui.VerifiedLineupStage;
 import com.spme.fantasolver.utility.Notifier;
 
 import java.io.IOException;
@@ -78,8 +79,7 @@ public class ProposeLineupController {
     public void handlePressedVerifyLineupButton(Set<Player> players) {
         Lineup lineup = getSuitableLineup(players);
         if(lineup != null){
-            Notifier.notifyInfo(
-                    "Esito verifica", "Bravo! Esiste un modulo. E' il " + lineup.getFormation().getName());
+            new VerifiedLineupStage(lineup);
         }
         else{
             Notifier.notifyInfo(
