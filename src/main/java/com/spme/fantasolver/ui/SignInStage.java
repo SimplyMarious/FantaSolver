@@ -20,9 +20,9 @@ public class SignInStage {
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
     private Button buttonSignIn;
-    private Button buttonSignUp;
     private Label labelSigninFailure;
 
+    @Generated
     public SignInStage() {
         this.signInController = SignInController.getInstance();
         signInController.setSignInStage(this);
@@ -36,7 +36,7 @@ public class SignInStage {
 
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
         fieldPassword = (PasswordField) fxmlLoader.getNamespace().get("password");
-        buttonSignUp = (Button) fxmlLoader.getNamespace().get("signup");
+        Button buttonSignUp = (Button) fxmlLoader.getNamespace().get("signup");
         buttonSignIn = (Button) fxmlLoader.getNamespace().get("signin");
         labelSigninFailure = (Label) fxmlLoader.getNamespace().get("signinFailure");
 

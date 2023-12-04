@@ -11,10 +11,11 @@ import org.mockito.MockedStatic;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -26,12 +27,15 @@ public class MySQLConnectionManagerUnitTest {
     @Mock
     MockedStatic<Logger> mockStaticLogger;
     @Mock
+    MockedStatic<DriverManager> mockDriverManager;
+    @Mock
     Logger mockLogger;
 
     @BeforeEach
     public void setUp() {
         mockUtility = mockStatic(Utility.class);
         mockStaticLogger = mockStatic(Logger.class);
+        mockDriverManager = mockStatic(DriverManager.class);
         mockNotifier = mockStatic(Notifier.class);
         mockLogger = mock(Logger.class);
 
@@ -44,6 +48,19 @@ public class MySQLConnectionManagerUnitTest {
         mockUtility.close();
         mockNotifier.close();
         mockStaticLogger.close();
+        mockDriverManager.close();
+    }
+
+    @Test
+    public void testConnectToDatabaseSuccess() throws ClassNotFoundException, SQLException {
+        Connection mockConnection = mock(Connection.class);
+        mockDriverManager.when(()->DriverManager.getConnection(anyString(), anyString(),anyString()))
+                .thenReturn(mockConnection);
+
+        Connection result = MySQLConnectionManager.connectToDatabase();
+
+        assertNotNull(result);
+        verify(mockLogger, never()).info(anyString());
     }
 
     @Test

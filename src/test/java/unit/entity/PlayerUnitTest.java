@@ -83,7 +83,7 @@ public class PlayerUnitTest {
 
     @Test
     public void testEqualsWithDifferentClassNotNull() {
-        String aDifferentObjectType = new String();
+        Object aDifferentObjectType = new Object();
 
         boolean result = player.equals(aDifferentObjectType);
 
@@ -92,7 +92,7 @@ public class PlayerUnitTest {
 
     @Test
     public void testEqualsWithDifferentClassNull() {
-        String aDifferentObjectType = null;
+        Object aDifferentObjectType = null;
 
         boolean result = player.equals(aDifferentObjectType);
 

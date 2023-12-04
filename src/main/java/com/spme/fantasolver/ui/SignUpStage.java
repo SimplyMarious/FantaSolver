@@ -20,6 +20,7 @@ public class SignUpStage {
     private Button buttonSignUp;
     private Stage stage;
 
+    @Generated
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
         signUpController.setSignUpStage(this);

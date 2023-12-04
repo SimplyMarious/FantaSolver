@@ -15,14 +15,10 @@ import java.io.IOException;
 public class HomeStage {
     private final HomeController homeController;
 
-    private Label labelWelcomeUser;
     private VBox vBoxAddTeam;
     private VBox vBoxManageTeam;
-    private Button buttonAddTeam;
-    private Button buttonManageTeam;
-    private Button buttonProposeLineup;
-    private Button buttonSignOut;
 
+    @Generated
     public HomeStage() {
         this.homeController = HomeController.getInstance();
         homeController.setHomeStage(this);
@@ -41,36 +37,39 @@ public class HomeStage {
 
     @Generated
     private void initializeUIComponents(FXMLLoader fxmlLoader) {
-        labelWelcomeUser = (Label) fxmlLoader.getNamespace().get("labelWelcomeUser");
+        Label labelWelcomeUser = (Label) fxmlLoader.getNamespace().get("labelWelcomeUser");
         labelWelcomeUser.setText("Benvenuto, " + AuthenticationManager.getInstance().getUser().getUsername() + "!");
 
         vBoxAddTeam = (VBox) fxmlLoader.getNamespace().get("vBoxAddTeam");
         vBoxManageTeam = (VBox) fxmlLoader.getNamespace().get("vBoxManageTeam");
 
-        buttonAddTeam = (Button) fxmlLoader.getNamespace().get("buttonAddTeam");
+        Button buttonAddTeam = (Button) fxmlLoader.getNamespace().get("buttonAddTeam");
         buttonAddTeam.setOnAction(actionEvent -> homeController.handlePressedManageTeamButton());
 
-        buttonManageTeam = (Button) fxmlLoader.getNamespace().get("buttonManageTeam");
+        Button buttonManageTeam = (Button) fxmlLoader.getNamespace().get("buttonManageTeam");
         buttonManageTeam.setOnAction(actionEvent -> homeController.handlePressedManageTeamButton());
 
-        buttonProposeLineup = (Button) fxmlLoader.getNamespace().get("buttonProposeLineup");
+        Button buttonProposeLineup = (Button) fxmlLoader.getNamespace().get("buttonProposeLineup");
         buttonProposeLineup.setOnAction(actionEvent -> homeController.handlePressedProposeLineupButton());
 
-        buttonSignOut = (Button) fxmlLoader.getNamespace().get("buttonSignOut");
+        Button buttonSignOut = (Button) fxmlLoader.getNamespace().get("buttonSignOut");
         buttonSignOut.setOnAction(actionEvent -> homeController.handlePressedSignOutButton());
 
     }
 
+    @Generated
     public void setAddTeamScreenVisible() {
         vBoxAddTeam.setVisible(true);
         vBoxManageTeam.setVisible(false);
     }
 
+    @Generated
     public void setManageTeamScreenVisible() {
         vBoxManageTeam.setVisible(true);
         vBoxAddTeam.setVisible(false);
     }
 
+    @Generated
     public void show() {
         FantaSolver.getStage().show();
     }

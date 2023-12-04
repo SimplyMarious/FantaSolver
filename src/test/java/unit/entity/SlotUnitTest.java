@@ -7,11 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mockStatic;
@@ -65,5 +67,31 @@ public class SlotUnitTest {
     @Test
     public void testAddRoleWithNullPointerException() {
         assertThrows(NullPointerException.class, ()->slot.addRole(null));
+    }
+
+    @Test
+    public void testSortSlotsByRolesSize() throws RoleException {
+        Slot[] slots = new Slot[3];
+        for (int i = 0; i < 3; i++) {
+            slots[i] = new Slot((short)i);
+        }
+        slots[2].addRole(Role.A);
+        slots[0].addRole(Role.PC);
+        slots[0].addRole(Role.A);
+        slots[1].addRole(Role.PC);
+        slots[1].addRole(Role.A);
+        slots[1].addRole(Role.T);
+
+        Slot[] expectedSlots = new Slot[3];
+        expectedSlots[0] = slots[2];
+        expectedSlots[1] = slots[0];
+        expectedSlots[2] = slots[1];
+
+        Slot[] sortedSlots = Slot.sortSlotsByRolesSize(slots);
+
+        for (int i = 0; i < 3; i++) {
+            assertEquals(expectedSlots[i].getId(), sortedSlots[i].getId());
+        }
+
     }
 }
