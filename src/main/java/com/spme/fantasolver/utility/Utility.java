@@ -46,9 +46,8 @@ public class Utility {
         for (String string: strings) {
             formattedStrings.append(string).append(", ");
         }
-        if (formattedStrings.length() > 0) {
-            formattedStrings.setLength(formattedStrings.length() - 2);
-        }
+        formattedStrings.setLength(formattedStrings.length() - 2);
+
         return formattedStrings.toString();
     }
 }
