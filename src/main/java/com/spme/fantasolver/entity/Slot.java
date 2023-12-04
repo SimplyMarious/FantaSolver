@@ -3,6 +3,8 @@ package com.spme.fantasolver.entity;
 import com.spme.fantasolver.annotations.Generated;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Slot implements Comparable<Slot>{
     private short id;
@@ -55,7 +57,8 @@ public class Slot implements Comparable<Slot>{
     }
 
     public static Slot[] sortSlotsByRolesSize(Slot[] slots){
-        List<Slot> slotsList = new ArrayList<>(Arrays.stream(slots).toList());
+        //List<Slot> slotsList = new ArrayList<>(Arrays.stream(slots).toList());
+        List<Slot> slotsList = new ArrayList<>(Arrays.asList(slots));
         Collections.sort(slotsList);
         Slot[] sortedSlots = new Slot[11];
         return slotsList.toArray(sortedSlots);
