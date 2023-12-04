@@ -52,22 +52,16 @@ public class LineupVerifierUnitTest {
         players.add(new Player("Sabelli", new HashSet<>(List.of(new Role[]{Role.DS, Role.E, Role.DD}))));
         players.add(new Player("Acerbi", new HashSet<>(List.of(new Role[]{Role.DC}))));
 
-        Lineup lineup = null;
-        for (int i = 0 ; i<10; i++) {
-            lineup = lineupVerifier.getSuitableLineup(players);
-        }
+        Lineup lineup = lineupVerifier.getSuitableLineup(players);
 
         assertNotNull(lineup);
-
     }
 
     @Test
     public void testGetSuitableLineupWithoutPlayers(){
         Set<Player> players = new HashSet<>();
-        Lineup lineup = null;
-        for (int i = 0 ; i<10; i++) {
-            lineup = lineupVerifier.getSuitableLineup(players);
-        }
+
+        Lineup lineup = lineupVerifier.getSuitableLineup(players);
 
         assertNull(lineup);
     }
