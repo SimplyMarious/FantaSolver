@@ -12,16 +12,16 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 
-public class PlayerUnitTest {
+class PlayerUnitTest {
     private Player player;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         player = new Player();
     }
 
     @Test
-    public void testAddRoleWithSuitableRole() throws RoleException {
+    void testAddRoleWithSuitableRole() throws RoleException {
         Role newRole = Role.A;
 
         player.addRole(newRole);
@@ -30,7 +30,7 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void testAddRoleWithNonSuitableRole() throws RoleException {
+    void testAddRoleWithNonSuitableRole() throws RoleException {
         Role newRole = Role.A;
         try (MockedStatic<Role> mockRole = mockStatic(Role.class)) {
             mockRole.when(() -> Role.checkNewRoleSuitability(newRole, player.getRoles(), (short) 3)).thenReturn(false);
@@ -40,7 +40,7 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void testAddRoleWithDuplicatedRoleException() throws RoleException {
+    void testAddRoleWithDuplicatedRoleException() throws RoleException {
         Role newRole = Role.A;
 
         player.addRole(newRole);
@@ -49,7 +49,7 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void testAddRoleWithRoleLimitExceededException() throws RoleException {
+    void testAddRoleWithRoleLimitExceededException() throws RoleException {
         player.addRole(Role.A);
         player.addRole(Role.PC);
         player.addRole(Role.T);
@@ -58,31 +58,31 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void testAddRoleWithNullPointerException() {
+    void testAddRoleWithNullPointerException() {
         assertThrows(NullPointerException.class, ()->player.addRole(null));
     }
 
     @Test
-    public void testEqualsWithSamePlayers() {
+    void testEqualsWithSamePlayers() {
         boolean result = player.equals(player);
         assertTrue(result);
     }
 
     @Test
-    public void testEqualsWithDifferentPlayers() {
+    void testEqualsWithDifferentPlayers() {
         Player differentPlayer = new Player("Castolo");
         boolean result = player.equals(differentPlayer);
         assertFalse(result);
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         boolean result = player.equals(null);
         assertFalse(result);
     }
 
     @Test
-    public void testEqualsWithDifferentClassNotNull() {
+    void testEqualsWithDifferentClassNotNull() {
         Object aDifferentObjectType = new Object();
 
         boolean result = player.equals(aDifferentObjectType);
@@ -91,7 +91,7 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void testEqualsWithDifferentClassNull() {
+    void testEqualsWithDifferentClassNull() {
         Object aDifferentObjectType = null;
 
         boolean result = player.equals(aDifferentObjectType);
@@ -100,7 +100,7 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void testToString() throws RoleException {
+    void testToString() throws RoleException {
         player.setName("Castolo");
         player.addRole(Role.A);
 

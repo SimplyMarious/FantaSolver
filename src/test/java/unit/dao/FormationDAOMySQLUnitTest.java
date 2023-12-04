@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class FormationDAOMySQLUnitTest {
+class FormationDAOMySQLUnitTest {
 
     @Mock
     private Connection mockConnection;
@@ -42,7 +42,7 @@ public class FormationDAOMySQLUnitTest {
     private FormationDAOMySQL formationDAOMySQL;
 
     @BeforeEach
-    public void setUp(){
+    void setUp(){
 
         mockConnection = mock(Connection.class);
         mockPreparedStatement = mock(PreparedStatement.class);
@@ -59,7 +59,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @AfterEach
-    public void clean() {
+    void clean() {
         try {
             mockMySQLConnectionManager.close();
             mockConnection.close();
@@ -73,7 +73,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationWithFormationsInDatabase() throws SQLException {
+    void testRetrieveFormationWithFormationsInDatabase() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(true, false);
@@ -87,7 +87,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationWithFormationsNotInDatabase() throws SQLException {
+    void testRetrieveFormationWithFormationsNotInDatabase() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(false);
@@ -98,7 +98,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationWithConnectionSQLException() {
+    void testRetrieveFormationWithConnectionSQLException() {
         mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase)
                 .thenThrow(new SQLException("Simulated SQLException"));
 
@@ -109,7 +109,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationWithConnectionClassNotFoundException() {
+    void testRetrieveFormationWithConnectionClassNotFoundException() {
         mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase)
                 .thenThrow(new ClassNotFoundException("Simulated ClassNotFoundException"));
 
@@ -120,7 +120,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationWithExecuteQueryException() throws SQLException {
+    void testRetrieveFormationWithExecuteQueryException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenThrow(new SQLException("Simulated SQLException"));
 
@@ -131,7 +131,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationWithPrepareStatementException() throws SQLException {
+    void testRetrieveFormationWithPrepareStatementException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Simulated SQLException"));
 
         Set<Formation> result = formationDAOMySQL.retrieveFormations();
@@ -141,7 +141,7 @@ public class FormationDAOMySQLUnitTest {
     }
 
     @Test
-    public void testRetrieveFormationsWithRoleException() throws SQLException {
+    void testRetrieveFormationsWithRoleException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenThrow(SQLException.class);
         RoleException mockRoleException = mock(RoleException.class);
         doNothing().when(mockLogger).info(anyString());

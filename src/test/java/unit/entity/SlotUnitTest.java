@@ -13,17 +13,17 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 
-public class SlotUnitTest {
+class SlotUnitTest {
 
     private Slot slot;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         slot = new Slot((short)1);
     }
 
     @Test
-    public void testAddRoleWithSuitableRole() throws RoleException {
+    void testAddRoleWithSuitableRole() throws RoleException {
         Role newRole = Role.A;
 
         slot.addRole(newRole);
@@ -32,7 +32,7 @@ public class SlotUnitTest {
     }
 
     @Test
-    public void testAddRoleWithNonSuitableRole() throws RoleException {
+    void testAddRoleWithNonSuitableRole() throws RoleException {
         Role newRole = Role.A;
         try (MockedStatic<Role> mockRole = mockStatic(Role.class)) {
             mockRole.when(() -> Role.checkNewRoleSuitability(newRole, slot.getRoles(), (short) 3)).thenReturn(false);
@@ -42,7 +42,7 @@ public class SlotUnitTest {
     }
 
     @Test
-    public void testAddRoleWithDuplicatedRoleException() throws RoleException {
+    void testAddRoleWithDuplicatedRoleException() throws RoleException {
         Role newRole = Role.A;
 
         slot.addRole(newRole);
@@ -51,7 +51,7 @@ public class SlotUnitTest {
     }
 
     @Test
-    public void testAddRoleWithRoleLimitExceededException() throws RoleException {
+    void testAddRoleWithRoleLimitExceededException() throws RoleException {
         slot.addRole(Role.A);
         slot.addRole(Role.PC);
         slot.addRole(Role.T);
@@ -60,12 +60,12 @@ public class SlotUnitTest {
     }
     
     @Test
-    public void testAddRoleWithNullPointerException() {
+    void testAddRoleWithNullPointerException() {
         assertThrows(NullPointerException.class, ()->slot.addRole(null));
     }
 
     @Test
-    public void testSortSlotsByRolesSize() throws RoleException {
+    void testSortSlotsByRolesSize() throws RoleException {
         Slot[] slots = new Slot[3];
         for (int i = 0; i < 3; i++) {
             slots[i] = new Slot((short)i);

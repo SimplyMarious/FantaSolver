@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class UserDAOMySQLUnitTest {
+class UserDAOMySQLUnitTest {
 
     @Mock
     private MockedStatic<MySQLConnectionManager> mockMySQLConnectionManager;
@@ -38,7 +38,7 @@ public class UserDAOMySQLUnitTest {
     private String password;
 
     @BeforeEach
-    public void setUp() throws SQLException {
+    void setUp() throws SQLException {
         username = "testUser";
         password = "testPassword";
         mockMySQLConnectionManager = mockStatic(MySQLConnectionManager.class);
@@ -56,7 +56,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @AfterEach
-    public void clean() {
+    void clean() {
         try {
             mockMySQLConnectionManager.close();
             mockConnection.close();
@@ -69,7 +69,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignUpWithUserNotInDatabase() throws SQLException {
+    void testSignUpWithUserNotInDatabase() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
 
         boolean result = userDAOMySQL.signUp(username, password);
@@ -81,7 +81,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignUpWithUserInDatabase() throws SQLException, ClassNotFoundException {
+    void testSignUpWithUserInDatabase() throws SQLException, ClassNotFoundException {
         UserDAOMySQL mockedUserDAOMySQL = spy(new UserDAOMySQL());
         doReturn(true).when(mockedUserDAOMySQL).isUserExist(username);
 
@@ -91,7 +91,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignUpWithPreparedStatementException() throws SQLException {
+    void testSignUpWithPreparedStatementException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
         boolean result = userDAOMySQL.signUp(username, password);
@@ -100,7 +100,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignUpWithExecuteUpdateException() throws SQLException {
+    void testSignUpWithExecuteUpdateException() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException());
 
@@ -110,7 +110,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignUpWithSetStringException() throws SQLException {
+    void testSignUpWithSetStringException() throws SQLException {
         doThrow(new SQLException()).when(mockPreparedStatement).setString(eq(1), anyString());
 
         boolean result = userDAOMySQL.signUp(username, password);
@@ -119,7 +119,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithUserInDatabase() throws SQLException {
+    void testSignInWithUserInDatabase() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(true);
 
@@ -131,7 +131,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithUserNotInDatabase() throws SQLException {
+    void testSignInWithUserNotInDatabase() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(false);
 
@@ -143,7 +143,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithPreparedStatementException() throws SQLException {
+    void testSignInWithPreparedStatementException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException());
 
         boolean result = userDAOMySQL.signIn(username, password);
@@ -152,7 +152,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithExecuteUpdateException() throws SQLException {
+    void testSignInWithExecuteUpdateException() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException());
 
@@ -162,7 +162,7 @@ public class UserDAOMySQLUnitTest {
     }
 
     @Test
-    public void testSignInWithSetStringException() throws SQLException {
+    void testSignInWithSetStringException() throws SQLException {
         doThrow(new SQLException()).when(mockPreparedStatement).setString(eq(1), anyString());
 
         boolean result = userDAOMySQL.signIn(username, password);

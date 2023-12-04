@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class SignUpControllerUnitTest {
+class SignUpControllerUnitTest {
 
     private UserDAO mockUserDAO;
     private SignUpStage mockSignUpStage;
@@ -24,7 +24,7 @@ public class SignUpControllerUnitTest {
     private MockedStatic<DAOFactory> mockDAOFactory;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockDAOFactory = mockStatic(DAOFactory.class);
         mockUserDAO = mock(UserDAO.class);
         mockSignUpStage = mock(SignUpStage.class);
@@ -33,18 +33,18 @@ public class SignUpControllerUnitTest {
     }
 
     @AfterEach
-    public void clean() {
+    void clean() {
         mockDAOFactory.close();
     }
 
     @Test
-    public void testGetInstance() {
+    void testGetInstance() {
         assertNotNull(signUpController);
         assertSame(signUpController, SignUpController.getInstance());
     }
 
     @Test
-    public void testHandleInitializationWithNotNullSignInStage() throws IOException {
+    void testHandleInitializationWithNotNullSignInStage() throws IOException {
         doNothing().when(mockSignUpStage).initializeStage();
 
         signUpController.handleInitialization();
@@ -53,7 +53,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithNullSignInStage() throws IOException {
+    void testHandleInitializationWithNullSignInStage() throws IOException {
         doNothing().when(mockSignUpStage).initializeStage();
         signUpController.setSignUpStage(null);
 
@@ -61,7 +61,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+    void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
         doThrow(new IOException()).when(mockSignUpStage).initializeStage();
 
         try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){
@@ -74,7 +74,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedSignUpButtonWithSuccessfulSignUp() {
+    void testHandlePressedSignUpButtonWithSuccessfulSignUp() {
         String username = "testUser";
         String password = "testPassword";
         mockDAOFactory.when(DAOFactory::getUserDAO).thenReturn(mockUserDAO);
@@ -87,7 +87,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandlePressedSignUpButtonWithFailureSignUp() {
+    void testHandlePressedSignUpButtonWithFailureSignUp() {
         String username = "testUser";
         String password = "testPassword";
         mockDAOFactory.when(DAOFactory::getUserDAO).thenReturn(mockUserDAO);
@@ -100,7 +100,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithValidFieldsAndDisabledButton() {
+    void testHandleFieldChangedWithValidFieldsAndDisabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(false);
@@ -113,7 +113,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithValidFieldsAndEnabledButton() {
+    void testHandleFieldChangedWithValidFieldsAndEnabledButton() {
         String validUsername = "validUser";
         String validPassword = "validPassword";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(true);
@@ -126,7 +126,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithInvalidFieldsAndDisabledButton() {
+    void testHandleFieldChangedWithInvalidFieldsAndDisabledButton() {
         String invalidUsername = "inv";
         String invalidPassword = "inv";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(false);
@@ -139,7 +139,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithInvalidFieldsAndEnabledButton() {
+    void testHandleFieldChangedWithInvalidFieldsAndEnabledButton() {
         String invalidUsername = "inv";
         String invalidPassword = "inv";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(true);
@@ -152,7 +152,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithInvalidUsernameAndDisabledButton() {
+    void testHandleFieldChangedWithInvalidUsernameAndDisabledButton() {
         String invalidUsername = "inv";
         String validPassword = "validPassword";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(false);
@@ -165,7 +165,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithInvalidUsernameAndEnabledButton() {
+    void testHandleFieldChangedWithInvalidUsernameAndEnabledButton() {
         String invalidUsername = "inv";
         String validPassword = "validPassword";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(true);
@@ -179,7 +179,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithInvalidPasswordAndDisabledButton() {
+    void testHandleFieldChangedWithInvalidPasswordAndDisabledButton() {
         String validUsername = "validUsername";
         String invalidPassword = "inv";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(false);
@@ -192,7 +192,7 @@ public class SignUpControllerUnitTest {
     }
 
     @Test
-    public void testHandleFieldChangedWithInvalidPasswordAndEnabledButton() {
+    void testHandleFieldChangedWithInvalidPasswordAndEnabledButton() {
         String validUsername = "validUsername";
         String invalidPassword = "inv";
         when(mockSignUpStage.isSignUpEnabled()).thenReturn(true);

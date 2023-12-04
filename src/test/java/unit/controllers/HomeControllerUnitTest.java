@@ -18,14 +18,14 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class HomeControllerUnitTest {
+class HomeControllerUnitTest {
 
     private HomeController homeController;
     private HomeStage mockHomeStage;
     private User testUser;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         homeController = HomeController.getInstance();
         mockHomeStage = mock(HomeStage.class);
         homeController.setHomeStage(mockHomeStage);
@@ -35,7 +35,7 @@ public class HomeControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithExistingTeam() throws IOException {
+    void testHandleInitializationWithExistingTeam() throws IOException {
         testUser.setTeam(new Team("TestTeam", Set.of(new Player("Player1"), new Player("Player2"))));
 
         homeController.handleInitialization();
@@ -47,7 +47,7 @@ public class HomeControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithNoExistingTeam() throws IOException {
+    void testHandleInitializationWithNoExistingTeam() throws IOException {
         homeController.handleInitialization();
 
         verify(mockHomeStage, times(1)).initializeStage();
@@ -57,7 +57,7 @@ public class HomeControllerUnitTest {
     }
 
     @Test
-    public void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
+    void testHandleInitializationWithExceptionDuringInitialization() throws IOException {
         doThrow(new IOException()).when(mockHomeStage).initializeStage();
 
         try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)){

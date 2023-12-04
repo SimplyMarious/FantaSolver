@@ -18,28 +18,28 @@ import static com.spme.fantasolver.dao.MySQLConnectionManager.connectToDatabase;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class UserDAOMySQLIntegrationTest {
+class UserDAOMySQLIntegrationTest {
 
     private String username;
     private String password;
     private boolean signUpResult;
 
     @BeforeAll
-    public static void initialize() {
+    static void initialize() {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
     }
 
     @BeforeEach
-    public void setUpIntegrationTest() {
+    void setUpIntegrationTest() {
         username = "testUser";
         password = "testPassword";
         signUpResult = false;
     }
 
     @AfterEach
-    public void clean() throws SQLException, ClassNotFoundException {
+    void clean() throws SQLException, ClassNotFoundException {
         if(signUpResult){
             Connection connection = connectToDatabase();
             String deleteQuery = "DELETE FROM user WHERE name = ?";
@@ -52,7 +52,7 @@ public class UserDAOMySQLIntegrationTest {
     }
 
     @Test
-    public void testSignUpWithUserNotInDatabase() {
+    void testSignUpWithUserNotInDatabase() {
         UserDAO userDAOMySQL = DAOFactory.getUserDAO();
 
         signUpResult = userDAOMySQL.signUp(username, password);
@@ -61,7 +61,7 @@ public class UserDAOMySQLIntegrationTest {
     }
 
     @Test
-    public void testSignUpWithUserInDatabase() {
+    void testSignUpWithUserInDatabase() {
         UserDAO userDAOMySQL = DAOFactory.getUserDAO();
         signUpResult = userDAOMySQL.signUp(username, password);
 
@@ -71,7 +71,7 @@ public class UserDAOMySQLIntegrationTest {
     }
 
     @Test
-    public void testSignInWithUserInDatabase() {
+    void testSignInWithUserInDatabase() {
         UserDAO userDAOMySQL = DAOFactory.getUserDAO();
         signUpResult = userDAOMySQL.signUp(username, password);
 
@@ -81,7 +81,7 @@ public class UserDAOMySQLIntegrationTest {
     }
 
     @Test
-    public void testSignInWithUserNotInDatabase() {
+    void testSignInWithUserNotInDatabase() {
         UserDAO userDAOMySQL = DAOFactory.getUserDAO();
 
         boolean result = userDAOMySQL.signIn("", "");
