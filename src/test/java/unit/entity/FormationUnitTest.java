@@ -60,4 +60,12 @@ public class FormationUnitTest {
 
         assertThrows(RoleException.class, ()-> formation.addRole(slot.getId(), Role.W));
     }
+
+    @Test
+    public void testAddRoleWithNullPointerException() {
+        Slot slot = new Slot((short)2);
+        formation.setSlot(slot);
+
+        assertThrows(NullPointerException.class, ()-> formation.addRole(slot.getId(), null));
+    }
 }
