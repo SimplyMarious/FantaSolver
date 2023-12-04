@@ -23,6 +23,7 @@ public class HomeStage {
     private Button buttonProposeLineup;
     private Button buttonSignOut;
 
+    @Generated
     public HomeStage() {
         this.homeController = HomeController.getInstance();
         homeController.setHomeStage(this);
@@ -61,16 +62,19 @@ public class HomeStage {
 
     }
 
+    @Generated
     public void setAddTeamScreenVisible() {
         vBoxAddTeam.setVisible(true);
         vBoxManageTeam.setVisible(false);
     }
 
+    @Generated
     public void setManageTeamScreenVisible() {
         vBoxManageTeam.setVisible(true);
         vBoxAddTeam.setVisible(false);
     }
 
+    @Generated
     public void show() {
         FantaSolver.getStage().show();
     }

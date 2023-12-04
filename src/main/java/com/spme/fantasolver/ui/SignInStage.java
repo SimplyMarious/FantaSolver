@@ -23,6 +23,7 @@ public class SignInStage {
     private Button buttonSignUp;
     private Label labelSigninFailure;
 
+    @Generated
     public SignInStage() {
         this.signInController = SignInController.getInstance();
         signInController.setSignInStage(this);
