@@ -31,13 +31,12 @@ public class VerifiedLineupController {
 
             adaptLineupForVisualization(lineup);
             verifiedLineupStage.loadPlayersInTable(lineup.getPlayers());
+            verifiedLineupStage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger("VerifiedLineupController");
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
-
-        verifiedLineupStage.show();
     }
 
     @Generated

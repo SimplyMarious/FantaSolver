@@ -39,19 +39,17 @@ public class ManageTeamController {
     public void handleInitialization() {
         try {
             manageTeamStage.initializeStage();
+            Team team = AuthenticationManager.getInstance().getUser().getTeam();
+            if(team != null){
+                manageTeamStage.setTextFieldTeamName(team.getName());
+                manageTeamStage.loadPlayersInTable(team.getPlayers());
+            }
+            manageTeamStage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(this.getClass().getName());
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
-
-        Team team = AuthenticationManager.getInstance().getUser().getTeam();
-        if(team != null){
-            manageTeamStage.setTextFieldTeamName(team.getName());
-            manageTeamStage.loadPlayersInTable(team.getPlayers());
-        }
-
-        manageTeamStage.show();
     }
 
     public void handleTeamPropertyChanged(String teamName, int playersSize) {

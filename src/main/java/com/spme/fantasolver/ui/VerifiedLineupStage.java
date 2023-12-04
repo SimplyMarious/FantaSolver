@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class VerifiedLineupStage {
-    private VerifiedLineupController verifiedLineupController;
 
     private Stage stage;
     private FXMLLoader fxmlLoader;
@@ -29,7 +28,7 @@ public class VerifiedLineupStage {
 
     @Generated
     public VerifiedLineupStage(Lineup lineup){
-        this.verifiedLineupController = VerifiedLineupController.getInstance();
+        VerifiedLineupController verifiedLineupController = VerifiedLineupController.getInstance();
         verifiedLineupController.setVerifiedLineupStage(this);
         verifiedLineupController.handleInitialization(lineup);
     }

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 public class ProposeLineupController {
     private static ProposeLineupController proposeLineupController = null;
+    @Generated
     private ProposeLineupController(){}
 
     public static ProposeLineupController getInstance(){
@@ -32,7 +33,6 @@ public class ProposeLineupController {
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
-
         proposeLineupStage.show();
     }
 
@@ -51,10 +51,12 @@ public class ProposeLineupController {
         }
     }
 
+    @Generated
     public void handleSelectedTableViewLineupPlayer() {
         proposeLineupStage.setRemovePlayerFromLineupButtonAbility(true);
     }
 
+    @Generated
     public void handlePressedRemovePlayerFromLineupButton(Player player) {
         proposeLineupStage.removePlayerFromLineupTableView(player);
     }
