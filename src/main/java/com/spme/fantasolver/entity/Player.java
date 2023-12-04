@@ -9,6 +9,7 @@ public class Player implements Comparable<Player>{
     private Set<Role> roles;
     private static final short MAX_ROLES_PER_PLAYER = 3;
 
+    @Generated
     public Player(){
         this.roles = new HashSet<>();
     }
