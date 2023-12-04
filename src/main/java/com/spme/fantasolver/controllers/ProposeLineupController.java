@@ -1,7 +1,6 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
-import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.ProposeLineupStage;
 import com.spme.fantasolver.ui.VerifiedLineupStage;
@@ -24,11 +23,9 @@ public class ProposeLineupController {
 
     private ProposeLineupStage proposeLineupStage;
     private static final int LINEUP_SIZE = 11;
-    private Set<Formation> formations = new HashSet<>();
 
     public void handleInitialization() {
         try {
-            initializeFormations();
             proposeLineupStage.initializeStage();
         } catch (IOException e) {
             Logger logger = Logger.getLogger("ProposeLineupController");
@@ -77,82 +74,13 @@ public class ProposeLineupController {
     }
 
     public void handlePressedVerifyLineupButton(Set<Player> players) {
-        Lineup lineup = getSuitableLineup(players);
+        Lineup lineup = LineupVerifier.getInstance().getSuitableLineup(players);
         if(lineup != null){
             new VerifiedLineupStage(lineup);
         }
         else{
             Notifier.notifyInfo(
                     "Esito verifica", "Mi dispiace, non esiste un modulo adatto alla tua formazione... Dovevi pensarci all'asta!");
-        }
-    }
-
-    //TODO: this method must be private
-    @Generated
-    public Lineup getSuitableLineup(Set<Player> players) {
-        for(Formation formation: formations){
-           List<Player> sortedPlayers = Player.sortPlayers(new ArrayList<>(players));
-           Lineup lineup = getLineup(sortedPlayers, formation);
-
-            if(lineup.checkValidity()){
-                lineup.setFormation(formation);
-                Logger logger = Logger.getLogger("ProposeLineupController");
-                logger.info("Formation: " + lineup.getFormation().getName());
-
-                return lineup;
-            }
-        }
-        return null;
-    }
-
-    @Generated
-    private Lineup getLineup(List<Player> players, Formation formation) {
-        Lineup lineup = new Lineup();
-        Slot[] sortedSlots = Slot.sortSlotsByRolesSize(formation.getSlots());
-
-        setSuitableSlots(sortedSlots, players, lineup);
-
-        return lineup;
-    }
-
-    @Generated
-    private void setSuitableSlots(Slot[] slots, List<Player> players, Lineup lineup) {
-        int i = 0;
-        boolean isValidSlot = true;
-
-        while(i < LINEUP_SIZE && isValidSlot) {
-            setSuitablePlayers(players, slots[i], lineup);
-
-            if (lineup.getPlayers()[slots[i].getId()] == null) {
-                isValidSlot = false;
-            }
-
-            i++;
-        }
-    }
-
-    @Generated
-    private void setSuitablePlayers(List<Player> players, Slot slot, Lineup lineup) {
-        Iterator<Player> playersIterator = players.iterator();
-        boolean playerFound = false;
-
-        while (playersIterator.hasNext() && !playerFound) {
-            Player player = playersIterator.next();
-            Set<Role> commonRoles = new HashSet<>(slot.getRoles());
-            commonRoles.retainAll(player.getRoles());
-
-            if (!commonRoles.isEmpty()) {
-                lineup.setPlayer(player, slot);
-                playersIterator.remove();
-                playerFound = true;
-            }
-        }
-    }
-
-    @Generated
-    public void initializeFormations() {
-        if (this.formations.isEmpty()) {
-            this.formations = DAOFactory.getFormationDAO().retrieveFormations();
         }
     }
 
