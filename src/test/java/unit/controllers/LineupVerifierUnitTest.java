@@ -6,7 +6,7 @@ import com.spme.fantasolver.entity.Lineup;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.utility.Utility;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class LineupVerifierUnitTest {
 
-    private LineupVerifier lineupVerifier;
+    private static LineupVerifier lineupVerifier;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
@@ -31,7 +31,13 @@ public class LineupVerifierUnitTest {
     }
 
     @Test
-    public void testGetSuitableLineUp(){
+    public void testGetInstance() {
+        assertNotNull(lineupVerifier);
+        assertSame(lineupVerifier, LineupVerifier.getInstance());
+    }
+
+    @Test
+    public void testGetSuitableLineupWithPlayers(){
         Set<Player> players = new HashSet<>();
 
         players.add(new Player("Felipe Anderson", new HashSet<>(List.of(new Role[]{Role.A, Role.W}))));
@@ -53,6 +59,17 @@ public class LineupVerifierUnitTest {
 
         assertNotNull(lineup);
 
+    }
+
+    @Test
+    public void testGetSuitableLineupWithoutPlayers(){
+        Set<Player> players = new HashSet<>();
+        Lineup lineup = null;
+        for (int i = 0 ; i<10; i++) {
+            lineup = lineupVerifier.getSuitableLineup(players);
+        }
+
+        assertNull(lineup);
     }
 
 }
