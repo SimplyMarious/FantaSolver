@@ -31,12 +31,16 @@ public class MySQLConnectionManager {
         Connection connection;
         String host;
         String port;
+        String username;
+        String password;
         host = Utility.getValueFromProperties("host");
         port = Utility.getValueFromProperties("port");
+        username = Utility.getValueFromProperties("username");
+        password = Utility.getValueFromProperties("password");
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
                 "jdbc:mysql://"+host+":"+port+"/fantasolver?allowMultiQueries=true&characterEncoding=utf8",
-                "root","root");
+                username,password);
         return connection;
     }
 }
