@@ -3,11 +3,11 @@ package unit.controllers;
 import com.spme.fantasolver.controllers.AuthenticationManager;
 import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.ManageTeamController;
-import com.spme.fantasolver.entity.Player;
-import com.spme.fantasolver.entity.Role;
-import com.spme.fantasolver.entity.Team;
-import com.spme.fantasolver.entity.User;
+import com.spme.fantasolver.dao.DAOFactory;
+import com.spme.fantasolver.dao.TeamDAO;
+import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.ManageTeamStage;
+import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,11 +16,15 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.*;
@@ -34,6 +38,10 @@ public class ManageTeamControllerUnitTest {
     private ManageTeamStage mockManageTeamStage;
     @Mock
     MockedStatic<Utility> mockUtility;
+    @Mock
+    private TeamDAO mockTeamDAO;
+    @Mock
+    private AuthenticationManager mockAuthenticationManager;
 
     @BeforeEach
     public void setUp() {
@@ -42,6 +50,8 @@ public class ManageTeamControllerUnitTest {
         authenticationManager = AuthenticationManager.getInstance();
         mockManageTeamStage = mock(ManageTeamStage.class);
         manageTeamController.setManageTeamStage(mockManageTeamStage);
+        mockTeamDAO = mock(TeamDAO.class);
+        mockAuthenticationManager = mock(AuthenticationManager.class);
     }
 
     @AfterEach
@@ -270,5 +280,92 @@ public class ManageTeamControllerUnitTest {
 
         manageTeamController.handlePlayerPropertyChanged(playerName, firstRole, secondRole, thirdRole);
         verify(mockManageTeamStage, times(1)).setAddPlayerButtonAbility(false);
+    }
+
+    @Test
+    public void testHandlePressedAddPlayerButtonWithPlayerNotInList(){
+        String playerName = "John Doe";
+        String firstRole = "DC";
+        String secondRole = "DD";
+        String thirdRole = "Nessuno";
+
+        when(mockManageTeamStage.getPlayers()).thenReturn(List.of(new Player("Rossi")));
+
+        manageTeamController.handlePressedAddPlayerButton(playerName, firstRole, secondRole, thirdRole);
+
+        verify(mockManageTeamStage, times(1)).addPlayerToTableView(any(Player.class));
+        verify(mockManageTeamStage, never()).highlightPlayerInTableView(any(Player.class));
+    }
+
+    @Test
+    public void testHandlePressedAddPlayerButtonWithPlayerAlreadyInList(){
+        String playerName = "John Doe";
+        String firstRole = "DC";
+        String secondRole = "DD";
+        String thirdRole = "Nessuno";
+
+        when(mockManageTeamStage.getPlayers()).thenReturn(List.of(
+                new Player("John Doe", Set.of(Role.DC, Role.DD))));
+
+        manageTeamController.handlePressedAddPlayerButton(playerName, firstRole, secondRole, thirdRole);
+
+        verify(mockManageTeamStage, never()).addPlayerToTableView(any(Player.class));
+        verify(mockManageTeamStage, times(1)).highlightPlayerInTableView(any(Player.class));
+    }
+
+    @Test
+    public void testHandlePressedAddPlayerButtonWithInvalidRoles(){
+        String playerName = "John Doe";
+        String firstRole = "DC";
+        String secondRole = "DC";
+        String thirdRole = "DD";
+
+        try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)) {
+            Logger mockedLogger = mock(Logger.class);
+            loggerMockedStatic.when(() -> Logger.getLogger("ManageTeamController")).thenReturn(mockedLogger);
+
+            manageTeamController.handlePressedAddPlayerButton(playerName, firstRole, secondRole, thirdRole);
+            verify(mockedLogger).info(anyString());
+        }
+    }
+
+    @Test
+    public void testHandlePressedConfirmButtonWithSuccessfulUpdate() {
+        String teamName = "TestTeam";
+        List<Player> players = List.of(new Player("Player1"), new Player("Player2"));
+
+        try(MockedStatic<DAOFactory> daoFactoryMockedStatic = mockStatic(DAOFactory.class)) {
+            daoFactoryMockedStatic.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
+            when(mockTeamDAO.updateTeam(any(Team.class), any(User.class))).thenReturn(true);
+
+            try(MockedStatic<AuthenticationManager> authenticationManagerMockedStatic =
+                    mockStatic(AuthenticationManager.class)){
+                authenticationManagerMockedStatic.when(AuthenticationManager::getInstance).
+                        thenReturn(mockAuthenticationManager);
+
+                try (MockedStatic<Notifier> notifierMockedStatic = mockStatic(Notifier.class)) {
+                    manageTeamController.handlePressedConfirmButton(teamName, players);
+
+                    verify(mockAuthenticationManager, times(1)).getUser();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testHandlePressedConfirmButtonWithFailingUpdate() {
+        String teamName = "TestTeam";
+        List<Player> players = List.of(new Player("Player1"), new Player("Player2"));
+        try (MockedStatic<DAOFactory> daoFactoryMockedStatic = mockStatic(DAOFactory.class)) {
+            daoFactoryMockedStatic.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
+            when(mockTeamDAO.updateTeam(any(Team.class), any(User.class))).thenReturn(false);
+
+            try (MockedStatic<Notifier> notifierMockedStatic = mockStatic(Notifier.class)) {
+                manageTeamController.handlePressedConfirmButton(teamName, players);
+                verify(mockAuthenticationManager, never()).getUser();
+                notifierMockedStatic.verify(() ->
+                        Notifier.notifyError(anyString(), anyString()), times(1));
+            }
+        }
     }
 }

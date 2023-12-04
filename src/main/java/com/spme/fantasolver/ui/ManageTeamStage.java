@@ -5,8 +5,6 @@ import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.ManageTeamController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
-import com.spme.fantasolver.utility.Utility;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,8 +18,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+@Generated
 public class ManageTeamStage {
-    private ManageTeamController manageTeamController;
+    private final ManageTeamController manageTeamController;
     private Stage stage;
     private FXMLLoader fxmlLoader;
 
@@ -43,7 +42,6 @@ public class ManageTeamStage {
         manageTeamController.handleInitialization();
     }
 
-    @Generated
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("manage-team-stage.fxml"));
         stage = new Stage();
@@ -55,45 +53,24 @@ public class ManageTeamStage {
 
         initializePlayerNameTextField();
         initializeRolesComboBoxes();
-        buttonAddPlayer = (Button)fxmlLoader.getNamespace().get("buttonAddPlayer");
-        buttonAddPlayer.setOnAction(actionEvent ->
-                onPressedButtonAddPlayer());
-        buttonAddPlayer.setDisable(true);
+        initializeAddPlayerButton();
 
         initializeTeamTable();
+        initializeRemovePlayerButton();
 
-        buttonRemovePlayer = (Button)fxmlLoader.getNamespace().get("buttonRemovePlayer");
-        buttonRemovePlayer.setDisable(true);
-        buttonRemovePlayer.setOnAction(actionEvent -> onPressedButtonRemovePlayer());
-
-        buttonConfirm = (Button)fxmlLoader.getNamespace().get("buttonConfirm");
-        buttonConfirm.setDisable(true);
-        buttonConfirm.setOnAction(actionEvent -> onPressedButtonConfirm());
-
+        initializeConfirmButton();
     }
 
-    @Generated
-    private void onPressedButtonAddPlayer() {
-        manageTeamController.handlePressedAddPlayerButton(
-                textFieldPlayerName.getText(),
-                comboBoxPlayerFirstRole.getValue(),
-                comboBoxPlayerSecondRole.getValue(),
-                comboBoxPlayerThirdRole.getValue());
-    }
-
-    @Generated
     private void initializeTeamNameTextField() {
         textFieldTeamName = (TextField)fxmlLoader.getNamespace().get("textFieldTeamName");
         textFieldTeamName.setOnKeyTyped(keyEvent -> onTeamPropertyChanged());
     }
 
-    @Generated
     private void initializePlayerNameTextField() {
         textFieldPlayerName = (TextField)fxmlLoader.getNamespace().get("textFieldPlayerName");
         textFieldPlayerName.setOnKeyTyped(keyEvent -> onPlayerPropertyChanged());
     }
 
-    @Generated
     private void initializeRolesComboBoxes() {
         comboBoxPlayerFirstRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerFirstRole");
         comboBoxPlayerSecondRole = (ComboBox<String>)fxmlLoader.getNamespace().get("comboBoxPlayerSecondRole");
@@ -117,7 +94,13 @@ public class ManageTeamStage {
         comboBoxPlayerThirdRole.getSelectionModel().select(0);
     }
 
-    @Generated
+    private void initializeAddPlayerButton() {
+        buttonAddPlayer = (Button)fxmlLoader.getNamespace().get("buttonAddPlayer");
+        buttonAddPlayer.setOnAction(actionEvent ->
+                onPressedButtonAddPlayer());
+        buttonAddPlayer.setDisable(true);
+    }
+
     private void initializeTeamTable() {
         tableViewPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewPlayers");
         players = FXCollections.observableArrayList();
@@ -132,7 +115,7 @@ public class ManageTeamStage {
         TableColumn<Player, String> tableColumnPlayerRoles = (TableColumn<Player, String>)
                 fxmlLoader.getNamespace().get("tableColumnPlayerRoles");
         tableColumnPlayerRoles.setCellValueFactory(cellData ->
-                        Role.getFormattedRoles(cellData.getValue().getRoles()));
+                Role.getFormattedRoles(cellData.getValue().getRoles()));
 
         tableViewPlayers.getColumns().set(0, tableColumnPlayerName);
         tableViewPlayers.getColumns().set(1, tableColumnPlayerRoles);
@@ -144,7 +127,22 @@ public class ManageTeamStage {
         });
     }
 
-    @Generated
+    private void initializeRemovePlayerButton() {
+        buttonRemovePlayer = (Button)fxmlLoader.getNamespace().get("buttonRemovePlayer");
+        buttonRemovePlayer.setDisable(true);
+        buttonRemovePlayer.setOnAction(actionEvent -> onPressedButtonRemovePlayer());
+    }
+
+    private void initializeConfirmButton() {
+        buttonConfirm = (Button)fxmlLoader.getNamespace().get("buttonConfirm");
+        buttonConfirm.setDisable(true);
+        buttonConfirm.setOnAction(actionEvent -> onPressedButtonConfirm());
+    }
+
+    private void onTeamPropertyChanged() {
+        manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size());
+    }
+
     private void onPlayerPropertyChanged() {
         manageTeamController.handlePlayerPropertyChanged(
                 textFieldPlayerName.getText(),
@@ -153,23 +151,45 @@ public class ManageTeamStage {
                 comboBoxPlayerThirdRole.getValue());
     }
 
-    @Generated
-    private void onTeamPropertyChanged() {
-        manageTeamController.handleTeamPropertyChanged(textFieldTeamName.getText(), players.size());
+    private void onPressedButtonAddPlayer() {
+        manageTeamController.handlePressedAddPlayerButton(
+                textFieldPlayerName.getText(),
+                comboBoxPlayerFirstRole.getValue(),
+                comboBoxPlayerSecondRole.getValue(),
+                comboBoxPlayerThirdRole.getValue());
     }
 
-    @Generated
     private void onSelectedTableViewPlayer() {
         manageTeamController.handleSelectedPlayerFromTableView();
+    }
+
+    private void onPressedButtonRemovePlayer() {
+        manageTeamController.handlePressedRemovePlayerButton(
+                tableViewPlayers.getSelectionModel().getSelectedItem());
+    }
+
+    private void onPressedButtonConfirm() {
+        manageTeamController.handlePressedConfirmButton(textFieldTeamName.getText(), players);
     }
 
     public void setTextFieldTeamName(String name) {
         textFieldTeamName.setText(name);
     }
 
-
     public void setAddPlayerButtonAbility(boolean ability) {
         buttonAddPlayer.setDisable(!ability);
+    }
+
+    public void setRemovePlayerButtonAbility(boolean ability) {
+        buttonRemovePlayer.setDisable(!ability);
+    }
+
+    public void setConfirmButtonAbility(boolean ability) {
+        buttonConfirm.setDisable(!ability);
+    }
+
+    public void highlightPlayerInTableView(Player player){
+        tableViewPlayers.getSelectionModel().select(player);
     }
 
     public void loadPlayersInTable(Set<Player> players) {
@@ -180,35 +200,12 @@ public class ManageTeamStage {
         players.add(player);
     }
 
-    public void highlightPlayerInTableView(Player player){
-        tableViewPlayers.getSelectionModel().select(player);
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setRemovePlayerButtonAbility(boolean ability) {
-        buttonRemovePlayer.setDisable(!ability);
-    }
-
-    @Generated
-    private void onPressedButtonRemovePlayer() {
-        manageTeamController.handlePressedRemovePlayerButton(
-                tableViewPlayers.getSelectionModel().getSelectedItem());
-    }
-
     public void removePlayerFromTableView(Player player) {
         players.remove(player);
     }
 
-    public void setConfirmButtonAbility(boolean ability) {
-        buttonConfirm.setDisable(!ability);
-    }
-
-    @Generated
-    private void onPressedButtonConfirm() {
-        manageTeamController.handlePressedConfirmButton(textFieldTeamName.getText(), players);
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public void show(){
