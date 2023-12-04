@@ -49,6 +49,7 @@ public class Slot implements Comparable<Slot>{
                 compare(this, slot);
     }
 
+    @Generated
     private Role getFirstRole() {
         return (Role)roles.toArray()[0];
     }

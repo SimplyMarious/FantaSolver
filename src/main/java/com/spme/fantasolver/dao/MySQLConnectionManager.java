@@ -1,5 +1,6 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
 
@@ -24,6 +25,7 @@ public class MySQLConnectionManager {
         }
     }
 
+    @Generated
     private static Connection tryConnectToDatabase() throws IOException, ClassNotFoundException, SQLException {
         Connection connection;
         String host;

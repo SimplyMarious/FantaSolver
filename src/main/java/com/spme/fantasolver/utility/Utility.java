@@ -1,8 +1,6 @@
 package com.spme.fantasolver.utility;
 
-import com.spme.fantasolver.entity.Role;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
+import com.spme.fantasolver.annotations.Generated;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +10,7 @@ public class Utility {
     private static Properties properties;
     private static InputStream fileInputStream;
 
+    @Generated
     private Utility() {}
 
     public static void setPropertiesReadingTools(Properties properties, InputStream fileInputStream){

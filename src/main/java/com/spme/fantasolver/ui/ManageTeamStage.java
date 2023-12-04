@@ -43,6 +43,7 @@ public class ManageTeamStage {
         manageTeamController.handleInitialization();
     }
 
+    @Generated
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("manage-team-stage.fxml"));
         stage = new Stage();

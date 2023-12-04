@@ -185,6 +185,7 @@ public class TeamDAOMySQL implements TeamDAO {
         }
     }
 
+    @Generated
     static class TeamData{
         private final int id;
         private final String name;

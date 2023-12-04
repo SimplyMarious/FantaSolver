@@ -104,6 +104,7 @@ public class FormationDAOMySQL implements FormationDAO{
         return formationSlots;
     }
 
+    @Generated
     static class FormationSlot {
         private final String name;
         private final short idSlot;

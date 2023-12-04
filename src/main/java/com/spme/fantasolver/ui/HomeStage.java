@@ -29,6 +29,7 @@ public class HomeStage {
         homeController.handleInitialization();
     }
 
+    @Generated
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("home-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);

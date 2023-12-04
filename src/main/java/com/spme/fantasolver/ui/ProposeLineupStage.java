@@ -1,12 +1,11 @@
 package com.spme.fantasolver.ui;
 
 import com.spme.fantasolver.FantaSolver;
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.controllers.ProposeLineupController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.entity.Team;
-import com.spme.fantasolver.utility.Utility;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -19,10 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ProposeLineupStage {
     private ProposeLineupController proposeLineupController;
@@ -46,6 +43,7 @@ public class ProposeLineupStage {
         proposeLineupController.handleInitialization();
     }
 
+    @Generated
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("propose-lineup-stage.fxml"));
         stage = new Stage();
@@ -58,6 +56,7 @@ public class ProposeLineupStage {
         initializeButtons();
     }
 
+    @Generated
     private void initializeTables() {
         tableViewTeamPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewTeamPlayers");
         teamPlayers = FXCollections.observableArrayList();
@@ -102,6 +101,7 @@ public class ProposeLineupStage {
                 onLineupTableViewChanged());
     }
 
+    @Generated
     private void initializeButtons() {
         buttonAddPlayerToLineup = (Button) fxmlLoader.getNamespace().get("buttonAddPlayerToLineup");
         buttonAddPlayerToLineup.setOnAction(actionEvent -> onPressedAddPlayerToLineupButton());
@@ -119,6 +119,7 @@ public class ProposeLineupStage {
         return lineupPlayers;
     }
 
+    @Generated
     private void onSelectedTableViewTeamPlayer() {
         proposeLineupController.handleSelectedTableViewTeamPlayer(lineupPlayers.size());
     }
@@ -127,6 +128,7 @@ public class ProposeLineupStage {
         buttonAddPlayerToLineup.setDisable(!ability);
     }
 
+    @Generated
     private void onPressedAddPlayerToLineupButton() {
         proposeLineupController.handlePressedAddPlayerToLineupButton(
                 tableViewTeamPlayers.getSelectionModel().getSelectedItem());
@@ -140,16 +142,19 @@ public class ProposeLineupStage {
         lineupPlayers.add(player);
     }
 
+    @Generated
     private void onSelectedLineupTableViewPlayer() {
         proposeLineupController.handleSelectedTableViewLineupPlayer();
     }
 
+    @Generated
     private void onPressedRemovePlayerFromLineupButton() {
         proposeLineupController.handlePressedRemovePlayerFromLineupButton(
                 tableViewLineupPlayers.getSelectionModel().getSelectedItem()
         );
     }
 
+    @Generated
     private void onLineupTableViewChanged() {
         proposeLineupController.handleLineUpTableViewChanged(lineupPlayers.size());
     }
@@ -162,6 +167,7 @@ public class ProposeLineupStage {
         buttonVerifyLineup.setDisable(!ability);
     }
 
+    @Generated
     private void onPressedVerifyLineupButton() {
         proposeLineupController.handlePressedVerifyLineupButton(new HashSet<>(lineupPlayers));
     }

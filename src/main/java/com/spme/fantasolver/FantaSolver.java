@@ -26,13 +26,11 @@ public class FantaSolver extends javafx.application.Application {
     }
 
     @Generated
-
     private static void setStage(Stage stage) {
         FantaSolver.stage = stage;
     }
 
     @Generated
-
     public static void closeApplication() {
         Platform.exit();
     }

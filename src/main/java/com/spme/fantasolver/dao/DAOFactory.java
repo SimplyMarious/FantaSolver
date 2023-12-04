@@ -1,5 +1,6 @@
 package com.spme.fantasolver.dao;
 
+import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.utility.Utility;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -78,6 +79,7 @@ public class DAOFactory {
         return formationDAO;
     }
 
+    @Generated
     public static void resetFactory() {
         teamDAO = null;
         userDAO = null;
