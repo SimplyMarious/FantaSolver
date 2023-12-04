@@ -99,4 +99,34 @@ public class DAOFactoryUnitTest {
         assertThat(result, is(instanceOf(UserDAOMySQL.class)));
         verify(mockLogger).info("Error getting the DBMS value for UserDAO: Simulated IOException");
     }
+
+    @Test
+    public void testGetFormationDAOWithMySQLAsUserDAOValueInProperties() {
+        mockUtility.when(() -> Utility.getValueFromProperties("formationDAO")).thenReturn("MySQL");
+
+        FormationDAO result = DAOFactory.getFormationDAO();
+
+        assertThat(result, is(instanceOf(FormationDAOMySQL.class)));
+    }
+
+    @Test
+    public void testGetFormationDAOWithAnyOtherStringAsUserDAOValueInProperties() {
+        mockUtility.when(() -> Utility.getValueFromProperties("formationDAO")).thenReturn("SomeDBMS");
+
+        FormationDAO result = DAOFactory.getFormationDAO();
+
+        assertThat(result, is(instanceOf(FormationDAOMySQL.class)));
+        assertSame(FormationDAOMySQL.class, DAOFactory.getFormationDAO().getClass());
+    }
+
+    @Test
+    public void testGetFormationDAOWithIOException() {
+        mockUtility.when(() -> Utility.getValueFromProperties(eq("formationDAO"))).thenThrow(new IOException("Simulated IOException"));
+
+        FormationDAO result = DAOFactory.getFormationDAO();
+
+        assertThat(result, is(instanceOf(FormationDAOMySQL.class)));
+        verify(mockLogger).info("Error getting the DBMS value for FormationDAO: Simulated IOException");
+    }
+
 }
