@@ -7,12 +7,14 @@ import java.util.logging.Logger;
 
 public class UserDAOMySQL implements UserDAO{
 
+    private static final String CLASS_NAME = "UserDAOMySQL";
+
     @Override
     public boolean signUp(String username, String password) {
         try {
             return trySignUp(username, password);
         } catch (ClassNotFoundException | SQLException exception) {
-            Logger logger = Logger.getLogger("UserDAOMySQL");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the sign up: " + exception.getMessage());
             return false;
         }
@@ -23,7 +25,7 @@ public class UserDAOMySQL implements UserDAO{
         try {
             return trySignIn(username, password);
         } catch (ClassNotFoundException | SQLException exception) {
-            Logger logger = Logger.getLogger("UserDAOMySQL");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the sign in: " + exception.getMessage());
             return false;
         }

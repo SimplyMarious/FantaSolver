@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 public class TeamDAOMySQL implements TeamDAO {
     private Connection connection;
+    private static final String CLASS_NAME = "TeamDAOMySQL";
     @Override
     public Team retrieveTeam(User user) throws InternalException {
         try {
@@ -26,7 +27,7 @@ public class TeamDAOMySQL implements TeamDAO {
                 return null;
             }
         } catch (ClassNotFoundException | SQLException | RoleException exception) {
-            Logger logger = Logger.getLogger("TeamDAOMySQL");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the team retrieve: " + exception.getMessage());
             throw new InternalException();
         }
@@ -101,7 +102,7 @@ public class TeamDAOMySQL implements TeamDAO {
             return true;
         }
         catch (ClassNotFoundException | SQLException exception){
-            Logger logger = Logger.getLogger("TeamDAOMySQL");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the team update: " + exception.getMessage());
             return false;
         }

@@ -13,12 +13,13 @@ import java.util.logging.Logger;
 public class MySQLConnectionManager {
 
     private MySQLConnectionManager() {}
+    private static final String CLASS_NAME = "MySQLConnectionManager";
 
     public static Connection connectToDatabase() throws ClassNotFoundException, SQLException {
         try {
             return tryConnectToDatabase();
         } catch (IOException e) {
-            Logger logger = Logger.getLogger("MySQLConnectionManager");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error while connection: " + e.getMessage());
             Notifier.notifyError("Errore", "Connessione al database fallita.");
             return null;

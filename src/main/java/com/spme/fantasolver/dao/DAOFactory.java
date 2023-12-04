@@ -11,6 +11,8 @@ public class DAOFactory {
     private static UserDAO userDAO;
     private static FormationDAO formationDAO;
 
+    private static final String CLASS_NAME = "DAOFactory";
+
     private DAOFactory() {}
 
     public static TeamDAO getTeamDAO(){
@@ -27,7 +29,7 @@ public class DAOFactory {
                         teamDAO = new TeamDAOMySQL();
                 }
             } catch (IOException e) {
-                Logger logger = Logger.getLogger("DAOFactory");
+                Logger logger = Logger.getLogger(CLASS_NAME);
                 logger.info("Error getting the DBMS value for TeamDAO: " + e.getMessage());
                 teamDAO = new TeamDAOMySQL();
             }
@@ -49,7 +51,7 @@ public class DAOFactory {
                         userDAO = new UserDAOMySQL();
                 }
             } catch (IOException e) {
-                Logger logger = Logger.getLogger("DAOFactory");
+                Logger logger = Logger.getLogger(CLASS_NAME);
                 logger.info("Error getting the DBMS value for UserDAO: " + e.getMessage());
                 userDAO = new UserDAOMySQL();
             }
@@ -71,7 +73,7 @@ public class DAOFactory {
                         formationDAO = new FormationDAOMySQL();
                 }
             } catch (IOException e) {
-                Logger logger = Logger.getLogger("DAOFactory");
+                Logger logger = Logger.getLogger(CLASS_NAME);
                 logger.info("Error getting the DBMS value for FormationDAO: " + e.getMessage());
                 formationDAO = new FormationDAOMySQL();            }
 

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 public class FormationDAOMySQL implements FormationDAO{
 
     private final Map<String, Formation> formationsMap = new HashMap<>();
+    private static final String CLASS_NAME = "FormationDAOMySQL";
 
     @Override
     public Set<Formation> retrieveFormations() {
@@ -20,7 +21,7 @@ public class FormationDAOMySQL implements FormationDAO{
             return tryGetFormations();
         }
         catch (RoleException exception) {
-            Logger logger = Logger.getLogger("FormationDAOMySQL");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the retrieve formations: " + exception.getMessage());
             return Collections.emptySet();
         }
@@ -79,7 +80,7 @@ public class FormationDAOMySQL implements FormationDAO{
         try {
             return tryGetFormationSlots();
         } catch (ClassNotFoundException | SQLException | RoleNotFoundException exception) {
-            Logger logger = Logger.getLogger("FormationDAOMySQL");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the retrieve formations: " + exception.getMessage());
             return Collections.emptySet();
         }
