@@ -3,6 +3,8 @@ package com.spme.fantasolver.dao;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.utility.Utility;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class DAOFactory {
@@ -12,7 +14,9 @@ public class DAOFactory {
     private static FormationDAO formationDAO;
 
     private static final String CLASS_NAME = "DAOFactory";
+    private static final String MYSQL = "MySQL";
 
+    @Generated
     private DAOFactory() {}
 
     public static TeamDAO getTeamDAO(){
@@ -20,14 +24,8 @@ public class DAOFactory {
             String teamDAOSource;
             try {
                 teamDAOSource = Utility.getValueFromProperties("teamDAO");
-                //TODO: refactor switch
-                switch (teamDAOSource){
-                    case "MySQL":
-                        teamDAO = new TeamDAOMySQL();
-                        break;
-                    default:
-                        teamDAO = new TeamDAOMySQL();
-                }
+                teamDAO = createTeamDAO(teamDAOSource);
+
             } catch (IOException e) {
                 Logger logger = Logger.getLogger(CLASS_NAME);
                 logger.info("Error getting the DBMS value for TeamDAO: " + e.getMessage());
@@ -42,14 +40,7 @@ public class DAOFactory {
             String userDAOSource;
             try {
                 userDAOSource = Utility.getValueFromProperties("userDAO");
-                //TODO: refactor switch
-                switch (userDAOSource) {
-                    case "MySQL":
-                        userDAO = new UserDAOMySQL();
-                        break;
-                    default:
-                        userDAO = new UserDAOMySQL();
-                }
+                userDAO = createUserDAO(userDAOSource);
             } catch (IOException e) {
                 Logger logger = Logger.getLogger(CLASS_NAME);
                 logger.info("Error getting the DBMS value for UserDAO: " + e.getMessage());
@@ -64,14 +55,7 @@ public class DAOFactory {
             String formationDAOSource;
             try {
                 formationDAOSource = Utility.getValueFromProperties("formationDAO");
-                //TODO: refactor switch
-                switch (formationDAOSource) {
-                    case "MySQL":
-                        formationDAO = new FormationDAOMySQL();
-                        break;
-                    default:
-                        formationDAO = new FormationDAOMySQL();
-                }
+                formationDAO = createFormationDAO(formationDAOSource);
             } catch (IOException e) {
                 Logger logger = Logger.getLogger(CLASS_NAME);
                 logger.info("Error getting the DBMS value for FormationDAO: " + e.getMessage());
@@ -79,6 +63,30 @@ public class DAOFactory {
 
         }
         return formationDAO;
+    }
+
+    @Generated
+    private static TeamDAO createTeamDAO(String source) {
+        Map<String, TeamDAO> daoMap = new HashMap<>();
+        daoMap.put(MYSQL, new TeamDAOMySQL());
+
+        return daoMap.getOrDefault(source, new TeamDAOMySQL());
+    }
+
+    @Generated
+    private static UserDAO createUserDAO(String source) {
+        Map<String, UserDAO> daoMap = new HashMap<>();
+        daoMap.put(MYSQL, new UserDAOMySQL());
+
+        return daoMap.getOrDefault(source, new UserDAOMySQL());
+    }
+
+    @Generated
+    private static FormationDAO createFormationDAO(String source) {
+        Map<String, FormationDAO> daoMap = new HashMap<>();
+        daoMap.put(MYSQL, new FormationDAOMySQL());
+
+        return daoMap.getOrDefault(source, new FormationDAOMySQL()); // Fallback to default implementation
     }
 
     @Generated
