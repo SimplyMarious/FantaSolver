@@ -18,10 +18,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class LineupVerifierIntegrationTest {
+class LineupVerifierIntegrationTest {
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
@@ -29,7 +29,7 @@ public class LineupVerifierIntegrationTest {
     }
 
     @Test
-    public void testGetSuitableLineupWithPlayers(){
+    void testGetSuitableLineupWithPlayers(){
         DAOFactory.resetFactory();
         LineupVerifier lineupVerifier = LineupVerifier.getInstance();
 

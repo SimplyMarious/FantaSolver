@@ -12,17 +12,17 @@ import java.util.Properties;
 import static com.spme.fantasolver.dao.MySQLConnectionManager.connectToDatabase;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class MySQLConnectionManagerIntegrationTest {
+class MySQLConnectionManagerIntegrationTest {
 
     @BeforeAll
-    public static void initialize() {
+    static void initialize() {
         Utility.setPropertiesReadingTools(
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
     }
 
     @Test
-    public void testConnectionToDatabase() throws SQLException, ClassNotFoundException {
+    void testConnectionToDatabase() throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         assertNotNull(connection);
         connection.close();

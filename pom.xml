@@ -174,6 +174,13 @@
               <includes>
                 <include>**/integration/**/*.java</include>
               </includes>
+              <argLine>
+                -javaagent:${user.home}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.6/org.jacoco.agent-0.8.6-runtime.jar=destfile=target/jacoco.exec
+                --add-opens=com.spme.fantasolver/integration.dao=ALL-UNNAMED
+                --add-opens=com.spme.fantasolver/integration.controllers=ALL-UNNAMED
+                --add-opens=com.spme.fantasolver/integration.utility=ALL-UNNAMED
+                --add-opens=com.spme.fantasolver/integration.entity=ALL-UNNAMED
+              </argLine>
             </configuration>
           </execution>
         </executions>
