@@ -69,14 +69,12 @@ pipeline {
         stage("Quality Gate"){
             steps{
                 script{
-                    timeout(time: 1, unit: 'HOURS') {
-                        echo "QG ${env.SONAR_HOST_URL}"
-                        echo "QG ${env.SONAR_AUTH_TOKEN}"
+                    echo "QG ${env.SONAR_HOST_URL}"
+                    echo "QG ${env.SONAR_AUTH_TOKEN}"
 
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                        }
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     }
                 }
             }
