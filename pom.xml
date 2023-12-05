@@ -15,10 +15,10 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- JaCoCo Properties -->
-<!--    <jacoco.version>0.8.6</jacoco.version>-->
+    <jacoco.version>0.8.6</jacoco.version>
     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-<!--    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
+    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
     <sonar.language>java</sonar.language>
   </properties>
 
@@ -65,11 +65,11 @@
     </dependency>
 
 
-<!--    <dependency>-->
-<!--      <groupId>org.jacoco</groupId>-->
-<!--      <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--      <version>0.8.6</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.6</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -80,137 +80,130 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
-        <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.11.0</version>
-              <configuration>
-                <source>16</source>
-                <target>16</target>
-              </configuration>
-            </plugin>
-            <plugin>
-              <groupId>org.openjfx</groupId>
-              <artifactId>javafx-maven-plugin</artifactId>
-              <version>0.0.8</version>
-              <executions>
-                <execution>
-                  <!-- Default configuration for running with: mvn clean javafx:run -->
-                  <id>default-cli</id>
-                  <configuration>
-                    <mainClass>com.spme.fantasolver/com.spme.fantasolver.Main</mainClass>
-                    <launcher>app</launcher>
-                    <jlinkZipName>app</jlinkZipName>
-                    <jlinkImageName>app</jlinkImageName>
-                    <noManPages>true</noManPages>
-                    <stripDebug>true</stripDebug>
-                    <noHeaderFiles>true</noHeaderFiles>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>3.5.1</version>
-            <executions>
-              <!-- Run shade goal on package phase -->
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>shade</goal>
-                </goals>
-                <configuration>
-                  <transformers>
-                    <!-- add Main-Class to manifest file -->
-                    <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-<!--                      <mainClass>org.spme.Main</mainClass>-->
-                      <mainClass>com.spme.fantasolver.Main</mainClass>
-                    </transformer>
-                  </transformers>
-                  <filters>
-                    <filter>
-                      <artifact>*:*</artifact>
-                      <excludes>
-                        <exclude>META-INF/*.SF</exclude>
-                        <exclude>META-INF/*.DSA</exclude>
-                        <exclude>META-INF/*.RSA</exclude>
-                      </excludes>
-                    </filter>
-                  </filters>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <dependencies>
-              <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>9.1</version>
-              </dependency>
-            </dependencies>
-            <version>2.22.2</version>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <executions>
+          <execution>
+            <!-- Default configuration for running with: mvn clean javafx:run -->
+            <id>default-cli</id>
             <configuration>
-              <excludes>
-                <exclude>**/integration/**/*.java</exclude>
-                <exclude>**/unit/**/*.java</exclude>
-              </excludes>
-              <argLine>
-                -javaagent:${user.home}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.6/org.jacoco.agent-0.8.6-runtime.jar=destfile=target/jacoco.exec
-                --add-opens=com.spme.fantasolver/unit.dao=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.controllers=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.utility=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.entity=ALL-UNNAMED
-              </argLine>
+              <mainClass>com.spme.fantasolver/com.spme.fantasolver.Main</mainClass>
+              <launcher>app</launcher>
+              <jlinkZipName>app</jlinkZipName>
+              <jlinkImageName>app</jlinkImageName>
+              <noManPages>true</noManPages>
+              <stripDebug>true</stripDebug>
+              <noHeaderFiles>true</noHeaderFiles>
             </configuration>
-            <executions>
-              <execution>
-                <id>integration-test</id>
-                <goals>
-                  <goal>test</goal>
-                </goals>
-                <phase>integration-test</phase>
-                <configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.1</version>
+        <executions>
+          <!-- Run shade goal on package phase -->
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <!-- add Main-Class to manifest file -->
+                <transformer
+                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <!--                      <mainClass>org.spme.Main</mainClass>-->
+                  <mainClass>com.spme.fantasolver.Main</mainClass>
+                </transformer>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
                   <excludes>
-                    <exclude>none</exclude>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
                   </excludes>
-                  <includes>
-                    <include>**/integration/*.java</include>
-                  </includes>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco.version}</version>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <excludes>
+            <exclude>**/integration/**/*.java</exclude>
+            <exclude>**/unit/**/*.java</exclude>
+          </excludes>
+          <argLine>
+            -javaagent:${user.home}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.6/org.jacoco.agent-0.8.6-runtime.jar=destfile=target/jacoco.exec
+            --add-opens=com.spme.fantasolver/unit.dao=ALL-UNNAMED
+            --add-opens=com.spme.fantasolver/unit.controllers=ALL-UNNAMED
+            --add-opens=com.spme.fantasolver/unit.utility=ALL-UNNAMED
+            --add-opens=com.spme.fantasolver/unit.entity=ALL-UNNAMED
+          </argLine>
+        </configuration>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <phase>integration-test</phase>
             <configuration>
               <excludes>
-                <exclude>com.spme.fantasolver.controllers.SignInController.handleSignInOutcome</exclude>
+                <exclude>none</exclude>
               </excludes>
+              <includes>
+                <include>**/integration/*.java</include>
+              </includes>
             </configuration>
-            <executions>
-              <execution>
-                <id>jacoco-initialize</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>jacoco-site</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>com.spme.fantasolver.controllers.SignInController.handleSignInOutcome</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>jacoco-initialize</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>jacoco-site</id>
+            <phase>package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>
