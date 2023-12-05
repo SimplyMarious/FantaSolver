@@ -15,10 +15,10 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- JaCoCo Properties -->
-    <jacoco.version>0.8.6</jacoco.version>
+<!--    <jacoco.version>0.8.6</jacoco.version>-->
     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+<!--    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
     <sonar.language>java</sonar.language>
   </properties>
 
@@ -65,12 +65,12 @@
     </dependency>
 
 
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.6</version>
-    </dependency>
-      </dependencies>
+<!--    <dependency>-->
+<!--      <groupId>org.jacoco</groupId>-->
+<!--      <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--      <version>0.8.6</version>-->
+<!--    </dependency>-->
+  </dependencies>
 
   <build>
     <defaultGoal>package</defaultGoal>
@@ -86,8 +86,8 @@
               <artifactId>maven-compiler-plugin</artifactId>
               <version>3.11.0</version>
               <configuration>
-                <source>11</source>
-                <target>11</target>
+                <source>16</source>
+                <target>16</target>
               </configuration>
             </plugin>
             <plugin>
@@ -144,65 +144,72 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-            <configuration>
-              <excludes>
-                <exclude>**/integration/**/*.java</exclude>
-              </excludes>
-              <argLine>
-                -javaagent:${user.home}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.6/org.jacoco.agent-0.8.6-runtime.jar=destfile=target/jacoco.exec
-                --add-opens=com.spme.fantasolver/unit.dao=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.controllers=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.utility=ALL-UNNAMED
-                --add-opens=com.spme.fantasolver/unit.entity=ALL-UNNAMED
-              </argLine>
-            </configuration>
-            <executions>
-              <execution>
-                <id>integration-test</id>
-                <goals>
-                  <goal>test</goal>
-                </goals>
-                <phase>integration-test</phase>
-                <configuration>
-                  <excludes>
-                    <exclude>none</exclude>
-                  </excludes>
-                  <includes>
-                    <include>**/integration/*.java</include>
-                  </includes>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco.version}</version>
-            <configuration>
-              <excludes>
-                <exclude>com.spme.fantasolver.controllers.SignInController.handleSignInOutcome</exclude>
-              </excludes>
-            </configuration>
-            <executions>
-              <execution>
-                <id>jacoco-initialize</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>jacoco-site</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+<!--          <plugin>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-surefire-plugin</artifactId>-->
+<!--            <dependencies>-->
+<!--              <dependency>-->
+<!--                <groupId>org.ow2.asm</groupId>-->
+<!--                <artifactId>asm</artifactId>-->
+<!--                <version>9.1</version>-->
+<!--              </dependency>-->
+<!--            </dependencies>-->
+<!--            <version>2.22.2</version>-->
+<!--            <configuration>-->
+<!--              <excludes>-->
+<!--                <exclude>**/integration/**/*.java</exclude>-->
+<!--              </excludes>-->
+<!--              <argLine>-->
+<!--                -javaagent:${user.home}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.6/org.jacoco.agent-0.8.6-runtime.jar=destfile=target/jacoco.exec-->
+<!--                &#45;&#45;add-opens=com.spme.fantasolver/unit.dao=ALL-UNNAMED-->
+<!--                &#45;&#45;add-opens=com.spme.fantasolver/unit.controllers=ALL-UNNAMED-->
+<!--                &#45;&#45;add-opens=com.spme.fantasolver/unit.utility=ALL-UNNAMED-->
+<!--                &#45;&#45;add-opens=com.spme.fantasolver/unit.entity=ALL-UNNAMED-->
+<!--              </argLine>-->
+<!--            </configuration>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <id>integration-test</id>-->
+<!--                <goals>-->
+<!--                  <goal>test</goal>-->
+<!--                </goals>-->
+<!--                <phase>integration-test</phase>-->
+<!--                <configuration>-->
+<!--                  <excludes>-->
+<!--                    <exclude>none</exclude>-->
+<!--                  </excludes>-->
+<!--                  <includes>-->
+<!--                    <include>**/integration/*.java</include>-->
+<!--                  </includes>-->
+<!--                </configuration>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
+<!--          <plugin>-->
+<!--            <groupId>org.jacoco</groupId>-->
+<!--            <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--            <version>${jacoco.version}</version>-->
+<!--            <configuration>-->
+<!--              <excludes>-->
+<!--                <exclude>com.spme.fantasolver.controllers.SignInController.handleSignInOutcome</exclude>-->
+<!--              </excludes>-->
+<!--            </configuration>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <id>jacoco-initialize</id>-->
+<!--                <goals>-->
+<!--                  <goal>prepare-agent</goal>-->
+<!--                </goals>-->
+<!--              </execution>-->
+<!--              <execution>-->
+<!--                <id>jacoco-site</id>-->
+<!--                <phase>package</phase>-->
+<!--                <goals>-->
+<!--                  <goal>report</goal>-->
+<!--                </goals>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
         </plugins>
   </build>
 </project>
