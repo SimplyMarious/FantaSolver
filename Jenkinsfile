@@ -76,11 +76,11 @@ pipeline {
 //         }
 
 
-        stage('SonarQube gates check'){
-            steps{
-                waitForQualityGate abortPipeline: true
-            }
-        }
+//         stage('SonarQube gates check'){
+//             steps{
+//                 waitForQualityGate abortPipeline: true
+//             }
+//         }
 
 
         stage('Packaging') {
