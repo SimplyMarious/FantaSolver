@@ -53,16 +53,20 @@ pipeline {
         }
 
         stage("Quality Gate"){
-          steps{
-            script{
-                timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-                    def qg = waitForQualityGate sonarId: 'FantaSolver', credentialsId: 'jenkins-sonar'
-                    if (qg.status != 'OK') {
-                      error "Pipeline aborted due to quality gate failure: ${qg.status}"
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'jenkins-sonar') {
+                        timeout(time: 1, unit: 'HOURS') {
+                            script {
+                                def qg = waitForQualityGate()
+                                if (qg.status != 'OK') {
+                                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                                }
+                            }
+                        }
                     }
                 }
             }
-          }
         }
 
         stage('Packaging') {
