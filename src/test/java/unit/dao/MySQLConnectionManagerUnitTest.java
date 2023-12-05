@@ -51,17 +51,19 @@ class MySQLConnectionManagerUnitTest {
         mockDriverManager.close();
     }
 
-//    @Test
-//    void testConnectToDatabaseSuccess() throws ClassNotFoundException, SQLException {
-//        Connection mockConnection = mock(Connection.class);
-//        mockDriverManager.when(()->DriverManager.getConnection(anyString(), anyString(),anyString()))
-//                .thenReturn(mockConnection);
-//
-//        Connection result = MySQLConnectionManager.connectToDatabase();
-//
-//        assertNotNull(result);
-//        verify(mockLogger, never()).info(anyString());
-//    }
+    @Test
+    void testConnectToDatabaseSuccess() throws ClassNotFoundException, SQLException {
+        Connection mockConnection = mock(Connection.class);
+        mockUtility.when(()->Utility.getValueFromProperties("username")).thenReturn("testUser");
+        mockUtility.when(()->Utility.getValueFromProperties("password")).thenReturn("testPassword");
+        mockDriverManager.when(()->DriverManager.getConnection(anyString(), anyString(), anyString()))
+                .thenReturn(mockConnection);
+
+        Connection result = MySQLConnectionManager.connectToDatabase();
+
+        assertNotNull(result);
+        verify(mockLogger, never()).info(anyString());
+    }
 
     @Test
     void testConnectToDatabaseWithIOException() throws SQLException, ClassNotFoundException {
