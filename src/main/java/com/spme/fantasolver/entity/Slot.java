@@ -46,6 +46,19 @@ public class Slot implements Comparable<Slot>{
                 compare(this, slot);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Slot slot = (Slot) o;
+        return Objects.equals(id, slot.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     @Generated
     private Role getFirstRole() {
         return (Role)roles.toArray()[0];

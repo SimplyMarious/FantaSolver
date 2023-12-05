@@ -26,6 +26,7 @@ public class ManageTeamController {
         return manageTeamController;
     }
 
+    private static final String CLASS_NAME = "ManageTeamController";
 
     private ManageTeamStage manageTeamStage;
     private static final short TEAM_NAME_MIN_LENGTH = 3;
@@ -46,7 +47,7 @@ public class ManageTeamController {
             }
             manageTeamStage.show();
         } catch (IOException e) {
-            Logger logger = Logger.getLogger("ManageTeamController");
+            Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
@@ -62,7 +63,7 @@ public class ManageTeamController {
             }
         }
         catch (IllegalArgumentException exception){
-            Logger.getLogger("ManageTeamController").info(exception.getMessage());
+            Logger.getLogger(CLASS_NAME).info(exception.getMessage());
         }
     }
 
@@ -88,7 +89,7 @@ public class ManageTeamController {
             }
         }
         catch (RoleException exception){
-            Logger.getLogger("ManageTeamController").info("Invalid roles: " + exception.getMessage());
+            Logger.getLogger(CLASS_NAME).info("Invalid roles: " + exception.getMessage());
         }
     }
 
