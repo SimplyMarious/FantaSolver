@@ -14,8 +14,8 @@ pipeline {
         dockerImage = ''
         marioGitHubToken = credentials('MarioGithubToken')
         registryCredential = 'spme2023_dockerhub'
-        SONAR_HOST_URL = 'http://172.191.97.235:9000'
-        SONAR_AUTH_TOKEN = 'squ_ba151bf4d23e8ab4211339f222912354aa6ab357'
+    //    SONAR_HOST_URL = 'http://172.191.97.235:9000'
+    //    SONAR_AUTH_TOKEN = 'squ_ba151bf4d23e8ab4211339f222912354aa6ab357'
     }
 
     agent any
@@ -26,38 +26,28 @@ pipeline {
             }
         }
 
-//         stage('Compiling'){
-//             steps{
-//                 sh 'mvn clean compile'
-//             }
-//         }
-//
-//         stage('Testing'){
-//              steps{
-//                  sh 'mvn integration-test'
-//              }
-//
-//              post{
-//                  always{
-//                      junit '**/target/surefire-reports/TEST-*.xml'
-//                  }
-//              }
-//         }
+         stage('Compiling'){
+             steps{
+                 sh 'mvn clean compile'
+             }
+         }
 
-//        stage('SonarQube analyzing') {
-//            steps {
-//                script {
-//                    withSonarQubeEnv() {
-//                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.token=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
-//                    }
-//                }
-//            }
-//        }
+         stage('Testing'){
+              steps{
+                  sh 'mvn integration-test'
+              }
+
+              post{
+                  always{
+                      junit '**/target/surefire-reports/TEST-*.xml'
+                  }
+              }
+         }
 
         stage('SonarQube analyzing') {
             steps {
                 script {
-                    withSonarQubeEnv() {
+                    withSonarQubeEnv('sonarqube') {
                         sh "mvn clean verify sonar:sonar"
 
                         echo "SQA ${env.SONAR_HOST_URL}"
