@@ -29,8 +29,8 @@ public class VerifiedLineupController {
             verifiedLineupStage.initializeStage();
             verifiedLineupStage.setLineupFormationLabelText("Il tuo modulo: " + lineup.getFormation().getName());
 
-            adaptLineupForVisualization(lineup);
-            verifiedLineupStage.loadPlayersInTable(lineup.getPlayers());
+            Lineup adaptedLineup = adaptLineupForVisualization(lineup);
+            verifiedLineupStage.loadPlayersInTable(adaptedLineup.getPlayers());
             verifiedLineupStage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger("VerifiedLineupController");
@@ -40,8 +40,12 @@ public class VerifiedLineupController {
     }
 
     @Generated
-    private void adaptLineupForVisualization(Lineup lineup) {
-        lineup.setPlayers(getPlayersWithRolesFittingToOwnSlot(lineup.getPlayers(), lineup.getFormation().getSlots()));
+    private Lineup adaptLineupForVisualization(Lineup lineup) {
+        Lineup adpatedLineup = new Lineup();
+        adpatedLineup.setFormation(lineup.getFormation());
+        adpatedLineup.setPlayers(getPlayersWithRolesFittingToOwnSlot(lineup.getPlayers(), lineup.getFormation().getSlots()));
+
+        return adpatedLineup;
     }
 
     @Generated

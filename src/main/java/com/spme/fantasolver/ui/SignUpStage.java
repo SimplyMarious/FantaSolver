@@ -42,6 +42,7 @@ public class SignUpStage {
 
         stage = new Stage();
         stage.setTitle("FantaSolver - SignUp");
+        FantaSolver.setIcon(stage);
         stage.setScene(scene);
         stage.show();
     }

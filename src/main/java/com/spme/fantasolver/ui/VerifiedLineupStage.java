@@ -40,6 +40,7 @@ public class VerifiedLineupStage {
         Scene scene = new Scene(fxmlLoader.load(), 651, 569);
         stage.setScene(scene);
         stage.setTitle("FantaSolver - Formazione Verificata");
+        FantaSolver.setIcon(stage);
 
         initializeLabel();
         initializeTable();

@@ -4,17 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="569.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="494.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="40.0" layoutY="26.0" prefHeight="35.0" prefWidth="132.0" text="Formazione">
             <font>
                 <Font size="21.0" />
             </font></Label>
-        <Label fx:id="labelLineupFormation" alignment="CENTER" layoutX="190.0" layoutY="91.0" prefHeight="35.0" prefWidth="262.0" text="Modulo: x-x-x-x" textAlignment="CENTER">
+        <Label fx:id="labelLineupFormation" alignment="CENTER" layoutX="194.0" layoutY="74.0" prefHeight="35.0" prefWidth="262.0" text="Modulo: x-x-x-x" textAlignment="CENTER">
             <font>
                 <Font size="16.0" />
             </font></Label>
-        <TableView fx:id="tableViewLineupPlayers" focusTraversable="false" layoutX="168.0" layoutY="126.0" prefHeight="366.0" prefWidth="314.0">
+        <TableView fx:id="tableViewLineupPlayers" focusTraversable="false" layoutX="168.0" layoutY="126.0" prefHeight="307.0" prefWidth="314.0">
             <columns>
                 <TableColumn fx:id="tableColumnLineupPlayerName" prefWidth="208.60000610351562" text="Giocatore" />
                 <TableColumn fx:id="tableColumnLineupPlayerRoles" minWidth="9.20001220703125" prefWidth="104.00002441406252" text="Ruoli" />

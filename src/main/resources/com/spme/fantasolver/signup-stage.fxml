@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label layoutX="165.0" layoutY="56.0" prefHeight="55.0" prefWidth="271.0" text="Benvenuto in Fantasolver!" textAlignment="CENTER">
+        <ImageView fitHeight="55.0" fitWidth="89.0" layoutX="251.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@fantasolver_logo.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="148.0" layoutY="68.0" prefHeight="55.0" prefWidth="296.0" text="Benvenuto in FantaSolver!" textAlignment="CENTER">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <TextField id="username" fx:id="username" layoutX="221.0" layoutY="140.0" promptText="username" />
-        <PasswordField id="password" fx:id="password" layoutX="221.0" layoutY="190.0" promptText="password" />
-        <Button id="signup" fx:id="signup" disable="true" layoutX="266.0" layoutY="262.0" mnemonicParsing="false" text="Registrati" />
+        <TextField id="username" fx:id="username" layoutX="225.0" layoutY="140.0" promptText="username" />
+        <PasswordField id="password" fx:id="password" layoutX="225.0" layoutY="187.0" promptText="password" />
+        <Button id="signup" fx:id="signup" disable="true" layoutX="262.0" layoutY="235.0" mnemonicParsing="false" text="Registrati" />
     </children>
 </AnchorPane>

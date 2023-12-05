@@ -3,7 +3,10 @@ package com.spme.fantasolver;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.ui.SignInStage;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class FantaSolver extends javafx.application.Application {
     private static Stage stage;
@@ -28,6 +31,11 @@ public class FantaSolver extends javafx.application.Application {
     @Generated
     private static void setStage(Stage stage) {
         FantaSolver.stage = stage;
+    }
+
+    public static void setIcon(Stage stage) {
+        stage.getIcons().add(new Image(Objects.requireNonNull(
+                SignInStage.class.getResourceAsStream("/com/spme/fantasolver/fantasolver_logo.png"))));
     }
 
     @Generated

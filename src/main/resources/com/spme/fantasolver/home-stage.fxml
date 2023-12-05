@@ -36,7 +36,7 @@
                   <Insets top="30.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="buttonProposeLineup" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="185.0" text="Proponi una Formaza">
+            <Button fx:id="buttonProposeLineup" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="185.0" text="Proponi una Formazione">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>

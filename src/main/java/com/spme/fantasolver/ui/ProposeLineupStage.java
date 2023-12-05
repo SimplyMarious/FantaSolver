@@ -50,6 +50,7 @@ public class ProposeLineupStage {
         Scene scene = new Scene(fxmlLoader.load(), 920, 527);
         stage.setScene(scene);
         stage.setTitle("FantaSolver - Proponi una Formazione");
+        FantaSolver.setIcon(stage);
 
         initializeTables();
         initializeButtons();

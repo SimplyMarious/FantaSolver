@@ -48,6 +48,7 @@ public class ManageTeamStage {
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setScene(scene);
         stage.setTitle("FantaSolver - Gestisci la tua Rosa");
+        FantaSolver.setIcon(stage);
 
         initializeTeamNameTextField();
 
