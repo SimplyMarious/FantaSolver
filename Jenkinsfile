@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv() {
-                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
+                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.token=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
                     }
                 }
             }
@@ -63,7 +63,6 @@ pipeline {
                 }
             }
           }
-
         }
 
         stage('Packaging') {
