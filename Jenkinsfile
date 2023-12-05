@@ -14,6 +14,8 @@ pipeline {
         dockerImage = ''
         marioGitHubToken = credentials('MarioGithubToken')
         registryCredential = 'spme2023_dockerhub'
+        SONAR_HOST_URL = 'http://172.191.97.235:9000'
+        SONAR_AUTH_TOKEN = 'squ_ba151bf4d23e8ab4211339f222912354aa6ab357'
     }
 
     agent any
@@ -55,7 +57,7 @@ pipeline {
         stage('SonarQube analyzing') {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'jenkins-sonar') {
+                    withSonarQubeEnv() {
                         sh "mvn clean verify sonar:sonar"
 
                         echo "SQA ${env.SONAR_HOST_URL}"
