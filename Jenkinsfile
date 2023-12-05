@@ -47,9 +47,14 @@ pipeline {
                 script {
                     withSonarQubeEnv() {
                         sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
-                        waitForQualityGate abortPipeline: true
                     }
                 }
+            }
+        }
+
+        stage('SonarQube gates check'){
+            steps{
+                waitForQualityGate abortPipeline: true
             }
         }
 
