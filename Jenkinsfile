@@ -44,23 +44,22 @@ pipeline {
 
         stage('SonarQube analyzing') {
             steps {
-                step {
-                    script {
-                        withSonarQubeEnv() {
-                            sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
-                        }
+                script {
+                    withSonarQubeEnv() {
+                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
                     }
                 }
-
             }
         }
 
         stage('SonarQube gates check'){
             steps{
-                timeout(time: 1, unit: 'HOURS') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                step {
+                    timeout(time: 1, unit: 'HOURS') {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
                     }
                 }
             }
