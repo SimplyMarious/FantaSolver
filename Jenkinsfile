@@ -52,11 +52,25 @@ pipeline {
 //            }
 //        }
 
+        stage('SonarQube analyzing') {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'squ_ba151bf4d23e8ab4211339f222912354aa6ab357') {
+                        sh "mvn clean verify sonar:sonar"
+
+                        echo "SQA ${env.SONAR_HOST_URL}"
+                        echo "SQA ${env.SONAR_AUTH_TOKEN}"
+                    }
+                }
+            }
+        }
         stage("Quality Gate"){
             steps{
                 script{
                     timeout(time: 1, unit: 'HOURS') {
-                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=YOUR_SONARQUBE_TOKEN"
+                        echo "QG ${env.SONAR_HOST_URL}"
+                        echo "QG ${env.SONAR_AUTH_TOKEN}"
+
                         def qg = waitForQualityGate()
                         if (qg.status != 'OK') {
                             error "Pipeline aborted due to quality gate failure: ${qg.status}"
