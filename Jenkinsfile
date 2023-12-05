@@ -52,16 +52,15 @@ pipeline {
             }
         }
 
-        stage('SonarQube analyzing') {
-                    steps {
-                        script {
-                            withSonarQubeEnv() {
-                                waitForQualityGate abortPipeline: true
-
-                            }
-                        }
+        stage('SonarQube gates check') {
+            steps {
+                script {
+                    withSonarQubeEnv() {
+                        waitForQualityGate abortPipeline: true
                     }
                 }
+            }
+        }
 
 //         stage('SonarQube gates check'){
 //             steps{
