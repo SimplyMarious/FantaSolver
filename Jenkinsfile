@@ -55,7 +55,7 @@ pipeline {
         stage('SonarQube analyzing') {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'squ_ba151bf4d23e8ab4211339f222912354aa6ab357') {
+                    withSonarQubeEnv(credentialsId: 'jenkins-sonar') {
                         sh "mvn clean verify sonar:sonar"
 
                         echo "SQA ${env.SONAR_HOST_URL}"
