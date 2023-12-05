@@ -42,22 +42,22 @@ pipeline {
 //              }
 //         }
 
-        stage('SonarQube analyzing') {
-            steps {
-                script {
-                    withSonarQubeEnv() {
-                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.token=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
-                    }
-                }
-            }
-        }
+//        stage('SonarQube analyzing') {
+//            steps {
+//                script {
+//                    withSonarQubeEnv() {
+//                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.token=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
+//                    }
+//                }
+//            }
+//        }
 
         stage("Quality Gate"){
             steps{
                 script{
-                    withSonarQubeEnv(credentialsId: 'jenkins-sonar') {
                         timeout(time: 1, unit: 'HOURS') {
                             script {
+                                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=FantaSolver -Dsonar.projectName='FantaSolver' -Dsonar.login=squ_ba151bf4d23e8ab4211339f222912354aa6ab357"
                                 def qg = waitForQualityGate()
                                 if (qg.status != 'OK') {
                                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
