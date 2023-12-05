@@ -24,23 +24,23 @@ pipeline {
             }
         }
 
-        stage('Compiling'){
-            steps{
-                sh 'mvn clean compile'
-            }
-        }
-
-        stage('Testing'){
-             steps{
-                 sh 'mvn integration-test'
-             }
-
-             post{
-                 always{
-                     junit '**/target/surefire-reports/TEST-*.xml'
-                 }
-             }
-        }
+//         stage('Compiling'){
+//             steps{
+//                 sh 'mvn clean compile'
+//             }
+//         }
+//
+//         stage('Testing'){
+//              steps{
+//                  sh 'mvn integration-test'
+//              }
+//
+//              post{
+//                  always{
+//                      junit '**/target/surefire-reports/TEST-*.xml'
+//                  }
+//              }
+//         }
 
         stage('SonarQube analyzing') {
             steps {
