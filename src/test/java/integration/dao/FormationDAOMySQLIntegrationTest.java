@@ -8,7 +8,6 @@ import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Set;
 
@@ -26,6 +25,7 @@ public class FormationDAOMySQLIntegrationTest {
 
     @Test
     public void testRetrieveFormationWithFormationsInDatabase() {
+        DAOFactory.resetFactory();
         FormationDAO formationDAO = DAOFactory.getFormationDAO();
 
         Set<Formation> result = formationDAO.retrieveFormations();

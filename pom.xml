@@ -172,7 +172,7 @@
                 <exclude>none</exclude>
               </excludes>
               <includes>
-                <include>**/integration/*.java</include>
+                <include>**/integration/**/*.java</include>
               </includes>
             </configuration>
           </execution>

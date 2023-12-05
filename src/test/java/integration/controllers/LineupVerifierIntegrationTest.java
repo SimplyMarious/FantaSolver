@@ -2,6 +2,8 @@ package integration.controllers;
 
 import com.spme.fantasolver.Main;
 import com.spme.fantasolver.controllers.LineupVerifier;
+import com.spme.fantasolver.dao.DAOFactory;
+
 import com.spme.fantasolver.entity.Lineup;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Role;
@@ -17,7 +19,6 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LineupVerifierIntegrationTest {
-    private static LineupVerifier lineupVerifier;
 
     @BeforeAll
     public static void setUp() {
@@ -25,10 +26,13 @@ public class LineupVerifierIntegrationTest {
                 new Properties(),
                 Main.class.getResourceAsStream("/config.properties"));
 
-        lineupVerifier = LineupVerifier.getInstance();
     }
+
     @Test
     public void testGetSuitableLineupWithPlayers(){
+        DAOFactory.resetFactory();
+        LineupVerifier lineupVerifier = LineupVerifier.getInstance();
+
         Set<Player> players = new HashSet<>();
 
         players.add(new Player("Felipe Anderson", new HashSet<>(List.of(new Role[]{Role.A, Role.W}))));
