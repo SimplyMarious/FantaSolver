@@ -4,10 +4,7 @@ import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.*;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class TeamDAOMySQL implements TeamDAO {
@@ -81,13 +78,17 @@ public class TeamDAOMySQL implements TeamDAO {
     @Generated
     private static Set<Player> getTeamPlayers(Map<String, Set<String>> retrievedPlayersWithRoles) throws RoleException {
         Set<Player> teamPlayers = new HashSet<>();
-        for(String playerName: retrievedPlayersWithRoles.keySet()) {
+        for (Map.Entry<String, Set<String>> entry : retrievedPlayersWithRoles.entrySet()) {
+            String playerName = entry.getKey();
             Player player = new Player(playerName);
-            for (String playerRole: retrievedPlayersWithRoles.get(playerName)) {
+
+            for (String playerRole : entry.getValue()) {
                 player.addRole(Role.valueOf(playerRole));
             }
+
             teamPlayers.add(player);
         }
+
         return teamPlayers;
     }
 
