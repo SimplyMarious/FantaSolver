@@ -86,7 +86,7 @@ public class DAOFactory {
         Map<String, FormationDAO> daoMap = new HashMap<>();
         daoMap.put(MYSQL, new FormationDAOMySQL());
 
-        return daoMap.getOrDefault(source, new FormationDAOMySQL()); // Fallback to default implementation
+        return daoMap.getOrDefault(source, new FormationDAOMySQL());
     }
 
     @Generated
