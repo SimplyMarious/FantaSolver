@@ -7,6 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -109,5 +113,19 @@ class PlayerUnitTest {
         String playerString = player.toString();
 
         assertThat(playerString, is(equalTo(expectedString)));
+    }
+
+    @Test
+    void testCompareTo() {
+        Player player1 = new Player("Player1", new HashSet<>(List.of(Role.POR)));
+        Player player2 = new Player("Player2", new HashSet<>(List.of(Role.DC)));
+        Player player3 = new Player("Player3", new HashSet<>(List.of(Role.M)));
+        Player[] players = {player3, player1, player2};
+
+        Arrays.sort(players);
+
+        assertEquals(player1, players[0]);
+        assertEquals(player2, players[1]);
+        assertEquals(player3, players[2]);
     }
 }
