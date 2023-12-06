@@ -68,7 +68,7 @@ public class HomeController implements UserObserver {
     }
 
     @Override
-    public void onTeamChanged(User user) {
+    public void onTeamChanged() {
         homeStage.setManageTeamScreenVisible();
     }
 }

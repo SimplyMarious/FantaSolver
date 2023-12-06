@@ -45,7 +45,7 @@ public class User {
 
     private void notifyObservers() {
         for (UserObserver observer : observers) {
-            observer.onTeamChanged(this);
+            observer.onTeamChanged();
         }
     }
 }
