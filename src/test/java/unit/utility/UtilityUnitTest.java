@@ -1,8 +1,12 @@
 package unit.utility;
 import com.spme.fantasolver.utility.Utility;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,24 +21,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 
 class UtilityUnitTest {
-
     @Mock
     private Properties mockProperties;
 
     @Mock
     private FileInputStream mockFileInputStream;
 
+    AutoCloseable open;
+
     @BeforeEach
     void setUp() {
-        openMocks(this);
+        open = openMocks(this);
         Utility.setPropertiesReadingTools(mockProperties, mockFileInputStream);
+    }
+
+    @AfterEach
+    void clean() throws Exception {
+        open.close();
     }
 
     @Test
     void testGetValueFromPropertiesWithRightKeyAndValue() throws IOException {
+
         String key = "testKey";
         String expectedValue = "testValue";
 
@@ -45,6 +57,7 @@ class UtilityUnitTest {
 
         verify(mockProperties, times(1)).load(mockFileInputStream);
         verify(mockProperties, times(1)).getProperty(key);
+
     }
 
 
@@ -84,22 +97,18 @@ class UtilityUnitTest {
         assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
     }
 
-    @Test
-    void testCheckStringValidityWithNullStringAndInvalidBoundaries() {
-        String string = null;
-        int minLength = 5;
-        int maxLength = 1;
-
+    @ParameterizedTest (name = "Text {index} ==> validity with: string = {0}, minLength = {1}, maxLength = {2})")
+    @MethodSource("addInputProvider")
+    void testCheckStringValidity(String string, int minLength, int maxLength) {
         assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
     }
 
-    @Test
-    void testCheckStringValidityWithValidStringAndMinHigherThanMax() {
-        String string = "ValidString";
-        int minLength = 10;
-        int maxLength = 5;
-
-        assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
+    public static Stream<Arguments> addInputProvider() {
+        return Stream.of(
+                Arguments.of(null, 5, 1),
+                Arguments.of("ValidString", 10, 5),
+                Arguments.of(null, 5, 15)
+        );
     }
 
     @Test
