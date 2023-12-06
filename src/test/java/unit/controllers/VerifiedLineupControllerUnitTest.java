@@ -12,7 +12,7 @@ import org.mockito.MockedStatic;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class VerifiedLineupControllerUnitTest {
@@ -31,6 +31,12 @@ class VerifiedLineupControllerUnitTest {
         verifiedLineupController = VerifiedLineupController.getInstance();
         verifiedLineupController.setVerifiedLineupStage(mockVerifiedLineupStage);
         mockLineup = mock(Lineup.class);
+    }
+
+    @Test
+    void testGetInstance() {
+        assertNotNull(verifiedLineupController);
+        assertSame(verifiedLineupController, VerifiedLineupController.getInstance());
     }
 
     @Test
