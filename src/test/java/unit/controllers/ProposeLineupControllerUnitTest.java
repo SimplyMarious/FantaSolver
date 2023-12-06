@@ -2,9 +2,11 @@ package unit.controllers;
 
 import com.spme.fantasolver.Main;
 import com.spme.fantasolver.controllers.FXMLLoadException;
+import com.spme.fantasolver.controllers.LineupVerifier;
 import com.spme.fantasolver.controllers.ProposeLineupController;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.ui.ProposeLineupStage;
+import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,34 @@ class ProposeLineupControllerUnitTest {
         proposeLineupController = ProposeLineupController.getInstance();
         mockProposeLineupStage = mock(ProposeLineupStage.class);
         proposeLineupController.setProposeLineupStage(mockProposeLineupStage);
+    }
+
+    @Test
+    void testHandleInitializationSuccess() throws IOException {
+        doNothing().when(mockProposeLineupStage).initializeStage();
+        doNothing().when(mockProposeLineupStage).show();
+
+        proposeLineupController.handleInitialization();
+
+        verify(mockProposeLineupStage, times(1)).show();
+    }
+
+    @Test
+    void testHandlePressedVerifyLineupButton(){
+        MockedStatic<LineupVerifier> mockStaticLineupVerifier = mockStatic(LineupVerifier.class);
+        LineupVerifier mockLineupVerifier = mock(LineupVerifier.class);
+        MockedStatic<Notifier> mockNotifier = mockStatic(Notifier.class);
+        mockStaticLineupVerifier.when(LineupVerifier::getInstance).thenReturn(mockLineupVerifier);
+
+        when(mockLineupVerifier.getSuitableLineup(any(Set.class))).thenReturn(null);
+
+        proposeLineupController.handlePressedVerifyLineupButton(new HashSet<>());
+
+        mockNotifier.verify(() ->
+                Notifier.notifyInfo(anyString(), anyString()), times(1));
+
+        mockStaticLineupVerifier.close();
+        mockNotifier.close();
     }
 
     @Test
