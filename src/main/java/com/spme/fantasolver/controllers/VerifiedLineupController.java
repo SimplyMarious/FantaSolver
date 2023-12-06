@@ -23,21 +23,26 @@ public class VerifiedLineupController {
     }
 
     private VerifiedLineupStage verifiedLineupStage;
+    private static final int LINEUP_SIZE = 11;
 
-    @Generated
     public void handleInitialization(Lineup lineup) {
         try {
-            verifiedLineupStage.initializeStage();
-            verifiedLineupStage.setLineupFormationLabelText("Il tuo modulo: " + lineup.getFormation().getName());
-
-            Lineup adaptedLineup = adaptLineupForVisualization(lineup);
-            verifiedLineupStage.loadPlayersInTable(adaptedLineup.getPlayers());
-            verifiedLineupStage.show();
+            tryHandleInitialization(lineup);
         } catch (IOException e) {
             Logger logger = Logger.getLogger("VerifiedLineupController");
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
+    }
+
+    @Generated
+    private void tryHandleInitialization(Lineup lineup) throws IOException {
+        verifiedLineupStage.initializeStage();
+        verifiedLineupStage.setLineupFormationLabelText("Il tuo modulo: " + lineup.getFormation().getName());
+
+        Lineup adaptedLineup = adaptLineupForVisualization(lineup);
+        verifiedLineupStage.loadPlayersInTable(adaptedLineup.getPlayers());
+        verifiedLineupStage.show();
     }
 
     @Generated
@@ -51,7 +56,7 @@ public class VerifiedLineupController {
 
     @Generated
     private static Player[] getPlayersWithRolesFittingToOwnSlot(Player[] players, Slot[] slots) {
-        for(int i = 0; i < 11; i++){
+        for(int i = 0; i < LINEUP_SIZE; i++){
             Set<Role> playerRoles = players[i].getRoles();
             playerRoles.retainAll(slots[i].getRoles());
         }

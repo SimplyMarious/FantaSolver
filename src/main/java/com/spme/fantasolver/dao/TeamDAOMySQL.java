@@ -10,23 +10,29 @@ import java.util.logging.Logger;
 public class TeamDAOMySQL implements TeamDAO {
     private Connection connection;
     private static final String CLASS_NAME = "TeamDAOMySQL";
+
     @Override
     public Team retrieveTeam(User user) throws InternalException {
         try {
-            connection = MySQLConnectionManager.connectToDatabase();
-            TeamData teamData = retrieveTeamData(user);
-            if (teamData != null) {
-                Map<String, Set<String>> retrievedPlayersWithRoles = retrieveTeamPlayers(teamData.id);
-                Set<Player> teamPlayers = getTeamPlayers(retrievedPlayersWithRoles);
-                return new Team(teamData.name, teamPlayers);
-            }
-            else {
-                return null;
-            }
+            return tryRetrieveTeam(user);
         } catch (ClassNotFoundException | SQLException | RoleException exception) {
             Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the team retrieve: " + exception.getMessage());
             throw new InternalException();
+        }
+    }
+
+    @Generated
+    private Team tryRetrieveTeam(User user) throws ClassNotFoundException, SQLException, RoleException {
+        connection = MySQLConnectionManager.connectToDatabase();
+        TeamData teamData = retrieveTeamData(user);
+        if (teamData != null) {
+            Map<String, Set<String>> retrievedPlayersWithRoles = retrieveTeamPlayers(teamData.id);
+            Set<Player> teamPlayers = getTeamPlayers(retrievedPlayersWithRoles);
+            return new Team(teamData.name, teamPlayers);
+        }
+        else {
+            return null;
         }
     }
 
@@ -95,16 +101,25 @@ public class TeamDAOMySQL implements TeamDAO {
     @Override
     public boolean updateTeam(Team team, User user) {
         try{
-            connection = MySQLConnectionManager.connectToDatabase();
-            if(deleteCurrentUserTeam(user) > 1){ return false; }
-            if(insertNewTeam(team, user) != 1){ return false; }
-            return insertPlayersInTeam(team) == team.getPlayers().size();
+            return tryUpdateTeam(team, user);
         }
         catch (ClassNotFoundException | SQLException exception){
             Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the team update: " + exception.getMessage());
             return false;
         }
+    }
+
+    @Generated
+    private boolean tryUpdateTeam(Team team, User user) throws ClassNotFoundException, SQLException {
+        connection = MySQLConnectionManager.connectToDatabase();
+        if(deleteCurrentUserTeam(user) > 1){
+            return false;
+        }
+        if(insertNewTeam(team, user) != 1){
+            return false;
+        }
+        return insertPlayersInTeam(team) == team.getPlayers().size();
     }
 
     @Generated

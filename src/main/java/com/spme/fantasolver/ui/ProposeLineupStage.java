@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Generated
-public class ProposeLineupStage {
+public class  ProposeLineupStage {
     private final ProposeLineupController proposeLineupController;
     private final Team team;
 
@@ -43,7 +43,6 @@ public class ProposeLineupStage {
         proposeLineupController.handleInitialization();
     }
 
-    @Generated
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("propose-lineup-stage.fxml"));
         stage = new Stage();
@@ -56,7 +55,6 @@ public class ProposeLineupStage {
         initializeButtons();
     }
 
-    @Generated
     private void initializeTables() {
         tableViewTeamPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewTeamPlayers");
         ObservableList<Player> teamPlayers = FXCollections.observableArrayList();
@@ -115,35 +113,29 @@ public class ProposeLineupStage {
         buttonVerifyLineup.setOnAction(actionEvent -> onPressedVerifyLineupButton());
     }
 
-    @Generated
     private void onSelectedTableViewTeamPlayer() {
         proposeLineupController.handleSelectedTableViewTeamPlayer(lineupPlayers.size());
     }
 
-    @Generated
     private void onPressedAddPlayerToLineupButton() {
         proposeLineupController.handlePressedAddPlayerToLineupButton(
                 tableViewTeamPlayers.getSelectionModel().getSelectedItem());
     }
 
-    @Generated
     private void onSelectedLineupTableViewPlayer() {
         proposeLineupController.handleSelectedTableViewLineupPlayer();
     }
 
-    @Generated
     private void onPressedRemovePlayerFromLineupButton() {
         proposeLineupController.handlePressedRemovePlayerFromLineupButton(
                 tableViewLineupPlayers.getSelectionModel().getSelectedItem()
         );
     }
 
-    @Generated
     private void onLineupTableViewChanged() {
         proposeLineupController.handleLineUpTableViewChanged(lineupPlayers.size());
     }
 
-    @Generated
     private void onPressedVerifyLineupButton() {
         proposeLineupController.handlePressedVerifyLineupButton(new HashSet<>(lineupPlayers));
     }

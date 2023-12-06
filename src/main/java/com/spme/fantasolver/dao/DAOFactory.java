@@ -20,49 +20,63 @@ public class DAOFactory {
     private DAOFactory() {}
 
     public static TeamDAO getTeamDAO(){
-        if(teamDAO == null){
-            String teamDAOSource;
-            try {
-                teamDAOSource = Utility.getValueFromProperties("teamDAO");
-                teamDAO = createTeamDAO(teamDAOSource);
-
-            } catch (IOException e) {
-                Logger logger = Logger.getLogger(CLASS_NAME);
-                logger.info("Error getting the DBMS value for TeamDAO: " + e.getMessage());
-                teamDAO = new TeamDAOMySQL();
-            }
+        try {
+            tryGetTeamDAO();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(CLASS_NAME);
+            logger.info("Error getting the DBMS value for TeamDAO: " + e.getMessage());
+            teamDAO = new TeamDAOMySQL();
         }
         return teamDAO;
     }
 
+    @Generated
+    private static void tryGetTeamDAO() throws IOException {
+        if(teamDAO == null) {
+            String teamDAOSource;
+            teamDAOSource = Utility.getValueFromProperties("teamDAO");
+            teamDAO = createTeamDAO(teamDAOSource);
+        }
+    }
+
     public static UserDAO getUserDAO() {
-        if (userDAO == null) {
-            String userDAOSource;
-            try {
-                userDAOSource = Utility.getValueFromProperties("userDAO");
-                userDAO = createUserDAO(userDAOSource);
-            } catch (IOException e) {
-                Logger logger = Logger.getLogger(CLASS_NAME);
-                logger.info("Error getting the DBMS value for UserDAO: " + e.getMessage());
-                userDAO = new UserDAOMySQL();
-            }
+        try {
+            tryGetUserDAO();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(CLASS_NAME);
+            logger.info("Error getting the DBMS value for UserDAO: " + e.getMessage());
+            userDAO = new UserDAOMySQL();
         }
         return userDAO;
     }
 
-    public static FormationDAO getFormationDAO() {
-        if (formationDAO == null) {
-            String formationDAOSource;
-            try {
-                formationDAOSource = Utility.getValueFromProperties("formationDAO");
-                formationDAO = createFormationDAO(formationDAOSource);
-            } catch (IOException e) {
-                Logger logger = Logger.getLogger(CLASS_NAME);
-                logger.info("Error getting the DBMS value for FormationDAO: " + e.getMessage());
-                formationDAO = new FormationDAOMySQL();            }
+    @Generated
+    private static void tryGetUserDAO() throws IOException {
+        if (userDAO == null) {
+            String userDAOSource;
+            userDAOSource = Utility.getValueFromProperties("userDAO");
+            userDAO = createUserDAO(userDAOSource);
+        }
+    }
 
+    public static FormationDAO getFormationDAO() {
+        try {
+            tryGetFormationDAO();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(CLASS_NAME);
+            logger.info("Error getting the DBMS value for FormationDAO: " + e.getMessage());
+            formationDAO = new FormationDAOMySQL();
         }
         return formationDAO;
+    }
+
+    @Generated
+    private static void tryGetFormationDAO() throws IOException {
+        if (formationDAO == null) {
+            String formationDAOSource;
+            formationDAOSource = Utility.getValueFromProperties("formationDAO");
+            formationDAO = createFormationDAO(formationDAOSource);
+        }
     }
 
     @Generated

@@ -77,24 +77,28 @@ public class SignInController {
 
     @Generated
     private void handleSignInOutcome(boolean signInOutcome){
+        try{
+            tryHandleSignInOutcome(signInOutcome);
+        }
+        catch (InternalException exception){
+            Notifier.notifyError("Errore", "Errore imprevisto");
+        }
+
+    }
+
+    @Generated
+    private void tryHandleSignInOutcome(boolean signInOutcome) throws InternalException {
         if(signInOutcome){
             User user = new User(signInStage.getUsername());
             AuthenticationManager.getInstance().signIn(user);
-
-            try{
-                Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
-                if(team != null) {
-                    user.setTeam(team);
-                }
-
-                new HomeStage();
-            }
-            catch (InternalException exception){
-                Notifier.notifyError("Errore", "Errore imprevisto");
+            Team team = DAOFactory.getTeamDAO().retrieveTeam(user);
+            if(team != null) {
+                user.setTeam(team);
             }
         }
         else {
             signInStage.showFailedSignInLabel();
         }
+        new HomeStage();
     }
 }

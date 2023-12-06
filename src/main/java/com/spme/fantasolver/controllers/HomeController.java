@@ -26,23 +26,25 @@ public class HomeController implements UserObserver {
     private HomeStage homeStage;
 
     public void handleInitialization(){
-        AuthenticationManager.getInstance().getUser().addObserver(this);
-
         try {
-            homeStage.initializeStage();
+            tryHandleInitialization();
         } catch (IOException e) {
             Logger logger = Logger.getLogger("HomeController");
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
+    }
 
+    @Generated
+    private void tryHandleInitialization() throws IOException {
+        AuthenticationManager.getInstance().getUser().addObserver(this);
+        homeStage.initializeStage();
         if(AuthenticationManager.getInstance().getUser().getTeam() != null){
             homeStage.setManageTeamScreenVisible();
         }
         else {
             homeStage.setAddTeamScreenVisible();
         }
-
         homeStage.show();
     }
 

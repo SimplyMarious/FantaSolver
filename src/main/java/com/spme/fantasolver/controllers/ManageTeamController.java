@@ -39,13 +39,7 @@ public class ManageTeamController {
 
     public void handleInitialization() {
         try {
-            manageTeamStage.initializeStage();
-            Team team = AuthenticationManager.getInstance().getUser().getTeam();
-            if(team != null){
-                manageTeamStage.setTextFieldTeamName(team.getName());
-                manageTeamStage.loadPlayersInTable(team.getPlayers());
-            }
-            manageTeamStage.show();
+            tryHandleInitialization();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error in reading FXML file: " + e.getMessage());
@@ -53,17 +47,33 @@ public class ManageTeamController {
         }
     }
 
+    @Generated
+    private void tryHandleInitialization() throws IOException {
+        manageTeamStage.initializeStage();
+        Team team = AuthenticationManager.getInstance().getUser().getTeam();
+        if(team != null){
+            manageTeamStage.setTextFieldTeamName(team.getName());
+            manageTeamStage.loadPlayersInTable(team.getPlayers());
+        }
+        manageTeamStage.show();
+    }
+
     public void handleTeamPropertyChanged(String teamName, int playersSize) {
         try{
-            manageTeamStage.setConfirmButtonAbility(
-                    Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
-                            TEAM_MIN_SIZE <= playersSize && playersSize < TEAM_MAX_SIZE);
-            if(playersSize == 0){
-                manageTeamStage.setRemovePlayerButtonAbility(false);
-            }
+            tryHandleTeamPropertyChanged(teamName, playersSize);
         }
         catch (IllegalArgumentException exception){
             Logger.getLogger(CLASS_NAME).info(exception.getMessage());
+        }
+    }
+
+    @Generated
+    private void tryHandleTeamPropertyChanged(String teamName, int playersSize) {
+        manageTeamStage.setConfirmButtonAbility(
+                Utility.checkStringValidity(teamName, TEAM_NAME_MIN_LENGTH, TEAM_NAME_MAX_LENGTH) &&
+                        TEAM_MIN_SIZE <= playersSize && playersSize < TEAM_MAX_SIZE);
+        if(playersSize == 0){
+            manageTeamStage.setRemovePlayerButtonAbility(false);
         }
     }
 
@@ -79,17 +89,22 @@ public class ManageTeamController {
 
     public void handlePressedAddPlayerButton(String playerName, String firstRole, String secondRole, String thirdRole) {
         try{
-            Player player = createPlayerFromInput(playerName, firstRole, secondRole, thirdRole);
-
-            if(!manageTeamStage.getPlayers().contains(player)){
-                manageTeamStage.addPlayerToTableView(player);
-            }
-            else{
-                manageTeamStage.highlightPlayerInTableView(player);
-            }
+            tryHandlePressedAddPlayerButton(playerName, firstRole, secondRole, thirdRole);
         }
         catch (RoleException exception){
             Logger.getLogger(CLASS_NAME).info("Invalid roles: " + exception.getMessage());
+        }
+    }
+
+    @Generated
+    private void tryHandlePressedAddPlayerButton(String playerName, String firstRole, String secondRole, String thirdRole) throws RoleException {
+        Player player = createPlayerFromInput(playerName, firstRole, secondRole, thirdRole);
+
+        if(!manageTeamStage.getPlayers().contains(player)){
+            manageTeamStage.addPlayerToTableView(player);
+        }
+        else{
+            manageTeamStage.highlightPlayerInTableView(player);
         }
     }
 
@@ -115,7 +130,6 @@ public class ManageTeamController {
     public void handlePressedRemovePlayerButton(Player player) {
         manageTeamStage.removePlayerFromTableView(player);
     }
-
 
     public void handlePressedConfirmButton(String teamName, List<Player> players) {
         Team team = new Team(teamName, new HashSet<>(players));

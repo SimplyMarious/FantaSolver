@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+@Generated
 public class VerifiedLineupStage {
 
     private Stage stage;
@@ -26,14 +27,12 @@ public class VerifiedLineupStage {
     private Label labelLineupFormation;
     private ObservableList<Player> lineupPlayers;
 
-    @Generated
     public VerifiedLineupStage(Lineup lineup){
         VerifiedLineupController verifiedLineupController = VerifiedLineupController.getInstance();
         verifiedLineupController.setVerifiedLineupStage(this);
         verifiedLineupController.handleInitialization(lineup);
     }
 
-    @Generated
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("verified-lineup-stage.fxml"));
         stage = new Stage();
@@ -46,12 +45,10 @@ public class VerifiedLineupStage {
         initializeTable();
     }
 
-    @Generated
     private void initializeLabel() {
         labelLineupFormation = (Label) fxmlLoader.getNamespace().get("labelLineupFormation");
     }
 
-    @Generated
     private void initializeTable() {
         TableView<Player> tableViewLineupPlayers = (TableView<Player>) fxmlLoader.getNamespace().get("tableViewLineupPlayers");
         lineupPlayers = FXCollections.observableArrayList();
@@ -67,17 +64,14 @@ public class VerifiedLineupStage {
                 Role.getFormattedRoles(cellData.getValue().getRoles()));
     }
 
-    @Generated
     public void setLineupFormationLabelText(String text){
         labelLineupFormation.setText(text);
     }
 
-    @Generated
     public void loadPlayersInTable(Player[] players) {
         lineupPlayers.addAll(players);
     }
 
-    @Generated
     public void show() {
         stage.show();
     }

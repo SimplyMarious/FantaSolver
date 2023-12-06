@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 public class ProposeLineupController {
     private static ProposeLineupController proposeLineupController = null;
+
     @Generated
     private ProposeLineupController(){}
 

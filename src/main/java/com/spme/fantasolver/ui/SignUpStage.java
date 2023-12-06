@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+@Generated
 public class SignUpStage {
     private final SignUpController signUpController;
     private TextField textFieldUsername;
@@ -20,14 +21,12 @@ public class SignUpStage {
     private Button buttonSignUp;
     private Stage stage;
 
-    @Generated
     public SignUpStage(){
         this.signUpController = SignUpController.getInstance();
         signUpController.setSignUpStage(this);
         signUpController.handleInitialization();
     }
 
-    @Generated
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signup-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -47,34 +46,27 @@ public class SignUpStage {
         stage.show();
     }
 
-    @Generated
     public void showSuccessfulSignUp() {
         Notifier.notifyInfo("Registrazione completata", "Registrazione completata: sei un Fantallenatore!");
         stage.close();
     }
 
-    @Generated
     public void showFailedSignUp() {
         Notifier.notifyError("Registrazione fallita", "Registrazione fallita, riprovare.");
     }
 
-    @Generated
     public boolean isSignUpDisabled() {return buttonSignUp.isDisable();}
 
-    @Generated
     public boolean isSignUpEnabled() { return !buttonSignUp.isDisable(); }
 
-    @Generated
     public void setSignUpButtonAbility(boolean ability) {
         buttonSignUp.setDisable(!ability);
     }
 
-    @Generated
     private void onFieldChanged() {
         signUpController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
     }
 
-    @Generated
     private void onPressedSignUpButton() {
         signUpController.handlePressedSignUpButton(textFieldUsername.getText(), fieldPassword.getText());
     }

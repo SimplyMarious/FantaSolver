@@ -20,30 +20,6 @@ public class UserDAOMySQL implements UserDAO{
         }
     }
 
-    @Override
-    public boolean signIn(String username, String password) {
-        try {
-            return trySignIn(username, password);
-        } catch (ClassNotFoundException | SQLException exception) {
-            Logger logger = Logger.getLogger(CLASS_NAME);
-            logger.info("Error during the sign in: " + exception.getMessage());
-            return false;
-        }
-    }
-
-    public boolean isUserExist(String username) throws ClassNotFoundException, SQLException {
-        Connection connection = MySQLConnectionManager.connectToDatabase();
-        String searchUser = "SELECT * FROM user WHERE name = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(searchUser)) {
-            preparedStatement.setString(1, username);
-            boolean result = preparedStatement.executeQuery().next();
-
-            connection.close();
-            return result;
-        }
-    }
-
     @Generated
     private boolean trySignUp(String username, String password) throws ClassNotFoundException, SQLException {
         if (isUserExist(username)) return false;
@@ -60,6 +36,17 @@ public class UserDAOMySQL implements UserDAO{
         return true;
     }
 
+    @Override
+    public boolean signIn(String username, String password) {
+        try {
+            return trySignIn(username, password);
+        } catch (ClassNotFoundException | SQLException exception) {
+            Logger logger = Logger.getLogger(CLASS_NAME);
+            logger.info("Error during the sign in: " + exception.getMessage());
+            return false;
+        }
+    }
+
     @Generated
     private boolean trySignIn(String username, String password) throws ClassNotFoundException, SQLException {
         Connection connection = MySQLConnectionManager.connectToDatabase();
@@ -74,4 +61,18 @@ public class UserDAOMySQL implements UserDAO{
             return result;
         }
     }
+
+    public boolean isUserExist(String username) throws ClassNotFoundException, SQLException {
+        Connection connection = MySQLConnectionManager.connectToDatabase();
+        String searchUser = "SELECT * FROM user WHERE name = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(searchUser)) {
+            preparedStatement.setString(1, username);
+            boolean result = preparedStatement.executeQuery().next();
+
+            connection.close();
+            return result;
+        }
+    }
+
 }
