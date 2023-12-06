@@ -98,19 +98,35 @@ class SlotUnitTest {
     @Test
     void testEqualsWithNullObject() {
         Slot slot = new Slot(0);
-        assertNotEquals(null, slot);
+
+        boolean result = slot.equals(null);
+
+        assertFalse(result);
     }
 
     @Test
     void testEqualsWithDifferentClass() {
         Slot slot = new Slot(0);
-        assertNotEquals("Not a Slot", slot);
+
+        boolean result = slot.equals(new Object());
+
+        assertFalse(result);
+    }
+
+    @Test
+    void testEqualsWithDifferentClassAndNull() {
+        Object aDifferentObjectType = null;
+
+        boolean result = slot.equals(aDifferentObjectType);
+
+        assertFalse(result);
     }
 
     @Test
     void testEqualsWithSameId() {
         Slot slot1 = new Slot(0);
         Slot slot2 = new Slot(0);
+
         assertEquals(slot1, slot2);
     }
 
@@ -118,6 +134,7 @@ class SlotUnitTest {
     void testEqualsWithDifferentId() {
         Slot slot1 = new Slot(0);
         Slot slot2 = new Slot(1);
+
         assertNotEquals(slot1, slot2);
     }
 }
