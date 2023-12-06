@@ -2,10 +2,7 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
-import com.spme.fantasolver.entity.Player;
-import com.spme.fantasolver.entity.Role;
-import com.spme.fantasolver.entity.RoleException;
-import com.spme.fantasolver.entity.Team;
+import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
@@ -133,12 +130,13 @@ public class ManageTeamController {
 
     public void handlePressedConfirmButton(String teamName, List<Player> players) {
         Team team = new Team(teamName, new HashSet<>(players));
-        boolean updateResult = DAOFactory.getTeamDAO().updateTeam(team, AuthenticationManager.getInstance().getUser());
+        User user = AuthenticationManager.getInstance().getUser();
+
+        boolean updateResult = DAOFactory.getTeamDAO().updateTeam(team, user);
         if(updateResult){
-            AuthenticationManager.getInstance().getUser().setTeam(team);
+            user.setTeam(team);
             Notifier.notifyInfo("Rosa salvata",
                     "Rosa salvata correttamente! L'asta sembra essere andata bene, vedo...");
-
         }
         else{
             Notifier.notifyError("Errore", "Errore imprevisto");
