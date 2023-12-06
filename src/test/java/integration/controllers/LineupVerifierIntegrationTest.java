@@ -36,7 +36,7 @@ class LineupVerifierIntegrationTest {
         DAOFactory.resetFactory();
         MockedStatic<Logger> mockStaticLogger = mockStatic(Logger.class);;
         Logger mockLogger = mock(Logger.class);
-        mockStaticLogger.when(() -> Logger.getLogger("ProposeLineupController")).thenReturn(mockLogger);
+        mockStaticLogger.when(() -> Logger.getLogger("LineupVerifier")).thenReturn(mockLogger);
 
         LineupVerifier lineupVerifier = LineupVerifier.getInstance();
         Set<Player> players = new HashSet<>();
