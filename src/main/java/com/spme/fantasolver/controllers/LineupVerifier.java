@@ -32,7 +32,7 @@ public class LineupVerifier {
 
             if(lineup.checkValidity()){
                 lineup.setFormation(formation);
-                Logger logger = Logger.getLogger("ProposeLineupController");
+                Logger logger = Logger.getLogger("LineupVerifier");
                 logger.info("Formation: " + lineup.getFormation().getName());
 
                 return lineup;
