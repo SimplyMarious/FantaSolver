@@ -103,7 +103,7 @@ class UtilityUnitTest {
         assertThrows(IllegalArgumentException.class, () -> Utility.checkStringValidity(string, minLength, maxLength));
     }
 
-    public static Stream<Arguments> addInputProvider() {
+    static Stream<Arguments> addInputProvider() {
         return Stream.of(
                 Arguments.of(null, 5, 1),
                 Arguments.of("ValidString", 10, 5),
