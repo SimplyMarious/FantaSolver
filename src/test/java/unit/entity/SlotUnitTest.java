@@ -19,7 +19,7 @@ class SlotUnitTest {
 
     @BeforeEach
     void setUp() {
-        slot = new Slot((short)1);
+        slot = new Slot(1);
     }
 
     @Test
@@ -35,7 +35,7 @@ class SlotUnitTest {
     void testAddRoleWithNonSuitableRole() throws RoleException {
         Role newRole = Role.A;
         try (MockedStatic<Role> mockRole = mockStatic(Role.class)) {
-            mockRole.when(() -> Role.checkNewRoleSuitability(newRole, slot.getRoles(), (short) 3)).thenReturn(false);
+            mockRole.when(() -> Role.checkNewRoleSuitability(newRole, slot.getRoles(), 3)).thenReturn(false);
             slot.addRole(newRole);
             assertThat(slot.getRoles(), is(empty()));
         }
@@ -68,7 +68,7 @@ class SlotUnitTest {
     void testSortSlotsByRolesSize() throws RoleException {
         Slot[] slots = new Slot[3];
         for (int i = 0; i < 3; i++) {
-            slots[i] = new Slot((short)i);
+            slots[i] = new Slot(i);
         }
         slots[2].addRole(Role.A);
         slots[0].addRole(Role.PC);

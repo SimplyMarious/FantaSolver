@@ -19,7 +19,7 @@ public enum Role {
     A,
     PC;
 
-    public static boolean checkNewRoleSuitability(Role role, Set<Role> roles, short maxRoles) throws RoleException{
+    public static boolean checkNewRoleSuitability(Role role, Set<Role> roles, int maxRoles) throws RoleException{
         if(role == null || roles == null){
             throw new NullPointerException();
         }
