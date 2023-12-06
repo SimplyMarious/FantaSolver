@@ -33,6 +33,7 @@ public class FantaSolver extends javafx.application.Application {
         FantaSolver.stage = stage;
     }
 
+    @Generated
     public static void setIcon(Stage stage) {
         stage.getIcons().add(new Image(Objects.requireNonNull(
                 SignInStage.class.getResourceAsStream("/com/spme/fantasolver/fantasolver_logo.png"))));
