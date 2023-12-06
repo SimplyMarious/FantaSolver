@@ -91,4 +91,9 @@ public class LineupVerifier {
             this.formations = DAOFactory.getFormationDAO().retrieveFormations();
         }
     }
+
+    @Generated
+    public void setFormations(Set<Formation> formations) {
+        this.formations = formations;
+    }
 }
