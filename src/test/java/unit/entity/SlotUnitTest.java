@@ -87,6 +87,37 @@ class SlotUnitTest {
         for (int i = 0; i < 3; i++) {
             assertEquals(expectedSlots[i].getId(), sortedSlots[i].getId());
         }
+    }
 
+    @Test
+    void testEqualsWithSameObject() {
+        Slot slot = new Slot(0);
+        assertEquals(slot, slot);
+    }
+
+    @Test
+    void testEqualsWithNullObject() {
+        Slot slot = new Slot(0);
+        assertNotEquals(null, slot);
+    }
+
+    @Test
+    void testEqualsWithDifferentClass() {
+        Slot slot = new Slot(0);
+        assertNotEquals("Not a Slot", slot);
+    }
+
+    @Test
+    void testEqualsWithSameId() {
+        Slot slot1 = new Slot(0);
+        Slot slot2 = new Slot(0);
+        assertEquals(slot1, slot2);
+    }
+
+    @Test
+    void testEqualsWithDifferentId() {
+        Slot slot1 = new Slot(0);
+        Slot slot2 = new Slot(1);
+        assertNotEquals(slot1, slot2);
     }
 }

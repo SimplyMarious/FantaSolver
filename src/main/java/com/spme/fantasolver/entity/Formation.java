@@ -33,7 +33,7 @@ public class Formation {
         this.slots[slot.getId()] = slot;
     }
 
-    public void addRole(short idSlot, Role role) throws RoleException {
+    public void addRole(int idSlot, Role role) throws RoleException {
         slots[idSlot].addRole(role);
     }
 }

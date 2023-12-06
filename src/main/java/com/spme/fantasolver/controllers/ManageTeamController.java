@@ -106,10 +106,12 @@ public class ManageTeamController {
         return player;
     }
 
+    @Generated
     public void handleSelectedPlayerFromTableView() {
         manageTeamStage.setRemovePlayerButtonAbility(true);
     }
 
+    @Generated
     public void handlePressedRemovePlayerButton(Player player) {
         manageTeamStage.removePlayerFromTableView(player);
     }

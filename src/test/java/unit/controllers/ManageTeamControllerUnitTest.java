@@ -174,6 +174,23 @@ class ManageTeamControllerUnitTest {
     }
 
     @Test
+    void testHandleTeamPropertyChangedWithIllegalArgumentExceptionThrown() {
+        String teamName = "TestName";
+        int teamSize = 2;
+
+        doThrow(new IllegalArgumentException("Illegal argument")).when(mockManageTeamStage).setConfirmButtonAbility(anyBoolean());
+
+        try(MockedStatic<Logger> loggerMockedStatic = mockStatic(Logger.class)) {
+            Logger mockedLogger = mock(Logger.class);
+            loggerMockedStatic.when(() -> Logger.getLogger("ManageTeamController")).thenReturn(mockedLogger);
+
+            manageTeamController.handleTeamPropertyChanged(teamName, teamSize);
+
+            verify(mockedLogger, times(1)).info(anyString());
+        }
+    }
+
+    @Test
     void testHandlePlayerPropertyChangedWithValidPlayerNameAndValidRoles() {
         String playerName = "John Doe";
         String firstRole = "DS";

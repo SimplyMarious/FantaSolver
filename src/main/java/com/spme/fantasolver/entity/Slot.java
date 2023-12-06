@@ -5,22 +5,22 @@ import com.spme.fantasolver.annotations.Generated;
 import java.util.*;
 
 public class Slot implements Comparable<Slot>{
-    private short id;
+    private int id;
     private Set<Role> roles = new HashSet<>();
     private static final short MAX_ROLES_PER_SLOT = 3;
 
     @Generated
-    public Slot(short id){
+    public Slot(int id){
         this.id = id;
     }
 
     @Generated
-    public short getId() {
+    public int getId() {
         return id;
     }
 
     @Generated
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -54,6 +54,7 @@ public class Slot implements Comparable<Slot>{
         return Objects.equals(id, slot.id);
     }
 
+    @Generated
     @Override
     public int hashCode() {
         return Objects.hash(id);

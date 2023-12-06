@@ -24,6 +24,7 @@ public class VerifiedLineupController {
 
     private VerifiedLineupStage verifiedLineupStage;
 
+    @Generated
     public void handleInitialization(Lineup lineup) {
         try {
             verifiedLineupStage.initializeStage();
