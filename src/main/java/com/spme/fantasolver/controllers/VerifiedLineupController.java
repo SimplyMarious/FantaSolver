@@ -63,6 +63,7 @@ public class VerifiedLineupController {
         int i = 0;
         for(Player player: lineupPlayers){
             players[i] = new Player(player.getName(), player.getRoles());
+            i++;
         }
         return players;
     }
