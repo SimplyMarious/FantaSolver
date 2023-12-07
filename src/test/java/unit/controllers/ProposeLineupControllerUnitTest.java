@@ -4,8 +4,11 @@ import com.spme.fantasolver.Main;
 import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.LineupVerifier;
 import com.spme.fantasolver.controllers.ProposeLineupController;
+import com.spme.fantasolver.entity.Lineup;
 import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.ui.ProposeLineupStage;
+import com.spme.fantasolver.ui.StageFactory;
+import com.spme.fantasolver.ui.VerifiedLineupStage;
 import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +47,7 @@ class ProposeLineupControllerUnitTest {
     }
 
     @Test
-    void testHandlePressedVerifyLineupButton(){
+    void testHandlePressedVerifyLineupButtonWithLineupNull(){
         MockedStatic<LineupVerifier> mockStaticLineupVerifier = mockStatic(LineupVerifier.class);
         LineupVerifier mockLineupVerifier = mock(LineupVerifier.class);
         MockedStatic<Notifier> mockNotifier = mockStatic(Notifier.class);
@@ -59,6 +62,25 @@ class ProposeLineupControllerUnitTest {
 
         mockStaticLineupVerifier.close();
         mockNotifier.close();
+    }
+
+    @Test
+    void testHandlePressedVerifyLineupButtonWithLineupNotNull(){
+        MockedStatic<LineupVerifier> mockStaticLineupVerifier = mockStatic(LineupVerifier.class);
+        LineupVerifier mockLineupVerifier = mock(LineupVerifier.class);
+        Lineup mockLineup = mock(Lineup.class);
+        VerifiedLineupStage mockVerifiedLineupStage = mock(VerifiedLineupStage.class);
+        StageFactory mockStageFactory = mock(StageFactory.class);
+        proposeLineupController.setStageFactory(mockStageFactory);
+        mockStaticLineupVerifier.when(LineupVerifier::getInstance).thenReturn(mockLineupVerifier);
+        when(mockStageFactory.createVerifiedLineupStage(mockLineup)).thenReturn(mockVerifiedLineupStage);
+        when(mockLineupVerifier.getSuitableLineup(any(Set.class))).thenReturn(mockLineup);
+
+        proposeLineupController.handlePressedVerifyLineupButton(new HashSet<>());
+
+        verify(mockStageFactory, times(1)).createVerifiedLineupStage(mockLineup);
+
+        mockStaticLineupVerifier.close();
     }
 
     @Test

@@ -24,6 +24,7 @@ public class ProposeLineupController {
         return proposeLineupController;
     }
 
+    @Generated
     public void setStageFactory(StageFactory factory) {
         this.stageFactory = factory;
     }
