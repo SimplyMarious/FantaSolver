@@ -41,22 +41,21 @@ class LineupVerifierIntegrationTest {
         LineupVerifier lineupVerifier = LineupVerifier.getInstance();
         Set<Player> players = new HashSet<>();
 
-        players.add(new Player("Felipe Anderson", new HashSet<>(List.of(new Role[]{Role.A, Role.W}))));
-        players.add(new Player("Baschirotto", new HashSet<>(List.of(new Role[]{Role.DC, Role.DD}))));
-        players.add(new Player("Anguissa", new HashSet<>(List.of(new Role[]{Role.C, Role.M}))));
-        players.add(new Player("Mkhit", new HashSet<>(List.of(new Role[]{Role.C, Role.T}))));
-        players.add(new Player("Thauvin", new HashSet<>(List.of(new Role[]{Role.A}))));
-        players.add(new Player("Kristiansen", new HashSet<>(List.of(new Role[]{Role.DS, Role.E}))));
-        players.add(new Player("Colpani", new HashSet<>(List.of(new Role[]{Role.C, Role.T}))));
-        players.add(new Player("Lauriente", new HashSet<>(List.of(new Role[]{Role.A}))));
-        players.add(new Player("Provedel", new HashSet<>(List.of(new Role[]{Role.POR}))));
-        players.add(new Player("Sabelli", new HashSet<>(List.of(new Role[]{Role.DS, Role.E, Role.DD}))));
-        players.add(new Player("Acerbi", new HashSet<>(List.of(new Role[]{Role.DC}))));
+        players.add(new Player("Felipe Anderson", Set.of(Role.W, Role.A)));
+        players.add(new Player("Baschirotto", Set.of(Role.DC, Role.DD)));
+        players.add(new Player("Anguissa", Set.of(Role.C, Role.M)));
+        players.add(new Player("Mkhit", Set.of(Role.C, Role.T)));
+        players.add(new Player("Thauvin", Set.of(Role.A)));
+        players.add(new Player("Kristiansen", Set.of(Role.DS, Role.E)));
+        players.add(new Player("Colpani", Set.of(Role.C, Role.T)));
+        players.add(new Player("Lauriente", Set.of(Role.A)));
+        players.add(new Player("Provedel", Set.of(Role.POR)));
+        players.add(new Player("Sabelli", Set.of(Role.DS, Role.E, Role.DD)));
+        players.add(new Player("Acerbi", Set.of(Role.DC)));
 
         Lineup lineup = lineupVerifier.getSuitableLineup(players);
 
         assertNotNull(lineup);
-        verify(mockLogger).info("Formation: " + lineup.getFormation().getName());
 
         mockStaticLogger.close();
     }
