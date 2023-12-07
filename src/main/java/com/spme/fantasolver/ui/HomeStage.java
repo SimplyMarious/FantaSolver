@@ -12,8 +12,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class HomeStage {
+public class HomeStage implements AbstractStage {
     private final HomeController homeController;
+
 
     private VBox vBoxAddTeam;
     private VBox vBoxManageTeam;
@@ -21,11 +22,13 @@ public class HomeStage {
     @Generated
     public HomeStage() {
         this.homeController = HomeController.getInstance();
+        homeController.setStageFactory(new JavaFXStageFactory());
         homeController.setHomeStage(this);
         homeController.handleInitialization();
     }
 
     @Generated
+    @Override
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("home-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -69,6 +72,7 @@ public class HomeStage {
         vBoxAddTeam.setVisible(false);
     }
 
+    @Override
     @Generated
     public void show() {
         FantaSolver.getStage().show();

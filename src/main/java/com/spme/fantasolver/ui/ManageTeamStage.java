@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @Generated
-public class ManageTeamStage {
+public class ManageTeamStage implements AbstractStage{
     private final ManageTeamController manageTeamController;
     private Stage stage;
     private FXMLLoader fxmlLoader;
@@ -42,6 +42,7 @@ public class ManageTeamStage {
         manageTeamController.handleInitialization();
     }
 
+    @Override
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("manage-team-stage.fxml"));
         stage = new Stage();
@@ -209,9 +210,11 @@ public class ManageTeamStage {
         return players;
     }
 
+    @Override
     public void show(){
         stage.show();
     }
+
 
     public void close() {
         stage.close();

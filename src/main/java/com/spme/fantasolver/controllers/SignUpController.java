@@ -30,6 +30,7 @@ public class SignUpController {
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
+        signUpStage.show();
     }
 
     @Generated

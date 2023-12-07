@@ -1,7 +1,9 @@
 package com.spme.fantasolver;
 
 import com.spme.fantasolver.annotations.Generated;
+import com.spme.fantasolver.ui.JavaFXStageFactory;
 import com.spme.fantasolver.ui.SignInStage;
+import com.spme.fantasolver.ui.StageFactory;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -15,7 +17,8 @@ public class FantaSolver extends javafx.application.Application {
     @Override
     public void start(Stage stage){
         setStage(stage);
-        new SignInStage();
+        StageFactory factory = new JavaFXStageFactory();
+        factory.createSignInStage();
 
         stage.setOnCloseRequest(e -> {
             e.consume();
