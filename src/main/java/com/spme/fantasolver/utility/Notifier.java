@@ -9,14 +9,15 @@ public class Notifier {
 
     public static void notifyInfo(String title, String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        notify(title, message, alert);
     }
 
     public static void notifyError(String title, String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        notify(title, message, alert);
+    }
+
+    private static void notify(String title, String message, Alert alert) {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
