@@ -56,9 +56,11 @@ public class VerifiedLineupController {
 
     @Generated
     private static Player[] getPlayersWithRolesFittingToOwnSlot(Player[] players, Slot[] slots) {
-        for(int i = 0; i < LINEUP_SIZE; i++){
-            Set<Role> playerRoles = players[i].getRoles();
-            playerRoles.retainAll(slots[i].getRoles());
+        if (players.length == LINEUP_SIZE && slots.length == LINEUP_SIZE) {
+            for (int i = 0; i < LINEUP_SIZE; i++) {
+                Set<Role> playerRoles = players[i].getRoles();
+                playerRoles.retainAll(slots[i].getRoles());
+            }
         }
         return players;
     }

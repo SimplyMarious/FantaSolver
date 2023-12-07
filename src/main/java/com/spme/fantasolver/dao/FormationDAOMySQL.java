@@ -76,13 +76,16 @@ public class FormationDAOMySQL implements FormationDAO{
     }
 
     @Generated
-    private Set<FormationSlot> retrieveFormationSlots() {
+    private Set<FormationSlot> retrieveFormationSlots() throws RoleException {
         try {
             return tryGetFormationSlots();
-        } catch (ClassNotFoundException | SQLException | RoleNotFoundException exception) {
+        } catch (ClassNotFoundException | SQLException exception) {
             Logger logger = Logger.getLogger(CLASS_NAME);
             logger.info("Error during the retrieve formations: " + exception.getMessage());
             return Collections.emptySet();
+        }
+        catch (RoleNotFoundException exception) {
+            throw new RoleException("Invalid role");
         }
     }
 

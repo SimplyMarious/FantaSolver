@@ -68,4 +68,10 @@ class HomeControllerUnitTest {
             assertThrows(FXMLLoadException.class, () -> homeController.handleInitialization());
         }
     }
+
+    @Test
+    void testOnTeamChanged(){
+        homeController.onTeamChanged(testUser);
+        verify(mockHomeStage, times(1)).setManageTeamScreenVisible();
+    }
 }

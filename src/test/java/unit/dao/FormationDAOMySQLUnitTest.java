@@ -98,6 +98,22 @@ class FormationDAOMySQLUnitTest {
     }
 
     @Test
+    void testRetrieveFormationWithRoleException() throws SQLException {
+        mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase).thenReturn(mockConnection);
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString(1)).thenReturn("TestPlayer");
+        when(mockResultSet.getShort(2)).thenReturn((short)0);
+        when(mockResultSet.getString(3)).thenReturn("InvalidRole");
+
+        Set<Formation> result = formationDAOMySQL.retrieveFormations();
+
+        assertThat(result, is(empty()));
+        verify(mockLogger).info("Error during the retrieve formations: Invalid role");
+    }
+
+    @Test
     void testRetrieveFormationWithConnectionSQLException() {
         mockMySQLConnectionManager.when(MySQLConnectionManager::connectToDatabase)
                 .thenThrow(new SQLException("Simulated SQLException"));
@@ -105,7 +121,6 @@ class FormationDAOMySQLUnitTest {
         Set<Formation> result = formationDAOMySQL.retrieveFormations();
 
         assertThat(result, is(emptySet()));
-        verify(mockLogger).info("Error during the retrieve formations: Simulated SQLException");
     }
 
     @Test

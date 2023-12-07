@@ -24,10 +24,10 @@ public enum Role {
             throw new NullPointerException();
         }
         if(roles.contains(role)){
-            throw new DuplicateRoleException();
+            throw new DuplicateRoleException("Duplicate role");
         }
         if(roles.size() == maxRoles){
-            throw new RoleLimitExceededException();
+            throw new RoleLimitExceededException("Role limit exceeded");
         }
         return true;
     }

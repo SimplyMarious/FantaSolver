@@ -10,13 +10,16 @@ import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 class LineupVerifierIntegrationTest {
 
@@ -31,8 +34,11 @@ class LineupVerifierIntegrationTest {
     @Test
     void testGetSuitableLineupWithPlayers(){
         DAOFactory.resetFactory();
-        LineupVerifier lineupVerifier = LineupVerifier.getInstance();
+        MockedStatic<Logger> mockStaticLogger = mockStatic(Logger.class);;
+        Logger mockLogger = mock(Logger.class);
+        mockStaticLogger.when(() -> Logger.getLogger("LineupVerifier")).thenReturn(mockLogger);
 
+        LineupVerifier lineupVerifier = LineupVerifier.getInstance();
         Set<Player> players = new HashSet<>();
 
         players.add(new Player("Felipe Anderson", new HashSet<>(List.of(new Role[]{Role.A, Role.W}))));
@@ -50,5 +56,8 @@ class LineupVerifierIntegrationTest {
         Lineup lineup = lineupVerifier.getSuitableLineup(players);
 
         assertNotNull(lineup);
+        verify(mockLogger).info("Formation: " + lineup.getFormation().getName());
+
+        mockStaticLogger.close();
     }
 }

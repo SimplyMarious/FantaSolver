@@ -52,6 +52,10 @@ class ManageTeamControllerUnitTest {
     void clean(){
         mockUtility.close();
         mockManageTeamStage.close();
+
+        if (authenticationManager.getUser() != null){
+            authenticationManager.signOut();
+        }
     }
 
     @Test
@@ -344,39 +348,45 @@ class ManageTeamControllerUnitTest {
     void testHandlePressedConfirmButtonWithSuccessfulUpdate() {
         String teamName = "TestTeam";
         List<Player> players = List.of(new Player("Player1"), new Player("Player2"));
+        MockedStatic<DAOFactory> mockDAOFactory = mockStatic(DAOFactory.class);
+        MockedStatic<Notifier> mockNotifier = mockStatic(Notifier.class);
+        User mockUser = mock(User.class);
+        authenticationManager.signIn(mockUser);
+        mockDAOFactory.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
+        when(mockAuthenticationManager.getUser()).thenReturn(mockUser);
+        doNothing().when(mockUser).setTeam(any(Team.class));
+        when(mockTeamDAO.updateTeam(any(Team.class), eq(mockUser))).thenReturn(true);
 
-        try(MockedStatic<DAOFactory> daoFactoryMockedStatic = mockStatic(DAOFactory.class)) {
-            daoFactoryMockedStatic.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
-            when(mockTeamDAO.updateTeam(any(Team.class), any(User.class))).thenReturn(true);
+        manageTeamController.handlePressedConfirmButton(teamName, players);
 
-            try(MockedStatic<AuthenticationManager> authenticationManagerMockedStatic =
-                    mockStatic(AuthenticationManager.class)){
-                authenticationManagerMockedStatic.when(AuthenticationManager::getInstance).
-                        thenReturn(mockAuthenticationManager);
+        verify(mockUser, times(1)).setTeam(any(Team.class));
+        mockNotifier.verify(() ->
+                Notifier.notifyInfo(anyString(), anyString()), times(1));
 
-                try (MockedStatic<Notifier> notifierMockedStatic = mockStatic(Notifier.class)) {
-                    manageTeamController.handlePressedConfirmButton(teamName, players);
-
-                    verify(mockAuthenticationManager, times(1)).getUser();
-                }
-            }
-        }
+        mockDAOFactory.close();
+        mockNotifier.close();
     }
 
     @Test
     void testHandlePressedConfirmButtonWithFailingUpdate() {
         String teamName = "TestTeam";
         List<Player> players = List.of(new Player("Player1"), new Player("Player2"));
-        try (MockedStatic<DAOFactory> daoFactoryMockedStatic = mockStatic(DAOFactory.class)) {
-            daoFactoryMockedStatic.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
-            when(mockTeamDAO.updateTeam(any(Team.class), any(User.class))).thenReturn(false);
+        MockedStatic<DAOFactory> mockDAOFactory = mockStatic(DAOFactory.class);
+        MockedStatic<Notifier> mockNotifier = mockStatic(Notifier.class);
+        User mockUser = mock(User.class);
+        authenticationManager.signIn(mockUser);
+        mockDAOFactory.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
+        when(mockAuthenticationManager.getUser()).thenReturn(mockUser);
+        doNothing().when(mockUser).setTeam(any(Team.class));
+        when(mockTeamDAO.updateTeam(any(Team.class), eq(mockUser))).thenReturn(false);
 
-            try (MockedStatic<Notifier> notifierMockedStatic = mockStatic(Notifier.class)) {
-                manageTeamController.handlePressedConfirmButton(teamName, players);
-                verify(mockAuthenticationManager, never()).getUser();
-                notifierMockedStatic.verify(() ->
-                        Notifier.notifyError(anyString(), anyString()), times(1));
-            }
-        }
+        manageTeamController.handlePressedConfirmButton(teamName, players);
+
+        verify(mockUser, never()).setTeam(any(Team.class));
+        mockNotifier.verify(() ->
+                Notifier.notifyError(anyString(), anyString()), times(1));
+
+        mockDAOFactory.close();
+        mockNotifier.close();
     }
 }
