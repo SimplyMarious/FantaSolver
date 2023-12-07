@@ -1,7 +1,6 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
-import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.entity.UserObserver;
 import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.ManageTeamStage;
