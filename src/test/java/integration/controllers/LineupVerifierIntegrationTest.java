@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 class LineupVerifierIntegrationTest {
@@ -32,19 +33,15 @@ class LineupVerifierIntegrationTest {
     }
 
     @Test
-    void testGetSuitableLineupWithPlayers(){
+    void testGetSuitableLineupWithValidLineup(){
         DAOFactory.resetFactory();
-        MockedStatic<Logger> mockStaticLogger = mockStatic(Logger.class);;
-        Logger mockLogger = mock(Logger.class);
-        mockStaticLogger.when(() -> Logger.getLogger("LineupVerifier")).thenReturn(mockLogger);
 
         LineupVerifier lineupVerifier = LineupVerifier.getInstance();
         Set<Player> players = new HashSet<>();
-
         players.add(new Player("Felipe Anderson", Set.of(Role.W, Role.A)));
         players.add(new Player("Baschirotto", Set.of(Role.DC, Role.DD)));
         players.add(new Player("Anguissa", Set.of(Role.C, Role.M)));
-        players.add(new Player("Mkhit", Set.of(Role.C, Role.T)));
+        players.add(new Player("Mkhitaryan", Set.of(Role.C, Role.T)));
         players.add(new Player("Thauvin", Set.of(Role.A)));
         players.add(new Player("Kristiansen", Set.of(Role.DS, Role.E)));
         players.add(new Player("Colpani", Set.of(Role.C, Role.T)));
@@ -57,6 +54,28 @@ class LineupVerifierIntegrationTest {
 
         assertNotNull(lineup);
 
-        mockStaticLogger.close();
+    }
+
+    @Test
+    void testGetSuitableLineupWithInvalidLineup(){
+        DAOFactory.resetFactory();
+
+        LineupVerifier lineupVerifier = LineupVerifier.getInstance();
+        Set<Player> players = new HashSet<>();
+        players.add(new Player("Felipe Anderson", Set.of(Role.W, Role.A)));
+        players.add(new Player("Baschirotto", Set.of(Role.DC, Role.DD)));
+        players.add(new Player("Anguissa", Set.of(Role.C, Role.M)));
+        players.add(new Player("Mkhitaryan", Set.of(Role.C, Role.T)));
+        players.add(new Player("Thauvin", Set.of(Role.A)));
+        players.add(new Player("Kristiansen", Set.of(Role.DS, Role.E)));
+        players.add(new Player("Colpani", Set.of(Role.C, Role.T)));
+        players.add(new Player("Sepe", Set.of(Role.POR)));
+        players.add(new Player("Provedel", Set.of(Role.POR)));
+        players.add(new Player("Sabelli", Set.of(Role.DS, Role.E, Role.DD)));
+        players.add(new Player("Acerbi", Set.of(Role.DC)));
+
+        Lineup lineup = lineupVerifier.getSuitableLineup(players);
+
+        assertNull(lineup);
     }
 }

@@ -5,7 +5,6 @@ import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.entity.*;
 
 import java.util.*;
-import java.util.logging.Logger;
 
 public class LineupVerifier {
 
