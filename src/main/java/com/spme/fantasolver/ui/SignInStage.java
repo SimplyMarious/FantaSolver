@@ -15,7 +15,7 @@ import java.io.IOException;
 
 
 @Generated
-public class SignInStage implements AbstractStage {
+public class SignInStage implements AbstractSignInStage {
 
     private final SignInController signInController;
     private TextField textFieldUsername;
@@ -54,16 +54,21 @@ public class SignInStage implements AbstractStage {
         FantaSolver.getStage().setScene(scene);
     }
 
+    @Override
     public void setSignInButtonAbility(boolean ability) {
         buttonSignIn.setDisable(!ability);
     }
 
+    @Override
     public boolean isSignInEnabled(){return !buttonSignIn.isDisable();}
 
+    @Override
     public boolean isSignInDisabled(){return buttonSignIn.isDisable();}
 
+    @Override
     public void showFailedSignInLabel() {labelSigninFailure.setVisible(true);}
 
+    @Override
     public String getUsername() {return textFieldUsername.getText();}
 
     private void onPressedSignUpButton() {

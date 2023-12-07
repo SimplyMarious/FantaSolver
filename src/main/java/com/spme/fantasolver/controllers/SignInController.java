@@ -18,7 +18,7 @@ import static com.spme.fantasolver.utility.Utility.checkStringValidity;
 public class SignInController {
 
     private static SignInController signInController = null;
-    private SignInStage signInStage;
+    private AbstractSignInStage signInStage;
     private StageFactory stageFactory;
 
     @Generated
@@ -48,7 +48,7 @@ public class SignInController {
     }
 
     @Generated
-    public void setSignInStage(SignInStage signInStage) {
+    public void setSignInStage(AbstractSignInStage signInStage) {
         this.signInStage = signInStage;
     }
 

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 @Generated
-public class SignUpStage implements AbstractStage {
+public class SignUpStage implements AbstractSignUpStage{
     private final SignUpController signUpController;
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
@@ -46,19 +46,24 @@ public class SignUpStage implements AbstractStage {
         stage.setScene(scene);
     }
 
+    @Override
     public void showSuccessfulSignUp() {
         Notifier.notifyInfo("Registrazione completata", "Registrazione completata: sei un Fantallenatore!");
         stage.close();
     }
 
+    @Override
     public void showFailedSignUp() {
         Notifier.notifyError("Registrazione fallita", "Registrazione fallita, riprovare.");
     }
 
+    @Override
     public boolean isSignUpDisabled() {return buttonSignUp.isDisable();}
 
+    @Override
     public boolean isSignUpEnabled() { return !buttonSignUp.isDisable(); }
 
+    @Override
     public void setSignUpButtonAbility(boolean ability) {
         buttonSignUp.setDisable(!ability);
     }

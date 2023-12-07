@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class HomeStage implements AbstractStage {
+public class HomeStage implements AbstractHomeStage {
     private final HomeController homeController;
 
 
@@ -61,12 +61,14 @@ public class HomeStage implements AbstractStage {
     }
 
     @Generated
+    @Override
     public void setAddTeamScreenVisible() {
         vBoxAddTeam.setVisible(true);
         vBoxManageTeam.setVisible(false);
     }
 
     @Generated
+    @Override
     public void setManageTeamScreenVisible() {
         vBoxManageTeam.setVisible(true);
         vBoxAddTeam.setVisible(false);

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class HomeController implements UserObserver {
 
     private static HomeController homeController = null;
-    private HomeStage homeStage;
+    private AbstractHomeStage homeStage;
     private StageFactory stageFactory;
 
     private HomeController(){}
@@ -67,7 +67,7 @@ public class HomeController implements UserObserver {
         stageFactory.createSignInStage();
     }
 
-    public void setHomeStage(HomeStage homeStage) {
+    public void setHomeStage(AbstractHomeStage homeStage) {
         this.homeStage = homeStage;
     }
 

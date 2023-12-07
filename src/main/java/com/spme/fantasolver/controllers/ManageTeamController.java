@@ -3,7 +3,7 @@ package com.spme.fantasolver.controllers;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.entity.*;
-import com.spme.fantasolver.ui.ManageTeamStage;
+import com.spme.fantasolver.ui.AbstractManageTeamStage;
 import com.spme.fantasolver.utility.Notifier;
 import com.spme.fantasolver.utility.Utility;
 
@@ -25,7 +25,7 @@ public class ManageTeamController {
 
     private static final String CLASS_NAME = "ManageTeamController";
 
-    private ManageTeamStage manageTeamStage;
+    private AbstractManageTeamStage manageTeamStage;
     private static final short TEAM_NAME_MIN_LENGTH = 3;
     private static final short TEAM_NAME_MAX_LENGTH = 50;
     private static final short TEAM_MIN_SIZE = 25;
@@ -143,7 +143,7 @@ public class ManageTeamController {
         }
     }
 
-    public void setManageTeamStage(ManageTeamStage manageTeamStage){
+    public void setManageTeamStage(AbstractManageTeamStage manageTeamStage){
         this.manageTeamStage = manageTeamStage;
     }
 }

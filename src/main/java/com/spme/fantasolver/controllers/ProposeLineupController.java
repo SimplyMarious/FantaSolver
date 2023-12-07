@@ -2,7 +2,7 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.*;
-import com.spme.fantasolver.ui.ProposeLineupStage;
+import com.spme.fantasolver.ui.AbstractProposeLineupStage;
 import com.spme.fantasolver.ui.StageFactory;
 import com.spme.fantasolver.utility.Notifier;
 
@@ -28,7 +28,7 @@ public class ProposeLineupController {
         this.stageFactory = factory;
     }
 
-    private ProposeLineupStage proposeLineupStage;
+    private AbstractProposeLineupStage proposeLineupStage;
     private static final int LINEUP_SIZE = 11;
 
     public void handleInitialization() {
@@ -93,7 +93,7 @@ public class ProposeLineupController {
     }
 
     @Generated
-    public void setProposeLineupStage(ProposeLineupStage proposeLineupStage) {
+    public void setProposeLineupStage(AbstractProposeLineupStage proposeLineupStage) {
         this.proposeLineupStage = proposeLineupStage;
     }
 }

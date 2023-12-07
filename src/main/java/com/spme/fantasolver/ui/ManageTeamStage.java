@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @Generated
-public class ManageTeamStage implements AbstractStage{
+public class ManageTeamStage implements AbstractManageTeamStage{
     private final ManageTeamController manageTeamController;
     private Stage stage;
     private FXMLLoader fxmlLoader;
@@ -174,38 +174,47 @@ public class ManageTeamStage implements AbstractStage{
         manageTeamController.handlePressedConfirmButton(textFieldTeamName.getText(), players);
     }
 
+    @Override
     public void setTextFieldTeamName(String name) {
         textFieldTeamName.setText(name);
     }
 
+    @Override
     public void setAddPlayerButtonAbility(boolean ability) {
         buttonAddPlayer.setDisable(!ability);
     }
 
+    @Override
     public void setRemovePlayerButtonAbility(boolean ability) {
         buttonRemovePlayer.setDisable(!ability);
     }
 
+    @Override
     public void setConfirmButtonAbility(boolean ability) {
         buttonConfirm.setDisable(!ability);
     }
 
+    @Override
     public void highlightPlayerInTableView(Player player){
         tableViewPlayers.getSelectionModel().select(player);
     }
 
+    @Override
     public void loadPlayersInTable(Set<Player> players) {
         this.players.addAll(players);
     }
 
+    @Override
     public void addPlayerToTableView(Player player) {
         players.add(player);
     }
 
+    @Override
     public void removePlayerFromTableView(Player player) {
         players.remove(player);
     }
 
+    @Override
     public List<Player> getPlayers() {
         return players;
     }
@@ -215,7 +224,7 @@ public class ManageTeamStage implements AbstractStage{
         stage.show();
     }
 
-
+    @Override
     public void close() {
         stage.close();
     }

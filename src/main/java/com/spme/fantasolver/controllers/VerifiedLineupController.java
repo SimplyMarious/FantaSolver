@@ -2,7 +2,7 @@ package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.*;
-import com.spme.fantasolver.ui.VerifiedLineupStage;
+import com.spme.fantasolver.ui.AbstractVerifiedLineupStage;
 
 import java.io.IOException;
 import java.util.Set;
@@ -22,7 +22,7 @@ public class VerifiedLineupController {
         return verifiedLineupController;
     }
 
-    private VerifiedLineupStage verifiedLineupStage;
+    private AbstractVerifiedLineupStage verifiedLineupStage;
     private static final int LINEUP_SIZE = 11;
 
     public void handleInitialization(Lineup lineup) {
@@ -78,7 +78,7 @@ public class VerifiedLineupController {
     }
 
     @Generated
-    public void setVerifiedLineupStage(VerifiedLineupStage verifiedLineupStage) {
+    public void setVerifiedLineupStage(AbstractVerifiedLineupStage verifiedLineupStage) {
         this.verifiedLineupStage = verifiedLineupStage;
     }
 }

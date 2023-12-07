@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Generated
-public class  ProposeLineupStage implements AbstractStage{
+public class  ProposeLineupStage implements AbstractProposeLineupStage{
     private final ProposeLineupController proposeLineupController;
     private final Team team;
 
@@ -142,30 +142,37 @@ public class  ProposeLineupStage implements AbstractStage{
         proposeLineupController.handlePressedVerifyLineupButton(new HashSet<>(lineupPlayers));
     }
 
+    @Override
     public void setAddPlayerToLineupButtonAbility(boolean ability) {
         buttonAddPlayerToLineup.setDisable(!ability);
     }
 
+    @Override
     public void setRemovePlayerFromLineupButtonAbility(boolean ability) {
         buttonRemovePlayerFromLineup.setDisable(!ability);
     }
 
+    @Override
     public void setVerifyLineupButtonAbility(boolean ability) {
         buttonVerifyLineup.setDisable(!ability);
     }
 
+    @Override
     public void highlightPlayerInTeamTableView(Player player) {
         tableViewLineupPlayers.getSelectionModel().select(player);
     }
 
+    @Override
     public void addPlayerToLineupTableView(Player player) {
         lineupPlayers.add(player);
     }
 
+    @Override
     public void removePlayerFromLineupTableView(Player player) {
         lineupPlayers.remove(player);
     }
 
+    @Override
     public List<Player> getLineupPlayers() {
         return lineupPlayers;
     }

@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 @Generated
-public class VerifiedLineupStage implements AbstractStage{
+public class VerifiedLineupStage implements AbstractVerifiedLineupStage{
 
     private Stage stage;
     private FXMLLoader fxmlLoader;
@@ -65,10 +65,12 @@ public class VerifiedLineupStage implements AbstractStage{
                 Role.getFormattedRoles(cellData.getValue().getRoles()));
     }
 
+    @Override
     public void setLineupFormationLabelText(String text){
         labelLineupFormation.setText(text);
     }
 
+    @Override
     public void loadPlayersInTable(Player[] players) {
         lineupPlayers.addAll(players);
     }
