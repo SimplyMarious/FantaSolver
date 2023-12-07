@@ -5,6 +5,7 @@ import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.VerifiedLineupStage;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -49,20 +50,31 @@ public class VerifiedLineupController {
     private Lineup adaptLineupForVisualization(Lineup lineup) {
         Lineup adpatedLineup = new Lineup();
         adpatedLineup.setFormation(lineup.getFormation());
-        adpatedLineup.setPlayers(getPlayersWithRolesFittingToOwnSlot(lineup.getPlayers(), lineup.getFormation().getSlots()));
+        Player[] adaptedPlayers = copyPlayersFromLineup(lineup.getPlayers());
+        setPlayerRolesAsFittingToOwnSlot(adaptedPlayers, lineup.getFormation().getSlots());
+        adpatedLineup.setPlayers(adaptedPlayers);
 
         return adpatedLineup;
     }
 
     @Generated
-    private static Player[] getPlayersWithRolesFittingToOwnSlot(Player[] players, Slot[] slots) {
+    private static Player[] copyPlayersFromLineup(Player[] lineupPlayers) {
+        Player[] players = new Player[lineupPlayers.length];
+        int i = 0;
+        for(Player player: lineupPlayers){
+            players[i] = new Player(player.getName(), player.getRoles());
+        }
+        return players;
+    }
+
+    @Generated
+    private void setPlayerRolesAsFittingToOwnSlot(Player[] players, Slot[] slots) {
         if (players.length == LINEUP_SIZE && slots.length == LINEUP_SIZE) {
             for (int i = 0; i < LINEUP_SIZE; i++) {
                 Set<Role> playerRoles = players[i].getRoles();
                 playerRoles.retainAll(slots[i].getRoles());
             }
         }
-        return players;
     }
 
     @Generated

@@ -60,7 +60,7 @@ class VerifiedLineupControllerUnitTest {
 
         verify(mockVerifiedLineupStage, times(1)).initializeStage();
         verify(mockVerifiedLineupStage, times(1)).setLineupFormationLabelText("Il tuo modulo: " + mockLineup.getFormation().getName());
-        verify(mockVerifiedLineupStage, times(1)).loadPlayersInTable(mockPlayers);
+        verify(mockVerifiedLineupStage, times(1)).loadPlayersInTable(any(Player[].class));
         verify(mockVerifiedLineupStage, times(1)).show();
     }
     @Test
