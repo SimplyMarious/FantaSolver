@@ -100,10 +100,10 @@ public class SignInController {
             if(team != null) {
                 user.setTeam(team);
             }
+            stageFactory.createHomeStage();
         }
         else {
             signInStage.showFailedSignInLabel();
         }
-        stageFactory.createHomeStage();
     }
 }
