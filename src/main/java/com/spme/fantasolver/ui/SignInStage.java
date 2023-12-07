@@ -9,26 +9,30 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
 @Generated
-public class SignInStage {
+public class SignInStage implements AbstractStage {
 
     private final SignInController signInController;
-
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
     private Button buttonSignIn;
     private Label labelSigninFailure;
+    private Stage stage;
+
 
     public SignInStage() {
         this.signInController = SignInController.getInstance();
         signInController.setSignInStage(this);
+        signInController.setStageFactory(new JavaFXStageFactory());
         signInController.handleInitialization();
     }
 
+    @Override
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signin-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -44,10 +48,10 @@ public class SignInStage {
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
-        FantaSolver.getStage().setTitle("FantaSolver - SignIn");
+        stage = FantaSolver.getStage();
+        stage.setTitle("FantaSolver - SignIn");
         FantaSolver.setIcon(FantaSolver.getStage());
         FantaSolver.getStage().setScene(scene);
-        FantaSolver.getStage().show();
     }
 
     public void setSignInButtonAbility(boolean ability) {
@@ -72,6 +76,12 @@ public class SignInStage {
 
     private void onFieldChanged() {
         signInController.handleFieldChanged(textFieldUsername.getText(), fieldPassword.getText());
+    }
+
+    @Generated
+    @Override
+    public void show() {
+        stage.show();
     }
 }
 

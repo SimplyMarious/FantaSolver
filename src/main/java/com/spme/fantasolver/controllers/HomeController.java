@@ -1,11 +1,9 @@
 package com.spme.fantasolver.controllers;
 
 import com.spme.fantasolver.annotations.Generated;
+import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.UserObserver;
-import com.spme.fantasolver.ui.HomeStage;
-import com.spme.fantasolver.ui.ManageTeamStage;
-import com.spme.fantasolver.ui.ProposeLineupStage;
-import com.spme.fantasolver.ui.SignInStage;
+import com.spme.fantasolver.ui.*;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -13,6 +11,9 @@ import java.util.logging.Logger;
 public class HomeController implements UserObserver {
 
     private static HomeController homeController = null;
+    private HomeStage homeStage;
+    private StageFactory stageFactory;
+
     private HomeController(){}
 
     public static HomeController getInstance(){
@@ -22,7 +23,10 @@ public class HomeController implements UserObserver {
         return homeController;
     }
 
-    private HomeStage homeStage;
+    @Generated
+    public void setStageFactory(StageFactory factory){
+        this.stageFactory = factory;
+    }
 
     public void handleInitialization(){
         try {
@@ -49,17 +53,18 @@ public class HomeController implements UserObserver {
 
     @Generated
     public void handlePressedManageTeamButton() {
-        new ManageTeamStage();
+        stageFactory.createManageStage();
     }
 
     @Generated
     public void handlePressedProposeLineupButton() {
-        new ProposeLineupStage(AuthenticationManager.getInstance().getUser().getTeam());
+        Team team = AuthenticationManager.getInstance().getUser().getTeam();
+        stageFactory.createProposeLineupStage(team);
     }
 
     public void handlePressedSignOutButton() {
         AuthenticationManager.getInstance().signOut();
-        new SignInStage();
+        stageFactory.createSignInStage();
     }
 
     public void setHomeStage(HomeStage homeStage) {

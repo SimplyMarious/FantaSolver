@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 @Generated
-public class VerifiedLineupStage {
+public class VerifiedLineupStage implements AbstractStage{
 
     private Stage stage;
     private FXMLLoader fxmlLoader;
@@ -33,6 +33,7 @@ public class VerifiedLineupStage {
         verifiedLineupController.handleInitialization(lineup);
     }
 
+    @Override
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("verified-lineup-stage.fxml"));
         stage = new Stage();
@@ -72,6 +73,7 @@ public class VerifiedLineupStage {
         lineupPlayers.addAll(players);
     }
 
+    @Override
     public void show() {
         stage.show();
     }

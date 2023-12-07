@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Generated
-public class  ProposeLineupStage {
+public class  ProposeLineupStage implements AbstractStage{
     private final ProposeLineupController proposeLineupController;
     private final Team team;
 
@@ -39,10 +39,12 @@ public class  ProposeLineupStage {
     public ProposeLineupStage(Team team){
         this.proposeLineupController = ProposeLineupController.getInstance();
         this.team = team;
+        proposeLineupController.setStageFactory(new JavaFXStageFactory());
         proposeLineupController.setProposeLineupStage(this);
         proposeLineupController.handleInitialization();
     }
 
+    @Override
     public void initializeStage() throws IOException {
         fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("propose-lineup-stage.fxml"));
         stage = new Stage();
@@ -168,6 +170,7 @@ public class  ProposeLineupStage {
         return lineupPlayers;
     }
 
+    @Override
     public void show() {
         stage.show();
     }

@@ -3,7 +3,7 @@ package com.spme.fantasolver.controllers;
 import com.spme.fantasolver.annotations.Generated;
 import com.spme.fantasolver.entity.*;
 import com.spme.fantasolver.ui.ProposeLineupStage;
-import com.spme.fantasolver.ui.VerifiedLineupStage;
+import com.spme.fantasolver.ui.StageFactory;
 import com.spme.fantasolver.utility.Notifier;
 
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 public class ProposeLineupController {
     private static ProposeLineupController proposeLineupController = null;
+    private StageFactory stageFactory;
 
     @Generated
     private ProposeLineupController(){}
@@ -21,6 +22,10 @@ public class ProposeLineupController {
             proposeLineupController = new ProposeLineupController();
         }
         return proposeLineupController;
+    }
+
+    public void setStageFactory(StageFactory factory) {
+        this.stageFactory = factory;
     }
 
     private ProposeLineupStage proposeLineupStage;
@@ -79,7 +84,7 @@ public class ProposeLineupController {
     public void handlePressedVerifyLineupButton(Set<Player> players) {
         Lineup lineup = LineupVerifier.getInstance().getSuitableLineup(players);
         if(lineup != null){
-            new VerifiedLineupStage(lineup);
+            stageFactory.createVerifiedLineupStage(lineup);
         }
         else{
             Notifier.notifyInfo(

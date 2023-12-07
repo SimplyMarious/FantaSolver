@@ -6,9 +6,7 @@ import com.spme.fantasolver.dao.InternalException;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
-import com.spme.fantasolver.ui.HomeStage;
-import com.spme.fantasolver.ui.SignInStage;
-import com.spme.fantasolver.ui.SignUpStage;
+import com.spme.fantasolver.ui.*;
 import com.spme.fantasolver.utility.Notifier;
 
 import java.io.IOException;
@@ -21,6 +19,7 @@ public class SignInController {
 
     private static SignInController signInController = null;
     private SignInStage signInStage;
+    private StageFactory stageFactory;
 
     @Generated
     private SignInController(){}
@@ -32,6 +31,11 @@ public class SignInController {
         return signInController;
     }
 
+    @Generated
+    public void setStageFactory(StageFactory factory){
+        this.stageFactory = factory;
+    }
+
     public void handleInitialization() {
         try {
             signInStage.initializeStage();
@@ -40,6 +44,7 @@ public class SignInController {
             logger.info("Error in reading FXML file: " + e.getMessage());
             throw new FXMLLoadException();
         }
+        signInStage.show();
     }
 
     @Generated
@@ -49,7 +54,7 @@ public class SignInController {
 
     @Generated
     public void handlePressedSignUpButton() {
-        new SignUpStage();
+        stageFactory.createSignUpStage();
     }
 
     public void handlePressedSignInButton(String username, String password) {
@@ -99,6 +104,6 @@ public class SignInController {
         else {
             signInStage.showFailedSignInLabel();
         }
-        new HomeStage();
+        stageFactory.createHomeStage();
     }
 }

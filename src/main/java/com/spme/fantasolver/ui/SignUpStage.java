@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 @Generated
-public class SignUpStage {
+public class SignUpStage implements AbstractStage {
     private final SignUpController signUpController;
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
@@ -27,6 +27,7 @@ public class SignUpStage {
         signUpController.handleInitialization();
     }
 
+    @Override
     public void initializeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signup-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -43,7 +44,6 @@ public class SignUpStage {
         stage.setTitle("FantaSolver - SignUp");
         FantaSolver.setIcon(stage);
         stage.setScene(scene);
-        stage.show();
     }
 
     public void showSuccessfulSignUp() {
@@ -69,5 +69,11 @@ public class SignUpStage {
 
     private void onPressedSignUpButton() {
         signUpController.handlePressedSignUpButton(textFieldUsername.getText(), fieldPassword.getText());
+    }
+
+    @Generated
+    @Override
+    public void show() {
+        stage.show();
     }
 }
