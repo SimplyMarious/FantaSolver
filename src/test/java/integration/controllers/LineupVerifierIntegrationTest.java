@@ -10,17 +10,13 @@ import com.spme.fantasolver.entity.Role;
 import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.*;
 
 class LineupVerifierIntegrationTest {
 
