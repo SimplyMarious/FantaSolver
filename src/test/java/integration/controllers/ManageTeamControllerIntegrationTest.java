@@ -4,10 +4,14 @@ import com.spme.fantasolver.controllers.ManageTeamController;
 import com.spme.fantasolver.ui.ManageTeamStage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import static org.mockito.Mockito.*;
 
@@ -26,7 +30,7 @@ class ManageTeamControllerIntegrationTest {
 
     @Test
     void testHandleTeamPropertyChangedWithValidTeamNameAndValidPlayersSize(){
-        String teamName = "ValidTeam";
+        String teamName = "TeamName";
         int playersSize = 25;
 
         manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
@@ -34,34 +38,21 @@ class ManageTeamControllerIntegrationTest {
         verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(true);
     }
 
-    @Test
-    void testHandleTeamPropertyChangedWithInvalidTeamNameAndValidPlayersSize(){
-        String teamName = "Te";
-        int playersSize = 25;
-
+    @ParameterizedTest(name = "Text {index} ==> validity with: teamName = {0}, playersSize = {1})")
+    @MethodSource("addInputProvider")
+    void testHandleTeamPropertyChangedWithInvalidTeamNameAndValidPlayersSize(String teamName, int playersSize){
         manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
 
         verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
     }
 
-    @Test
-    void testHandleTeamPropertyChangedWithValidTeamNameAndInvalidPlayersSize(){
-        String teamName = "TeamName";
-        int playersSize = 8;
 
-        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
-
-        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
-    }
-
-    @Test
-    void testHandleTeamPropertyChangedWithInvalidTeamNameAndInvalidPlayersSize(){
-        String teamName = "Te";
-        int playersSize = 8;
-
-        manageTeamController.handleTeamPropertyChanged(teamName, playersSize);
-
-        verify(mockManageTeamStage, times(1)).setConfirmButtonAbility(false);
+    static Stream<Arguments> addInputProvider() {
+        return Stream.of(
+                Arguments.of("Te", 25),
+                Arguments.of("TeamName", 8),
+                Arguments.of("Te", 8)
+        );
     }
 
     @Test
