@@ -2,7 +2,15 @@ package unit.controllers;
 
 import com.spme.fantasolver.controllers.FXMLLoadException;
 import com.spme.fantasolver.controllers.SignInController;
+import com.spme.fantasolver.dao.DAOFactory;
+import com.spme.fantasolver.dao.InternalException;
+import com.spme.fantasolver.dao.TeamDAO;
+import com.spme.fantasolver.dao.UserDAO;
+import com.spme.fantasolver.entity.Team;
+import com.spme.fantasolver.entity.User;
+import com.spme.fantasolver.ui.HomeStage;
 import com.spme.fantasolver.ui.SignInStage;
+import com.spme.fantasolver.ui.StageFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -163,5 +171,47 @@ class SignInControllerUnitTest {
 
         verify(mockSignInStage, never()).setSignInButtonAbility(true);
         verify(mockSignInStage, times(1)).setSignInButtonAbility(false);
+    }
+
+    @Test
+    void testHandlePressedSignInButtonWithFailure(){
+        HomeStage mockHomeStage = mock(HomeStage.class);
+        MockedStatic<DAOFactory> mockDAOFactory = mockStatic(DAOFactory.class);
+        UserDAO mockUserDAO = mock(UserDAO.class);
+        StageFactory mockStageFactory = mock(StageFactory.class);
+        signInController.setStageFactory(mockStageFactory);
+        when(mockStageFactory.createHomeStage()).thenReturn(mockHomeStage);
+        mockDAOFactory.when(DAOFactory::getUserDAO).thenReturn(mockUserDAO);
+        when(mockUserDAO.signIn(anyString(), anyString())).thenReturn(false);
+
+        signInController.handlePressedSignInButton("test", "test");
+
+        mockDAOFactory.close();
+        verify(mockStageFactory, times(1)).createHomeStage();
+        verify(mockSignInStage, times(1)).showFailedSignInLabel();
+    }
+
+    @Test
+    void testHandlePressedSignInButtonWithSuccess() throws InternalException {
+        HomeStage mockHomeStage = mock(HomeStage.class);
+        MockedStatic<DAOFactory> mockDAOFactory = mockStatic(DAOFactory.class);
+        UserDAO mockUserDAO = mock(UserDAO.class);
+        TeamDAO mockTeamDAO = mock(TeamDAO.class);
+        User mockUser = mock(User.class);
+        Team mockTeam = mock(Team.class);
+        StageFactory mockStageFactory = mock(StageFactory.class);
+        signInController.setStageFactory(mockStageFactory);
+        when(mockStageFactory.createHomeStage()).thenReturn(mockHomeStage);
+        mockDAOFactory.when(DAOFactory::getUserDAO).thenReturn(mockUserDAO);
+        mockDAOFactory.when(DAOFactory::getTeamDAO).thenReturn(mockTeamDAO);
+        when(mockTeamDAO.retrieveTeam(mockUser)).thenReturn(mockTeam);
+        doNothing().when(mockUser).setTeam(mockTeam);
+        when(mockSignInStage.getUsername()).thenReturn("test");
+        when(mockUserDAO.signIn(anyString(), anyString())).thenReturn(true);
+
+        signInController.handlePressedSignInButton("test", "test");
+
+        mockDAOFactory.close();
+        verify(mockStageFactory, times(1)).createHomeStage();
     }
 }
