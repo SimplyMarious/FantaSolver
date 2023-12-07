@@ -1,4 +1,4 @@
-package integration.utility;
+package integration.dao;
 
 import com.spme.fantasolver.Main;
 import com.spme.fantasolver.dao.*;
@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-class UtilityIntegrationTest {
+class DAOFactoryIntegrationTest {
     @BeforeAll
     static void initialize() {
         Utility.setPropertiesReadingTools(
