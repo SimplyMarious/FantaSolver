@@ -187,7 +187,7 @@ class SignInControllerUnitTest {
         signInController.handlePressedSignInButton("test", "test");
 
         mockDAOFactory.close();
-        verify(mockStageFactory, times(1)).createHomeStage();
+
         verify(mockSignInStage, times(1)).showFailedSignInLabel();
     }
 
