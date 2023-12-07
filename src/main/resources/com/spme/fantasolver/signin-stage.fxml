@@ -18,11 +18,11 @@
          </font>
       </Label>
       <TextField id="username" fx:id="username" layoutX="221.0" layoutY="140.0" promptText="username" />
+      <PasswordField id="password" fx:id="password" layoutX="221.0" layoutY="190.0" promptText="password" />
       <Button id="signin" fx:id="signin" disable="true" layoutX="274.0" layoutY="235.0" mnemonicParsing="false" text="Accedi" />
       <Label layoutX="224.0" layoutY="285.0" text="Non hai ancora un account?" />
       <Button id="signup" fx:id="signup" layoutX="267.0" layoutY="321.0" mnemonicParsing="false" text="Registrati" />
       <Label id="signinFailure" fx:id="signinFailure" layoutX="354.0" layoutY="240.0" text="Credenziali errate. Riprova." textFill="#fc0101" visible="false" />
-      <PasswordField id="password" fx:id="password" layoutX="221.0" layoutY="190.0" promptText="password" />
 
    </children>
 </AnchorPane>

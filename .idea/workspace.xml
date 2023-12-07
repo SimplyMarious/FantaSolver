@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ad81069-4322-4811-aa4e-630c978beafb" name="Changes" comment="Bug fix">
+    <list default="true" id="9ad81069-4322-4811-aa4e-630c978beafb" name="Changes" comment="Bug fix for previous edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/controllers/ManageTeamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/controllers/ManageTeamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/controllers/ProposeLineupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/controllers/ProposeLineupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/ui/ProposeLineupStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/ui/ProposeLineupStage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/propose-lineup-stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/propose-lineup-stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/dao/TeamDAOMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spme/fantasolver/dao/TeamDAOMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/manage-team-stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/manage-team-stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/signin-stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/spme/fantasolver/signin-stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +47,11 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mario/Desktop/Simply/Progetti_SW/FantaSolver/ConJavaFX/FantaSolver&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mario/Desktop/Simply/Progetti_SW/FantaSolver/ConJavaFX/FantaSolver/src/main/resources/com/spme/fantasolver&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -60,7 +60,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -70,6 +70,8 @@
       <recent name="com.spme.fantasolver.dao" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mario\Desktop\Simply\Progetti_SW\FantaSolver\ConJavaFX\FantaSolver\src\main\resources\com\spme\fantasolver" />
+      <recent name="C:\Users\mario\Desktop\Simply\Progetti_SW\FantaSolver\ConJavaFX\FantaSolver\src\test\java\unit\controllers" />
       <recent name="C:\Users\mario\Desktop\Simply\Progetti_SW\FantaSolver\ConJavaFX\FantaSolver" />
       <recent name="C:\Users\mario\Desktop\Simply\Progetti_SW\FantaSolver\ConJavaFX\FantaSolver\src\main\java\com\spme\fantasolver" />
     </key>
@@ -79,80 +81,80 @@
     </key>
   </component>
   <component name="RunManager" selected="Maven.FantaSolver [compile,javafx:run]">
-    <configuration name="TeamDAOMySQLUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManageTeamControllerIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FantaSolver" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="unit.dao.*" />
+          <option name="PATTERN" value="integration.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="unit.dao" />
-      <option name="MAIN_CLASS_NAME" value="unit.dao.TeamDAOMySQLUnitTest" />
+      <option name="PACKAGE_NAME" value="integration.controllers" />
+      <option name="MAIN_CLASS_NAME" value="integration.controllers.ManageTeamControllerIntegrationTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TeamDAOMySQLUnitTest.testUpdateTeam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithIllegalArgumentExceptionThrown" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FantaSolver" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="unit.dao.*" />
+          <option name="PATTERN" value="integration.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="unit.dao" />
-      <option name="MAIN_CLASS_NAME" value="unit.dao.TeamDAOMySQLUnitTest" />
-      <option name="METHOD_NAME" value="testUpdateTeam" />
+      <option name="PACKAGE_NAME" value="integration.controllers" />
+      <option name="MAIN_CLASS_NAME" value="integration.controllers.ManageTeamControllerIntegrationTest" />
+      <option name="METHOD_NAME" value="testHandleTeamPropertyChangedWithIllegalArgumentExceptionThrown" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TeamDAOMySQLUnitTest.testUpdateTeamWithClassNotFoundException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithInvalidTeamNameAndInvalidPlayersSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FantaSolver" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="unit.dao.*" />
+          <option name="PATTERN" value="integration.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="unit.dao" />
-      <option name="MAIN_CLASS_NAME" value="unit.dao.TeamDAOMySQLUnitTest" />
-      <option name="METHOD_NAME" value="testUpdateTeamWithClassNotFoundException" />
+      <option name="PACKAGE_NAME" value="integration.controllers" />
+      <option name="MAIN_CLASS_NAME" value="integration.controllers.ManageTeamControllerIntegrationTest" />
+      <option name="METHOD_NAME" value="testHandleTeamPropertyChangedWithInvalidTeamNameAndInvalidPlayersSize" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TeamDAOMySQLUnitTest.testUpdateTeamWithDoneTeamDeletionDoneNewTeamInsertionDonePlayersInTeamInsertion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithInvalidTeamNameAndValidPlayersSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FantaSolver" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="unit.dao.*" />
+          <option name="PATTERN" value="integration.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="unit.dao" />
-      <option name="MAIN_CLASS_NAME" value="unit.dao.TeamDAOMySQLUnitTest" />
-      <option name="METHOD_NAME" value="testUpdateTeamWithDoneTeamDeletionDoneNewTeamInsertionDonePlayersInTeamInsertion" />
+      <option name="PACKAGE_NAME" value="integration.controllers" />
+      <option name="MAIN_CLASS_NAME" value="integration.controllers.ManageTeamControllerIntegrationTest" />
+      <option name="METHOD_NAME" value="testHandleTeamPropertyChangedWithInvalidTeamNameAndValidPlayersSize" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TeamDAOMySQLUnitTest.testUpdateTeamWithSQLExceptionThrown" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithValidTeamNameAndInvalidPlayersSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="FantaSolver" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="unit.dao.*" />
+          <option name="PATTERN" value="integration.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="unit.dao" />
-      <option name="MAIN_CLASS_NAME" value="unit.dao.TeamDAOMySQLUnitTest" />
-      <option name="METHOD_NAME" value="testUpdateTeamWithSQLExceptionThrown" />
+      <option name="PACKAGE_NAME" value="integration.controllers" />
+      <option name="MAIN_CLASS_NAME" value="integration.controllers.ManageTeamControllerIntegrationTest" />
+      <option name="METHOD_NAME" value="testHandleTeamPropertyChangedWithValidTeamNameAndInvalidPlayersSize" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -192,11 +194,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TeamDAOMySQLUnitTest" />
-        <item itemvalue="JUnit.TeamDAOMySQLUnitTest.testUpdateTeamWithSQLExceptionThrown" />
-        <item itemvalue="JUnit.TeamDAOMySQLUnitTest.testUpdateTeamWithClassNotFoundException" />
-        <item itemvalue="JUnit.TeamDAOMySQLUnitTest.testUpdateTeam" />
-        <item itemvalue="JUnit.TeamDAOMySQLUnitTest.testUpdateTeamWithDoneTeamDeletionDoneNewTeamInsertionDonePlayersInTeamInsertion" />
+        <item itemvalue="JUnit.ManageTeamControllerIntegrationTest" />
+        <item itemvalue="JUnit.ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithIllegalArgumentExceptionThrown" />
+        <item itemvalue="JUnit.ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithInvalidTeamNameAndInvalidPlayersSize" />
+        <item itemvalue="JUnit.ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithValidTeamNameAndInvalidPlayersSize" />
+        <item itemvalue="JUnit.ManageTeamControllerIntegrationTest.testHandleTeamPropertyChangedWithInvalidTeamNameAndValidPlayersSize" />
       </list>
     </recent_temporary>
   </component>
@@ -223,335 +225,17 @@
       <workItem from="1701166704560" duration="29034000" />
       <workItem from="1701250086540" duration="13178000" />
       <workItem from="1701280980273" duration="1184000" />
-      <workItem from="1701358878454" duration="2684000" />
-    </task>
-    <task id="LOCAL-00024" summary="Add buttonAddTeam to HomeStage">
-      <option name="closed" value="true" />
-      <created>1700598120273</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1700598120273</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Add jacoco exclude method to pom">
-      <option name="closed" value="true" />
-      <created>1700648897317</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1700648897317</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Minor fixes">
-      <option name="closed" value="true" />
-      <created>1700649029771</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1700649029771</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Minor fixes">
-      <option name="closed" value="true" />
-      <created>1700649092327</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1700649092327</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Minor fixes">
-      <option name="closed" value="true" />
-      <created>1700649153169</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1700649153169</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Add Generated annotation for coverage exclusion">
-      <option name="closed" value="true" />
-      <created>1700649757789</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1700649757789</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Add existing team VBox and VBox visibility handling">
-      <option name="closed" value="true" />
-      <created>1700652190265</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1700652190266</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Add HomeController unit testing">
-      <option name="closed" value="true" />
-      <created>1700667399269</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1700667399269</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Minor fixes">
-      <option name="closed" value="true" />
-      <created>1700667413944</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1700667413944</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Minor fixes">
-      <option name="closed" value="true" />
-      <created>1700670584413</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1700670584413</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Add welcoming label to HomeStage">
-      <option name="closed" value="true" />
-      <created>1700728614721</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1700728614721</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Add ManageTeamStage up to team name management">
-      <option name="closed" value="true" />
-      <created>1700732058598</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1700732058598</updated>
-    </task>
-    <task id="LOCAL-00036" summary="Add TableView for Players in ManageTeamStage">
-      <option name="closed" value="true" />
-      <created>1700744310874</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1700744310874</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Cleaning comments">
-      <option name="closed" value="true" />
-      <created>1700744808647</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1700744808647</updated>
-    </task>
-    <task id="LOCAL-00038" summary="Add ManageTeamUnitTest">
-      <option name="closed" value="true" />
-      <created>1700761273807</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1700761273807</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Minor fixes">
-      <option name="closed" value="true" />
-      <created>1700761563895</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1700761563895</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Add new player">
-      <option name="closed" value="true" />
-      <created>1700834582812</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1700834582812</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Add double player handling">
-      <option name="closed" value="true" />
-      <created>1700906298746</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1700906298746</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Add team property handling">
-      <option name="closed" value="true" />
-      <created>1700908297773</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1700908297773</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Edit ManageTeamStage injection for ManageTeamController, now using DI">
-      <option name="closed" value="true" />
-      <created>1700914268665</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1700914268665</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Add unit tests for checkStringValidity">
-      <option name="closed" value="true" />
-      <created>1700914287769</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1700914287769</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Add check areStringsDifferentFromEachOther() unit tests">
-      <option name="closed" value="true" />
-      <created>1701018407921</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1701018407921</updated>
-    </task>
-    <task id="LOCAL-00046" summary="add handlePlayerPropertyChanged unit tests">
-      <option name="closed" value="true" />
-      <created>1701022164485</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1701022164485</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Add remove player functionality">
-      <option name="closed" value="true" />
-      <created>1701027815736</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1701027815736</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Add updateTeam prototype">
-      <option name="closed" value="true" />
-      <created>1701027845499</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1701027845499</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Add quality gates check gate">
-      <option name="closed" value="true" />
-      <created>1701085716355</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1701085716355</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Add incapsulating methods for handle calls">
-      <option name="closed" value="true" />
-      <created>1701087416832</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1701087416832</updated>
-    </task>
-    <task id="LOCAL-00051" summary="Remove typo in Jenkinsfile">
-      <option name="closed" value="true" />
-      <created>1701087564832</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1701087564832</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Add @Generated tag for entity classes">
-      <option name="closed" value="true" />
-      <created>1701088467416</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1701088467416</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Fix typo in User">
-      <option name="closed" value="true" />
-      <created>1701088681342</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1701088681342</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Enlarged welcome label in SignInStage">
-      <option name="closed" value="true" />
-      <created>1701105830593</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1701105830594</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Add database error handling">
-      <option name="closed" value="true" />
-      <created>1701168611374</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1701168611374</updated>
-    </task>
-    <task id="LOCAL-00056" summary="Add retrieveTeam from database">
-      <option name="closed" value="true" />
-      <created>1701176150184</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1701176150184</updated>
-    </task>
-    <task id="LOCAL-00057" summary="Add ManageTeamButton">
-      <option name="closed" value="true" />
-      <created>1701177133742</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1701177133742</updated>
-    </task>
-    <task id="LOCAL-00058" summary="Changed from ErrorHandler to Notifier">
-      <option name="closed" value="true" />
-      <created>1701187893595</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1701187893595</updated>
-    </task>
-    <task id="LOCAL-00059" summary="Remove stubTeam">
-      <option name="closed" value="true" />
-      <created>1701187944389</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1701187944390</updated>
-    </task>
-    <task id="LOCAL-00060" summary="Sonar clean code">
-      <option name="closed" value="true" />
-      <created>1701189654651</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1701189654651</updated>
-    </task>
-    <task id="LOCAL-00061" summary="Add Generated tag to DAO Methods">
-      <option name="closed" value="true" />
-      <created>1701189769675</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1701189769675</updated>
-    </task>
-    <task id="LOCAL-00062" summary="Push test">
-      <option name="closed" value="true" />
-      <created>1701190154534</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1701190154534</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Bug fix in UserDAOMySQLUnitTest.java">
-      <option name="closed" value="true" />
-      <created>1701190567533</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1701190567533</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Bug fix for TEAM_MIN_SIZE">
-      <option name="closed" value="true" />
-      <created>1701190850372</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1701190850372</updated>
+      <workItem from="1701358878454" duration="5874000" />
+      <workItem from="1701418252622" duration="18651000" />
+      <workItem from="1701513351698" duration="27815000" />
+      <workItem from="1701687674295" duration="5505000" />
+      <workItem from="1701697209220" duration="15151000" />
+      <workItem from="1701722390021" duration="778000" />
+      <workItem from="1701723474495" duration="8732000" />
+      <workItem from="1701774991810" duration="8489000" />
+      <workItem from="1701803740508" duration="7264000" />
+      <workItem from="1701855062443" duration="8787000" />
+      <workItem from="1701937215826" duration="5417000" />
     </task>
     <task id="LOCAL-00065" summary="[WIP] Add updateTeam with previous team deletion and new empty team insertion">
       <option name="closed" value="true" />
@@ -617,7 +301,335 @@
       <option name="project" value="LOCAL" />
       <updated>1701281916731</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Add player to lineup button">
+      <option name="closed" value="true" />
+      <created>1701362835140</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1701362835141</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Add remove player from lineup">
+      <option name="closed" value="true" />
+      <created>1701365605476</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1701365605476</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Add verify lineup button">
+      <option name="closed" value="true" />
+      <created>1701424525616</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1701424525617</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Remove prints">
+      <option name="closed" value="true" />
+      <created>1701424683037</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1701424683037</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Add view switch when user creates team; refactor role formatting">
+      <option name="closed" value="true" />
+      <created>1701430997326</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1701430997326</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Refactor role formatting + tests">
+      <option name="closed" value="true" />
+      <created>1701437321079</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1701437321079</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Add unit tests to ProposeLineupController">
+      <option name="closed" value="true" />
+      <created>1701518452587</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1701518452588</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Remove integration tests from mvn test command">
+      <option name="closed" value="true" />
+      <created>1701531306319</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1701531306319</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Move RoleNotFoundException in entity">
+      <option name="closed" value="true" />
+      <created>1701531831317</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1701531831317</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Add getSuitableLineup">
+      <option name="closed" value="true" />
+      <created>1701539876618</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1701539876618</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Bug fix in getFormattedRolesTest">
+      <option name="closed" value="true" />
+      <created>1701611129547</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1701611129548</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Add comparable to Slot and Player for bug fixing propose lineup">
+      <option name="closed" value="true" />
+      <created>1701621484929</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1701621484929</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Add VerifiedLineup">
+      <option name="closed" value="true" />
+      <created>1701699227705</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1701699227705</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Clean code on ManageTeam">
+      <option name="closed" value="true" />
+      <created>1701718093803</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1701718093803</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Clean code">
+      <option name="closed" value="true" />
+      <created>1701727594799</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1701727594799</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Bug fix in tests caused by class.getName()">
+      <option name="closed" value="true" />
+      <created>1701729848434</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1701729848434</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Try checkqualitygates into sonaqube analyzing phase">
+      <option name="closed" value="true" />
+      <created>1701732991718</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1701732991719</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701775454441</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1701775454441</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701776771669</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1701776771669</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701776885733</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1701776885734</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701776944095</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1701776944095</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701777013152</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1701777013152</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701777517601</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1701777517601</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701777572745</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1701777572745</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701777667110</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1701777667110</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701778020492</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1701778020492</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701778477148</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1701778477148</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Try Jenkinsfile stage quality gates">
+      <option name="closed" value="true" />
+      <created>1701778575754</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1701778575754</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Excluded tests">
+      <option name="closed" value="true" />
+      <created>1701779389673</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1701779389673</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Excluded tests">
+      <option name="closed" value="true" />
+      <created>1701779581701</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1701779581701</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Excluded tests">
+      <option name="closed" value="true" />
+      <created>1701779834049</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1701779834049</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Excluded tests">
+      <option name="closed" value="true" />
+      <created>1701780002323</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1701780002323</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Excluded tests with token">
+      <option name="closed" value="true" />
+      <created>1701780660211</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1701780660211</updated>
+    </task>
+    <task id="LOCAL-00106" summary="UI changes">
+      <option name="closed" value="true" />
+      <created>1701806603297</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1701806603297</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Bug fix in mocking DriverManager">
+      <option name="closed" value="true" />
+      <created>1701810072107</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1701810072107</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Add unit tests and change from short to int for slot id">
+      <option name="closed" value="true" />
+      <created>1701856830029</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1701856830029</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Add generated to setIcon">
+      <option name="closed" value="true" />
+      <created>1701858406086</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1701858406086</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Remove short for int">
+      <option name="closed" value="true" />
+      <created>1701876591924</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1701876591924</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Remove unuseful user parameter for onteamchanged">
+      <option name="closed" value="true" />
+      <created>1701876615938</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1701876615939</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Add integration test between handleTeamPropertyChanged and checkStringValidity">
+      <option name="closed" value="true" />
+      <created>1701939346060</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1701939346061</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Bug fix for previous edit">
+      <option name="closed" value="true" />
+      <created>1701940415030</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1701940415030</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,32 +647,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add quality gates check gate" />
-    <MESSAGE value="Add incapsulating methods for handle calls" />
-    <MESSAGE value="Remove typo in Jenkinsfile" />
-    <MESSAGE value="Add @Generated tag for entity classes" />
-    <MESSAGE value="Fix typo in User" />
-    <MESSAGE value="Enlarged welcome label in SignInStage" />
-    <MESSAGE value="Add database error handling" />
-    <MESSAGE value="Add retrieveTeam from database" />
-    <MESSAGE value="Add ManageTeamButton" />
-    <MESSAGE value="Changed from ErrorHandler to Notifier" />
-    <MESSAGE value="Remove stubTeam" />
-    <MESSAGE value="Sonar clean code" />
-    <MESSAGE value="Add Generated tag to DAO Methods" />
-    <MESSAGE value="Push test" />
-    <MESSAGE value="Bug fix in UserDAOMySQLUnitTest.java" />
-    <MESSAGE value="Bug fix for TEAM_MIN_SIZE" />
-    <MESSAGE value="[WIP] Add updateTeam with previous team deletion and new empty team insertion" />
-    <MESSAGE value="Add updateTeam" />
-    <MESSAGE value="Unit tests for updateTeam" />
-    <MESSAGE value="Add generated tag" />
-    <MESSAGE value="Add generated tag to Notifier and TeamDAOMySQL" />
-    <MESSAGE value="Add exception unit testing to updateTeam" />
-    <MESSAGE value="Players size bug fix" />
-    <MESSAGE value="[WIP] Add ProposeLineupStage" />
-    <MESSAGE value="Bug fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug fix" />
+    <MESSAGE value="Remove prints" />
+    <MESSAGE value="Add view switch when user creates team; refactor role formatting" />
+    <MESSAGE value="Refactor role formatting + tests" />
+    <MESSAGE value="Add unit tests to ProposeLineupController" />
+    <MESSAGE value="Remove integration tests from mvn test command" />
+    <MESSAGE value="Move RoleNotFoundException in entity" />
+    <MESSAGE value="Add getSuitableLineup" />
+    <MESSAGE value="Bug fix in getFormattedRolesTest" />
+    <MESSAGE value="Add comparable to Slot and Player for bug fixing propose lineup" />
+    <MESSAGE value="Add VerifiedLineup" />
+    <MESSAGE value="Clean code on ManageTeam" />
+    <MESSAGE value="Clean code" />
+    <MESSAGE value="Bug fix in tests caused by class.getName()" />
+    <MESSAGE value="Try checkqualitygates into sonaqube analyzing phase" />
+    <MESSAGE value="Try Jenkinsfile stage quality gates" />
+    <MESSAGE value="Excluded tests" />
+    <MESSAGE value="Excluded tests with token" />
+    <MESSAGE value="UI changes" />
+    <MESSAGE value="Bug fix in mocking DriverManager" />
+    <MESSAGE value="Add unit tests and change from short to int for slot id" />
+    <MESSAGE value="Add generated to setIcon" />
+    <MESSAGE value="Remove short for int" />
+    <MESSAGE value="Remove unuseful user parameter for onteamchanged" />
+    <MESSAGE value="Add integration test between handleTeamPropertyChanged and checkStringValidity" />
+    <MESSAGE value="Bug fix for previous edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fix for previous edit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -669,6 +681,21 @@
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="15" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spme/fantasolver/dao/MySQLConnectionManager.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spme/fantasolver/dao/MySQLConnectionManager.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spme/fantasolver/utility/Utility.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
