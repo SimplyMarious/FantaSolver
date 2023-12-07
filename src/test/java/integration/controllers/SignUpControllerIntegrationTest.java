@@ -16,7 +16,7 @@ import java.util.Properties;
 import static com.spme.fantasolver.dao.MySQLConnectionManager.connectToDatabase;
 import static org.mockito.Mockito.*;
 
-public class SignUpControllerIntegrationTest {
+class SignUpControllerIntegrationTest {
     private SignUpController signUpController;
     private SignUpStage mockSignUpStage;
 
