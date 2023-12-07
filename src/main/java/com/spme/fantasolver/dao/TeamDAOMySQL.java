@@ -125,7 +125,7 @@ public class TeamDAOMySQL implements TeamDAO {
     @Generated
     private int deleteCurrentUserTeam(User user) throws SQLException {
         String query = "DELETE FROM team " +
-                "WHERE user_name = ?";
+                       "WHERE user_name = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
             return preparedStatement.executeUpdate();
@@ -135,10 +135,10 @@ public class TeamDAOMySQL implements TeamDAO {
     @Generated
     private int insertNewTeam(Team team, User user) throws SQLException {
         String query = "INSERT IGNORE INTO team(name, user_name) " +
-                "VALUES (?, ?); " +
-                "UPDATE user " +
-                "SET team_id = (select id from team where user_name = ?) " +
-                "WHERE name = ?";
+                       "VALUES (?, ?); " +
+                       "UPDATE user " +
+                       "SET team_id = (select id from team where user_name = ?) " +
+                       "WHERE name = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, team.getName());
