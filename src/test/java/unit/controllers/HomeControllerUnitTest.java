@@ -7,6 +7,8 @@ import com.spme.fantasolver.entity.Player;
 import com.spme.fantasolver.entity.Team;
 import com.spme.fantasolver.entity.User;
 import com.spme.fantasolver.ui.HomeStage;
+import com.spme.fantasolver.ui.SignInStage;
+import com.spme.fantasolver.ui.StageFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -73,5 +76,20 @@ class HomeControllerUnitTest {
     void testOnTeamChanged(){
         homeController.onTeamChanged();
         verify(mockHomeStage, times(1)).setManageTeamScreenVisible();
+    }
+
+    @Test
+    void testHandlePressedSignOutButton(){
+        SignInStage mockSignInStage = mock(SignInStage.class);
+        StageFactory mockStageFactory = mock(StageFactory.class);
+        User mockUser = mock(User.class);
+        homeController.setStageFactory(mockStageFactory);
+        AuthenticationManager.getInstance().signIn(mockUser);
+        when(mockStageFactory.createSignInStage()).thenReturn(mockSignInStage);
+
+        homeController.handlePressedSignOutButton();
+
+        assertNull(AuthenticationManager.getInstance().getUser());
+        verify(mockStageFactory, times(1)).createSignInStage();
     }
 }
