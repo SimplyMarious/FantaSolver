@@ -2,7 +2,6 @@ package integration.controllers;
 
 import com.spme.fantasolver.Main;
 import com.spme.fantasolver.controllers.SignInController;
-import com.spme.fantasolver.controllers.SignUpController;
 import com.spme.fantasolver.dao.DAOFactory;
 import com.spme.fantasolver.dao.UserDAO;
 import com.spme.fantasolver.ui.HomeStage;
@@ -12,7 +11,6 @@ import com.spme.fantasolver.utility.Utility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
