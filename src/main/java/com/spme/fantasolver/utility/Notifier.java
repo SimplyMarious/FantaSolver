@@ -8,16 +8,16 @@ public class Notifier {
     private Notifier(){}
 
     public static void notifyInfo(String title, String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        notify(title, message, alert);
+        notify(title, message, Alert.AlertType.INFORMATION);
+
     }
 
     public static void notifyError(String title, String message){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        notify(title, message, alert);
+        notify(title, message, Alert.AlertType.ERROR);
     }
 
-    private static void notify(String title, String message, Alert alert) {
+    private static void notify(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
