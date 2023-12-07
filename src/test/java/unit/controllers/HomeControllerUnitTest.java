@@ -71,7 +71,7 @@ class HomeControllerUnitTest {
 
     @Test
     void testOnTeamChanged(){
-        homeController.onTeamChanged(testUser);
+        homeController.onTeamChanged();
         verify(mockHomeStage, times(1)).setManageTeamScreenVisible();
     }
 }
