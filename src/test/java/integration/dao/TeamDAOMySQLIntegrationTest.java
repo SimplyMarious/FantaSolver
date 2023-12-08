@@ -19,7 +19,7 @@ import java.util.Set;
 import static com.spme.fantasolver.dao.MySQLConnectionManager.connectToDatabase;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TeamDAOMySQLIntegrationTest {
+class TeamDAOMySQLIntegrationTest {
     private static TeamDAO teamDAOMySQL;
     private static User testUser;
     private static Team testTeam;
