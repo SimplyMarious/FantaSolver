@@ -18,6 +18,8 @@ import java.io.IOException;
 public class SignInStage implements AbstractSignInStage {
 
     private final SignInController signInController;
+
+    private FXMLLoader fxmlLoader;
     private TextField textFieldUsername;
     private PasswordField fieldPassword;
     private Button buttonSignIn;
@@ -34,11 +36,24 @@ public class SignInStage implements AbstractSignInStage {
 
     @Override
     public void initializeStage() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signin-stage.fxml"));
+        fxmlLoader = new FXMLLoader(FantaSolver.class.getResource("signin-stage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
+        initializeTextFields();
+        initializeButtons();
+
+        stage = FantaSolver.getStage();
+        stage.setTitle("FantaSolver");
+        FantaSolver.setIcon(FantaSolver.getStage());
+        FantaSolver.getStage().setScene(scene);
+    }
+
+    private void initializeTextFields() {
         textFieldUsername = (TextField) fxmlLoader.getNamespace().get("username");
         fieldPassword = (PasswordField) fxmlLoader.getNamespace().get("password");
+    }
+
+    private void initializeButtons() {
         Button buttonSignUp = (Button) fxmlLoader.getNamespace().get("signup");
         buttonSignIn = (Button) fxmlLoader.getNamespace().get("signin");
         labelSigninFailure = (Label) fxmlLoader.getNamespace().get("signinFailure");
@@ -47,11 +62,6 @@ public class SignInStage implements AbstractSignInStage {
         buttonSignIn.setOnAction(e -> onPressedSignInButton());
         textFieldUsername.textProperty().addListener(e -> onFieldChanged() );
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
-
-        stage = FantaSolver.getStage();
-        stage.setTitle("FantaSolver");
-        FantaSolver.setIcon(FantaSolver.getStage());
-        FantaSolver.getStage().setScene(scene);
     }
 
     @Override
