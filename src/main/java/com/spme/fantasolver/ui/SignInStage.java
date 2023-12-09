@@ -49,7 +49,7 @@ public class SignInStage implements AbstractSignInStage {
         fieldPassword.textProperty().addListener(e -> onFieldChanged() );
 
         stage = FantaSolver.getStage();
-        stage.setTitle("FantaSolver - SignIn");
+        stage.setTitle("FantaSolver");
         FantaSolver.setIcon(FantaSolver.getStage());
         FantaSolver.getStage().setScene(scene);
     }
