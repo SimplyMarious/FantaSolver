@@ -21,6 +21,9 @@ public class SignInController {
     private AbstractSignInStage signInStage;
     private StageFactory stageFactory;
 
+    private static final int MIN_FIELD_LENGTH = 4;
+    private static final int MAX_FIELD_LENGTH = 20;
+
     @Generated
     private SignInController(){}
 
@@ -64,11 +67,8 @@ public class SignInController {
     }
 
     public void handleFieldChanged(String username, String password) {
-        int minLength = 4;
-        int maxLength = 20;
-
-        boolean usernameValidity = checkStringValidity(username, minLength, maxLength);
-        boolean passwordValidity = checkStringValidity(password, minLength, maxLength);
+        boolean usernameValidity = checkStringValidity(username, MIN_FIELD_LENGTH, MAX_FIELD_LENGTH);
+        boolean passwordValidity = checkStringValidity(password, MIN_FIELD_LENGTH, MAX_FIELD_LENGTH);
 
         if (usernameValidity && passwordValidity) {
             if (signInStage.isSignInDisabled()) {
