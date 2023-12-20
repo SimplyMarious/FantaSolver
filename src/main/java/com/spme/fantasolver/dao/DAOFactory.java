@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static java.util.Objects.isNull;
+
 public class DAOFactory {
 
     private static TeamDAO teamDAO;
@@ -15,6 +17,10 @@ public class DAOFactory {
 
     private static final String CLASS_NAME = "DAOFactory";
     private static final String MYSQL = "MySQL";
+    private static final String FORMATION_DAO_KEY = "formationDAO";
+    private static final String USER_DAO_KEY = "userDAO";
+    private static final String TEAM_DAO_KEY = "teamDAO";
+
 
     @Generated
     private DAOFactory() {}
@@ -32,9 +38,9 @@ public class DAOFactory {
 
     @Generated
     private static void tryGetTeamDAO() throws IOException {
-        if(teamDAO == null) {
+        if(isNull(teamDAO)) {
             String teamDAOSource;
-            teamDAOSource = Utility.getValueFromProperties("teamDAO");
+            teamDAOSource = Utility.getValueFromProperties(TEAM_DAO_KEY);
             teamDAO = createTeamDAO(teamDAOSource);
         }
     }
@@ -52,9 +58,9 @@ public class DAOFactory {
 
     @Generated
     private static void tryGetUserDAO() throws IOException {
-        if (userDAO == null) {
+        if (isNull(userDAO)) {
             String userDAOSource;
-            userDAOSource = Utility.getValueFromProperties("userDAO");
+            userDAOSource = Utility.getValueFromProperties(USER_DAO_KEY);
             userDAO = createUserDAO(userDAOSource);
         }
     }
@@ -72,9 +78,9 @@ public class DAOFactory {
 
     @Generated
     private static void tryGetFormationDAO() throws IOException {
-        if (formationDAO == null) {
+        if (isNull(formationDAO)) {
             String formationDAOSource;
-            formationDAOSource = Utility.getValueFromProperties("formationDAO");
+            formationDAOSource = Utility.getValueFromProperties(FORMATION_DAO_KEY);
             formationDAO = createFormationDAO(formationDAOSource);
         }
     }
